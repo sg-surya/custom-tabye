@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Tab</title>
+
+  <!-- NUCLEAR: Kill Chrome UI at parse time -->
+  <style>
+    ntp-app, cr-most-visited, cr-searchbox, cr-modules,
+    ntp-middle-slot, ntp-doodle, ntp-realbox,
+    #ntp-contents, #most-visited, #one-google-bar,
+    #customize-dialog, .customize-dialog,
+    #fakebox, #realbox, #logo, #attribution,
+    .ntp-bottom, #ntp-bottom,
+    body > iframe {
+      display: none !important;
+      visibility: hidden !important;
+      opacity: 0 !important;
+      width: 0 !important;
+      height: 0 !important;
+      max-height: 0 !important;
+      position: fixed !important;
+      top: -99999px !important;
+      left: -99999px !important;
+      pointer-events: none !important;
+    }
+
+    /* Curtain */
+    .vasudev-curtain {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      background: #EDEEF0;
+      transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    [data-theme="dark"] .vasudev-curtain { background: #131316; }
+    .vasudev-curtain.lifted { opacity: 0; pointer-events: none; }
+  </style>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Page Load Curtain -->
+  <div class="vasudev-curtain" id="curtain"></div>
+
+  <!-- Animated Background Gradient -->
+  <div class="vasudev-bg-gradient" id="bgGradient"></div>
+
+  <!-- Top Bar Controls -->
+  <div class="top-bar" id="vasudevTopBar">
+    <button class="icon-btn" id="widgetToggle" title="Toggle Widgets (W)">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
+        <rect x="3" y="3" width="7" height="7" rx="1.5"/>
+        <rect x="14" y="3" width="7" height="7" rx="1.5"/>
+        <rect x="3" y="14" width="7" height="7" rx="1.5"/>
+        <rect x="14" y="14" width="7" height="7" rx="1.5"/>
+      </svg>
+      <span class="key-hint">W</span>
+    </button>
+    <button class="icon-btn" id="themeToggle" title="Toggle Theme (T)">
+      <svg id="themeIcon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
+        <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+      </svg>
+      <span class="key-hint">T</span>
+    </button>
+  </div>
+
+  <!-- Main Content -->
+  <main class="main-container" id="vasudevMain">
+
+    <!-- Clock & Greeting -->
+    <section class="time-section">
+      <div class="time" id="clock">
+        <span id="hours">--</span><span class="time-colon">:</span><span id="minutes">--</span>
+      </div>
+      <div class="date" id="dateDisplay"></div>
+      <div class="greeting" id="greeting"></div>
+    </section>
+
+    <!-- Branding -->
+    <section class="branding">
+      <h1 class="brand-name">Vasudev AI</h1>
+    </section>
+
+    <!-- Search -->
+    <section class="search-container">
+      <div class="search-wrapper">
+        <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/>
+          <path d="m21 21-4.35-4.35"/>
+        </svg>
+        <input type="text" class="search-bar" id="searchInput" placeholder="Search Google or type a URL..." autocomplete="off" autofocus>
+        <span class="search-hint">Press <kbd>/</kbd> to search</span>
+        <!-- Omnibox Suggestions -->
+        <div class="omnibox-dropdown" id="omniboxDropdown"></div>
+      </div>
+    </section>
+
+    <!-- Widgets Section -->
+    <section class="widgets-container" id="widgetsPanel">
+
+      <!-- Notes Widget -->
+      <div class="widget">
+        <div class="widget-header">
+          <svg class="widget-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
+            <path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+          </svg>
+          <span class="widget-title">Notes</span>
+        </div>
+        <textarea class="notes-input" id="notesArea" placeholder="Write something..."></textarea>
+      </div>
+
+      <!-- Tasks Widget -->
+      <div class="widget">
+        <div class="widget-header">
+          <svg class="widget-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
+            <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
+          </svg>
+          <span class="widget-title">Tasks</span>
+          <button class="clear-done-btn" id="clearDone" title="Clear completed">Clear</button>
+        </div>
+        <ul class="task-list" id="taskList"></ul>
+        <div class="task-add">
+          <input type="text" class="task-input" id="newTaskInput" placeholder="Add a task...">
+        </div>
+      </div>
+
+      <!-- Calendar Widget -->
+      <div class="widget">
+        <div class="widget-header">
+          <svg class="widget-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
+            <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+          </svg>
+          <span class="widget-title" id="calendarMonth"></span>
+        </div>
+        <div class="calendar-grid" id="calendarGrid"></div>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- Dock (icons only, no labels) -->
+  <nav class="dock" id="vasudevDock">
+    <a href="https://vasudev.online" target="_blank" class="dock-item" title="Vasudev AI">
+      <img src="https://www.google.com/s2/favicons?domain=vasudev.online&sz=128" alt="Vasudev AI" class="dock-icon">
+    </a>
+    <a href="https://youtube.com" target="_blank" class="dock-item" title="YouTube">
+      <img src="https://www.google.com/s2/favicons?domain=youtube.com&sz=128" alt="YouTube" class="dock-icon">
+    </a>
+    <a href="https://chatgpt.com" target="_blank" class="dock-item" title="ChatGPT">
+      <img src="https://www.google.com/s2/favicons?domain=chatgpt.com&sz=128" alt="ChatGPT" class="dock-icon">
+    </a>
+    <a href="https://github.com" target="_blank" class="dock-item" title="GitHub">
+      <img src="https://www.google.com/s2/favicons?domain=github.com&sz=128" alt="GitHub" class="dock-icon">
+    </a>
+    <!-- Separator -->
+    <div class="dock-separator"></div>
+    <!-- Add Website Button -->
+    <button class="dock-item dock-add-btn" id="dockAddBtn" title="Add website">
+      <svg class="dock-icon-svg" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+        <path d="M12 5v14m-7-7h14"/>
+      </svg>
+    </button>
+  </nav>
+
+  <!-- Add Website Modal -->
+  <div class="modal-overlay" id="addSiteModal">
+    <div class="modal-card" id="modalCard">
+      <div class="modal-header">
+        <span class="modal-title">Add Website</span>
+        <button class="modal-close" id="modalClose">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+            <path d="M18 6L6 18M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <label class="modal-label">Website URL</label>
+        <input type="text" class="modal-input" id="siteUrlInput" placeholder="e.g. twitter.com">
+        <label class="modal-label">Name (optional)</label>
+        <input type="text" class="modal-input" id="siteNameInput" placeholder="e.g. Twitter">
+      </div>
+      <div class="modal-footer">
+        <button class="modal-btn modal-btn-cancel" id="modalCancel">Cancel</button>
+        <button class="modal-btn modal-btn-add" id="modalAdd">Add</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer" id="vasudevFooter">
+    <a href="https://vasudev.online" target="_blank">Powered by Vasudev AI &middot; vasudev.online</a>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
