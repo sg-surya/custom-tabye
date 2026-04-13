@@ -418,11 +418,7 @@ ntp-middle-slot, ntp-doodle, ntp-realbox,
    TIME & GREETING - ANIMATED GRADIENT TEXT
    ======================================== */
 .time-section {
-  text-align: center;
-  margin-bottom: 4px;
-  opacity: 0;
-  transform: translateY(20px) scale(0.96);
-  animation: heroIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.05s forwards;
+  display: none;
 }
 
 .time {
@@ -493,8 +489,8 @@ ntp-middle-slot, ntp-doodle, ntp-realbox,
    BRANDING - CINZEL DECORATIVE + ANIMATED GRADIENT
    ======================================== */
 .branding {
-  margin-top: 36px;
-  margin-bottom: 28px;
+  margin-top: 0;
+  margin-bottom: 32px;
   opacity: 0;
   transform: translateY(20px) scale(0.96);
   animation: heroIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
@@ -1680,18 +1676,32 @@ ntp-middle-slot, ntp-doodle, ntp-realbox,
 }
 
 @media (max-width: 480px) {
-  .time {
-    font-size: 64px;
-    letter-spacing: -2px;
+  .time-section {
+    display: none;
+  }
+  .branding {
+    margin-top: 0;
+    margin-bottom: 24px;
   }
   .brand-name {
-    font-size: 24px;
-    letter-spacing: 2px;
+    font-size: 32px;
+    letter-spacing: 4px;
+    font-weight: 900;
+  }
+  .main-container {
+    padding: 30px 16px 100px;
+    justify-content: center;
+  }
+  .search-container {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 30px;
   }
   .search-bar {
-    padding: 15px 18px 15px 46px;
-    font-size: 14px;
+    padding: 16px 18px 16px 46px;
+    font-size: 15px;
     border-radius: 16px;
+    box-shadow: var(--float-shadow);
   }
   .search-icon {
     left: 18px;
@@ -1716,9 +1726,6 @@ ntp-middle-slot, ntp-doodle, ntp-realbox,
     width: 28px;
     height: 28px;
   }
-  .main-container {
-    padding: 30px 16px 100px;
-  }
   .footer {
     bottom: 52px;
     font-size: 10px;
@@ -1732,16 +1739,20 @@ ntp-middle-slot, ntp-doodle, ntp-realbox,
     height: 300px;
   }
   .github-badge {
-    bottom: 14px;
+    top: 14px;
     left: 14px;
-    padding: 5px 10px 5px 8px;
-    border-radius: 10px;
+    bottom: auto;
+    padding: 4px 8px 4px 6px;
+    border-radius: 8px;
+    gap: 5px;
+    opacity: 0.4;
   }
   .github-badge-icon {
-    width: 14px;
-    height: 14px;
+    width: 12px;
+    height: 12px;
   }
   .github-badge-text {
-    font-size: 9px;
+    font-size: 8px;
+    letter-spacing: 0.2px;
   }
 }

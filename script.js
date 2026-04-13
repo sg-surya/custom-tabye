@@ -368,7 +368,6 @@
     dockSites.forEach(function (site, index) {
       var a = document.createElement("a");
       a.href = site.url;
-      a.target = "_blank";
       a.className = "dock-item";
       a.title = site.name || site.domain;
 
@@ -608,8 +607,7 @@
     }
     abortController = new AbortController();
 
-    // Use fetch() - works in Chrome extensions with host_permissions
-    // client=chrome returns plain JSON array: ["query", ["sug1","sug2",...]]
+    // Try fetch first (works in Chrome extension with host_permissions)
     var url = "https://suggestqueries.google.com/complete/search?client=chrome&q=" + encodeURIComponent(query);
 
     fetch(url, { signal: abortController.signal })
@@ -623,11 +621,43 @@
         }
       })
       .catch(function (err) {
-        // Ignore abort errors, hide on real errors
-        if (err.name !== "AbortError") {
-          hideOmnibox();
-        }
+        if (err.name === "AbortError") return;
+        // Fallback: JSONP approach for when CORS blocks fetch
+        fetchSuggestionsJSONP(query);
       });
+  }
+
+  // JSONP fallback - works everywhere (no CORS issues)
+  function fetchSuggestionsJSONP(query) {
+    if (!query || query.length < 2) {
+      hideOmnibox();
+      return;
+    }
+
+    // Remove previous JSONP script/callback
+    var oldScript = document.getElementById("omniJsonp");
+    if (oldScript) oldScript.parentNode.removeChild(oldScript);
+
+    var callbackName = "omniCallback_" + Date.now();
+
+    window[callbackName] = function (data) {
+      // Google JSONP returns: callback(["query", ["sug1","sug2",...]])
+      if (data && data[1]) {
+        var suggestions = data[1].filter(function (s) {
+          return typeof s === "string" && s.length > 0;
+        }).slice(0, 6);
+        showOmnibox(suggestions);
+      }
+      // Cleanup
+      delete window[callbackName];
+      var s = document.getElementById("omniJsonp");
+      if (s) s.parentNode.removeChild(s);
+    };
+
+    var script = document.createElement("script");
+    script.id = "omniJsonp";
+    script.src = "https://suggestqueries.google.com/complete/search?client=firefox&callback=" + callbackName + "&q=" + encodeURIComponent(query);
+    document.head.appendChild(script);
   }
 
   function performSearch(q) {
