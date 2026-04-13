@@ -18,7 +18,29 @@
     "taskList", "newTaskInput", "clearDone", "calendarMonth",
     "calendarGrid", "dockAddBtn", "addSiteModal", "modalCard",
     "modalClose", "siteUrlInput", "siteNameInput", "modalCancel",
-    "modalAdd", "omniboxDropdown", "githubBadge"
+    "modalAdd", "omniboxDropdown", "githubBadge",
+    // Settings Panel elements
+    "settingsToggle", "settingsOverlay", "settingsPanel", "settingsClose", "settingsBody",
+    "settingUserName", "settingShowClock", "settingClock24h", "settingShowSeconds",
+    "settingCustomColor", "settingFont", "settingFocusMode", "settingShowQuotes",
+    "settingShowWeather", "settingWeatherCity", "settingWeatherCelsius",
+    "settingShowPomodoro", "settingPomoDuration", "settingPomoBreak",
+    "settingShowQuickLinks", "settingShowHabits", "settingWallpaper", "settingWallpaperDim",
+    "settingShowAnalytics", "settingShowAmbient",
+    "qlName", "qlUrl", "qlList", "qlAdd",
+    "exportSettings", "importSettings", "importFile", "resetAllSettings",
+    "shortcutsOverlay", "shortcutsModal", "shortcutsClose",
+    // Widgets
+    "quotesWidget", "quoteText", "quoteAuthor",
+    "weatherWidget", "weatherIcon", "weatherTemp", "weatherDesc", "weatherCity",
+    "pomodoroWidget", "pomoDisplay", "pomoLabel", "pomoStart", "pomoReset",
+    "habitWidget", "habitList", "habitAddBtn",
+    "quickLinksWidget", "quickLinksGrid",
+    "ambientWidget", "ambientSelect", "ambientVolume",
+    // Overlays
+    "wallpaperLayer", "focusOverlay",
+    // Analytics
+    "analyticsDisplay", "analyticsTabCount", "analyticsTotal"
   ];
 
   function isOurElement(node) {
@@ -27,28 +49,111 @@
     var tag = (node.tagName || "").toLowerCase();
     if (tag === "main" || tag === "nav" || tag === "footer" ||
         tag === "script" || tag === "link" || tag === "style" || tag === "head") return true;
-    if (node.classList) {
-      if (node.classList.contains("vasudev-curtain") ||
-          node.classList.contains("vasudev-bg-gradient") ||
-          node.classList.contains("top-bar") ||
-          node.classList.contains("dock") ||
-          node.classList.contains("footer") ||
-          node.classList.contains("main-container") ||
-          node.classList.contains("modal-overlay") ||
-          node.classList.contains("github-badge") ||
-          node.classList.contains("blob3") ||
-          node.classList.contains("blob4")) return true;
-    }
-    if (node.closest && (
-      node.closest("#vasudevTopBar") ||
-      node.closest("#vasudevMain") ||
-      node.closest("#vasudevDock") ||
-      node.closest("#vasudevFooter") ||
-      node.closest("#addSiteModal") ||
-      node.closest("#githubBadge") ||
-      node.closest(".vasudev-bg-gradient") ||
-      node.closest(".vasudev-curtain")
-    )) return true;
+  if (node.classList) {
+    if (node.classList.contains("vasudev-curtain") ||
+        node.classList.contains("vasudev-bg-gradient") ||
+        node.classList.contains("top-bar") ||
+        node.classList.contains("dock") ||
+        node.classList.contains("footer") ||
+        node.classList.contains("main-container") ||
+        node.classList.contains("modal-overlay") ||
+        node.classList.contains("github-badge") ||
+        node.classList.contains("blob3") ||
+        node.classList.contains("blob4") ||
+        // Settings Panel
+        node.classList.contains("settings-overlay") ||
+        node.classList.contains("settings-panel") ||
+        node.classList.contains("settings-header") ||
+        node.classList.contains("settings-body") ||
+        node.classList.contains("settings-section") ||
+        node.classList.contains("settings-section-title") ||
+        node.classList.contains("settings-label") ||
+        node.classList.contains("settings-input") ||
+        node.classList.contains("settings-toggle") ||
+        node.classList.contains("toggle-slider") ||
+        node.classList.contains("color-swatch") ||
+        node.classList.contains("color-custom") ||
+        node.classList.contains("preset-btn") ||
+        node.classList.contains("settings-select") ||
+        node.classList.contains("settings-preset-row") ||
+        node.classList.contains("settings-color-row") ||
+        node.classList.contains("settings-row") ||
+        node.classList.contains("settings-btn") ||
+        node.classList.contains("settings-btn-sm") ||
+        node.classList.contains("settings-btn-row") ||
+        node.classList.contains("settings-btn-danger") ||
+        node.classList.contains("settings-hint") ||
+        node.classList.contains("settings-title") ||
+        node.classList.contains("settings-close") ||
+        // Widgets
+        node.classList.contains("quotes-widget") ||
+        node.classList.contains("weather-widget") ||
+        node.classList.contains("pomodoro-widget") ||
+        node.classList.contains("habit-widget") ||
+        node.classList.contains("quicklinks-widget") ||
+        node.classList.contains("ambient-widget") ||
+        // Shortcuts modal
+        node.classList.contains("shortcuts-overlay") ||
+        node.classList.contains("shortcuts-modal") ||
+        node.classList.contains("shortcuts-body") ||
+        node.classList.contains("shortcuts-grid") ||
+        node.classList.contains("shortcuts-grid-lg") ||
+        // Overlays
+        node.classList.contains("wallpaper-layer") ||
+        node.classList.contains("focus-overlay") ||
+        // Analytics
+        node.classList.contains("analytics-display") ||
+        node.classList.contains("analytics-stat") ||
+        node.classList.contains("analytics-num") ||
+        node.classList.contains("analytics-label") ||
+        // Quick Links
+        node.classList.contains("quicklink-inputs") ||
+        node.classList.contains("ql-list") ||
+        // Other
+        node.classList.contains("quote-text") ||
+        node.classList.contains("quote-author") ||
+        node.classList.contains("weather-icon") ||
+        node.classList.contains("weather-info") ||
+        node.classList.contains("weather-temp") ||
+        node.classList.contains("weather-desc") ||
+        node.classList.contains("weather-city") ||
+        node.classList.contains("pomo-display") ||
+        node.classList.contains("pomo-label") ||
+        node.classList.contains("pomo-controls") ||
+        node.classList.contains("pomo-btn") ||
+        node.classList.contains("habit-header") ||
+        node.classList.contains("habit-title") ||
+        node.classList.contains("habit-add-btn") ||
+        node.classList.contains("habit-list") ||
+        node.classList.contains("quicklinks-header") ||
+        node.classList.contains("quicklinks-title") ||
+        node.classList.contains("quicklinks-grid") ||
+        node.classList.contains("ambient-label") ||
+        node.classList.contains("ambient-select") ||
+        node.classList.contains("ambient-volume")) return true;
+  }
+  if (node.closest && (
+    node.closest("#vasudevTopBar") ||
+    node.closest("#vasudevMain") ||
+    node.closest("#vasudevDock") ||
+    node.closest("#vasudevFooter") ||
+    node.closest("#addSiteModal") ||
+    node.closest("#githubBadge") ||
+    node.closest(".vasudev-bg-gradient") ||
+    node.closest(".vasudev-curtain") ||
+    node.closest("#settingsOverlay") ||
+    node.closest("#settingsPanel") ||
+    node.closest("#shortcutsOverlay") ||
+    node.closest("#shortcutsModal") ||
+    node.closest(".quotes-widget") ||
+    node.closest(".weather-widget") ||
+    node.closest(".pomodoro-widget") ||
+    node.closest(".habit-widget") ||
+    node.closest(".quicklinks-widget") ||
+    node.closest(".ambient-widget") ||
+    node.closest(".wallpaper-layer") ||
+    node.closest(".focus-overlay")
+  )) return true;
     return false;
   }
 
@@ -919,9 +1024,702 @@
     if (e.key === "t" && !isInputFocused) {
       themeToggle.click();
     }
-    if (e.key === "w" && !isInputFocused) {
-      widgetToggle.click();
-    }
+if (e.key === "w" && !isInputFocused) {
+    widgetToggle.click();
+  }
+});
+
+// ========================================
+// SETTINGS PANEL - All 20 Features
+// ========================================
+var SETTINGS_KEYS = {
+  userName: "vasudev_user_name",
+  showClock: "vasudev_show_clock",
+  clock24h: "vasudev_clock_24h",
+  showSeconds: "vasudev_show_seconds",
+  accentColor: "vasudev_accent_color",
+  themePreset: "vasudev_theme_preset",
+  fontFamily: "vasudev_font_family",
+  layout: "vasudev_layout",
+  focusMode: "vasudev_focus_mode",
+  showQuotes: "vasudev_show_quotes",
+  showWeather: "vasudev_show_weather",
+  weatherCity: "vasudev_weather_city",
+  weatherCelsius: "vasudev_weather_celsius",
+  showPomodoro: "vasudev_show_pomodoro",
+  pomoDuration: "vasudev_pomo_duration",
+  pomoBreak: "vasudev_pomo_break",
+  showQuickLinks: "vasudev_show_quicklinks",
+  quickLinks: "vasudev_quicklinks",
+  showHabits: "vasudev_show_habits",
+  habits: "vasudev_habits",
+  wallpaper: "vasudev_wallpaper",
+  wallpaperDim: "vasudev_wallpaper_dim",
+  showAnalytics: "vasudev_show_analytics",
+  analytics: "vasudev_analytics_data",
+  showAmbient: "vasudev_show_ambient",
+  ambientSound: "vasudev_ambient_sound",
+  ambientVolume: "vasudev_ambient_volume",
+  settingsOpen: "vasudev_settings_open"
+};
+
+// Elements
+var settingsToggle = $("#settingsToggle");
+var settingsOverlay = $("#settingsOverlay");
+var settingsPanel = $("#settingsPanel");
+var settingsClose = $("#settingsClose");
+var shortcutsOverlay = $("#shortcutsOverlay");
+var shortcutsClose = $("#shortcutsClose");
+var focusOverlay = $("#focusOverlay");
+var wallpaperLayer = $("#wallpaperLayer");
+
+// Settings state
+var settings = {
+  userName: load(SETTINGS_KEYS.userName, ""),
+  showClock: load(SETTINGS_KEYS.showClock, false),
+  clock24h: load(SETTINGS_KEYS.clock24h, true),
+  showSeconds: load(SETTINGS_KEYS.showSeconds, false),
+  accentColor: load(SETTINGS_KEYS.accentColor, "#34C759"),
+  themePreset: load(SETTINGS_KEYS.themePreset, "default"),
+  fontFamily: load(SETTINGS_KEYS.fontFamily, "Inter"),
+  layout: load(SETTINGS_KEYS.layout, "center"),
+  focusMode: load(SETTINGS_KEYS.focusMode, false),
+  showQuotes: load(SETTINGS_KEYS.showQuotes, false),
+  showWeather: load(SETTINGS_KEYS.showWeather, false),
+  weatherCity: load(SETTINGS_KEYS.weatherCity, ""),
+  weatherCelsius: load(SETTINGS_KEYS.weatherCelsius, true),
+  showPomodoro: load(SETTINGS_KEYS.showPomodoro, false),
+  pomoDuration: load(SETTINGS_KEYS.pomoDuration, 25),
+  pomoBreak: load(SETTINGS_KEYS.pomoBreak, 5),
+  showQuickLinks: load(SETTINGS_KEYS.showQuickLinks, false),
+  quickLinks: load(SETTINGS_KEYS.quickLinks, []),
+  showHabits: load(SETTINGS_KEYS.showHabits, false),
+  habits: load(SETTINGS_KEYS.habits, []),
+  wallpaper: load(SETTINGS_KEYS.wallpaper, ""),
+  wallpaperDim: load(SETTINGS_KEYS.wallpaperDim, true),
+  showAnalytics: load(SETTINGS_KEYS.showAnalytics, false),
+  showAmbient: load(SETTINGS_KEYS.showAmbient, false),
+  ambientSound: load(SETTINGS_KEYS.ambientSound, ""),
+  ambientVolume: load(SETTINGS_KEYS.ambientVolume, 50)
+};
+
+// Open/Close Settings
+function openSettings() {
+  settingsOverlay.classList.add("visible");
+  save(SETTINGS_KEYS.settingsOpen, true);
+}
+
+function closeSettingsPanel() {
+  settingsOverlay.classList.remove("visible");
+  save(SETTINGS_KEYS.settingsOpen, false);
+}
+
+function openShortcuts() {
+  shortcutsOverlay.classList.add("visible");
+}
+
+function closeShortcutsPanel() {
+  shortcutsOverlay.classList.remove("visible");
+}
+
+settingsToggle.addEventListener("click", openSettings);
+settingsClose.addEventListener("click", closeSettingsPanel);
+shortcutsClose.addEventListener("click", closeShortcutsPanel);
+
+settingsOverlay.addEventListener("click", function(e) {
+  if (e.target === settingsOverlay) closeSettingsPanel();
+});
+
+shortcutsOverlay.addEventListener("click", function(e) {
+  if (e.target === shortcutsOverlay) closeShortcutsPanel();
+});
+
+// 1. Greeting with User Name
+var settingUserName = $("#settingUserName");
+settingUserName.value = settings.userName;
+settingUserName.addEventListener("input", function() {
+  settings.userName = this.value;
+  save(SETTINGS_KEYS.userName, settings.userName);
+  updateGreeting();
+});
+
+function updateGreeting() {
+  var now = new Date();
+  var h = now.getHours();
+  var greeting = "";
+  if (h >= 5 && h < 12) greeting = "Good morning";
+  else if (h >= 12 && h < 17) greeting = "Good afternoon";
+  else if (h >= 17 && h < 21) greeting = "Good evening";
+  else greeting = "Good night";
+  if (settings.userName) greeting += ", " + settings.userName;
+  greetingEl.textContent = greeting;
+}
+
+updateGreeting();
+
+// 2. Clock Options
+var settingShowClock = $("#settingShowClock");
+var settingClock24h = $("#settingClock24h");
+var settingShowSeconds = $("#settingShowSeconds");
+var timeSection = $(".time-section");
+
+settingShowClock.checked = settings.showClock;
+settingClock24h.checked = settings.clock24h;
+settingShowSeconds.checked = settings.showSeconds;
+
+settingShowClock.addEventListener("change", function() {
+  settings.showClock = this.checked;
+  save(SETTINGS_KEYS.showClock, settings.showClock);
+  timeSection.style.display = settings.showClock ? "block" : "none";
+});
+
+timeSection.style.display = settings.showClock ? "block" : "none";
+
+settingClock24h.addEventListener("change", function() {
+  settings.clock24h = this.checked;
+  save(SETTINGS_KEYS.clock24h, settings.clock24h);
+});
+
+settingShowSeconds.addEventListener("change", function() {
+  settings.showSeconds = this.checked;
+  save(SETTINGS_KEYS.showSeconds, settings.showSeconds);
+});
+
+// 3. Accent Color
+var colorSwatches = document.querySelectorAll(".color-swatch");
+var settingCustomColor = $("#settingCustomColor");
+
+function setAccentColor(color) {
+  settings.accentColor = color;
+  save(SETTINGS_KEYS.accentColor, color);
+  document.documentElement.style.setProperty("--accent", color);
+  var r = parseInt(color.slice(1, 3), 16);
+  var g = parseInt(color.slice(3, 5), 16);
+  var b = parseInt(color.slice(5, 7), 16);
+  document.documentElement.style.setProperty("--accent-soft", "rgba(" + r + "," + g + "," + b + ",0.12)");
+}
+
+colorSwatches.forEach(function(swatch) {
+  if (swatch.dataset.color === settings.accentColor) swatch.classList.add("active");
+  swatch.addEventListener("click", function() {
+    colorSwatches.forEach(function(s) {
+      s.classList.remove("active");
+    });
+    this.classList.add("active");
+    setAccentColor(this.dataset.color);
   });
+});
+
+settingCustomColor.value = settings.accentColor;
+settingCustomColor.addEventListener("input", function() {
+  colorSwatches.forEach(function(s) {
+    s.classList.remove("active");
+  });
+  setAccentColor(this.value);
+});
+
+// 4. Theme Presets
+var presetBtns = document.querySelectorAll("[data-preset]");
+
+presetBtns.forEach(function(btn) {
+  if (btn.dataset.preset === settings.themePreset) btn.classList.add("active");
+  btn.addEventListener("click", function() {
+    presetBtns.forEach(function(b) {
+      b.classList.remove("active");
+    });
+    this.classList.add("active");
+    settings.themePreset = this.dataset.preset;
+    save(SETTINGS_KEYS.themePreset, settings.themePreset);
+    document.documentElement.setAttribute("data-preset", settings.themePreset);
+  });
+});
+
+document.documentElement.setAttribute("data-preset", settings.themePreset);
+
+// 5. Font Selector
+var settingFont = $("#settingFont");
+
+settingFont.value = settings.fontFamily;
+settingFont.addEventListener("change", function() {
+  settings.fontFamily = this.value;
+  save(SETTINGS_KEYS.fontFamily, settings.fontFamily);
+  document.body.style.fontFamily = "'" + settings.fontFamily + "', -apple-system, BlinkMacSystemFont, sans-serif";
+});
+
+document.body.style.fontFamily = "'" + settings.fontFamily + "', -apple-system, BlinkMacSystemFont, sans-serif";
+
+// 6. Layout Options
+var layoutBtns = document.querySelectorAll("[data-layout]");
+
+layoutBtns.forEach(function(btn) {
+  if (btn.dataset.layout === settings.layout) btn.classList.add("active");
+  btn.addEventListener("click", function() {
+    layoutBtns.forEach(function(b) {
+      b.classList.remove("active");
+    });
+    this.classList.add("active");
+    settings.layout = this.dataset.layout;
+    save(SETTINGS_KEYS.layout, settings.layout);
+    applyLayout();
+  });
+});
+
+function applyLayout() {
+  var main = $(".main-container");
+  if (settings.layout === "compact") {
+    main.style.padding = "20px 16px";
+    $(".brand-name").style.fontSize = "36px";
+  } else if (settings.layout === "minimal") {
+    main.style.padding = "10px";
+    $(".brand-name").style.fontSize = "28px";
+    $(".widgets-container").style.display = "none";
+  } else {
+    main.style.padding = "";
+    $(".brand-name").style.fontSize = "";
+    if (widgetsVisible) $(".widgets-container").style.display = "grid";
+  }
+}
+
+// 7. Focus Mode
+var settingFocusMode = $("#settingFocusMode");
+
+settingFocusMode.checked = settings.focusMode;
+settingFocusMode.addEventListener("change", function() {
+  settings.focusMode = this.checked;
+  save(SETTINGS_KEYS.focusMode, settings.focusMode);
+  toggleFocusMode();
+});
+
+function toggleFocusMode() {
+  if (settings.focusMode) {
+    document.body.classList.add("focus-mode");
+    focusOverlay.classList.add("visible");
+  } else {
+    document.body.classList.remove("focus-mode");
+    focusOverlay.classList.remove("visible");
+  }
+}
+
+toggleFocusMode();
+
+// 8. Quotes Widget
+var quotesWidget = $("#quotesWidget");
+var quoteText = $("#quoteText");
+var quoteAuthor = $("#quoteAuthor");
+var settingShowQuotes = $("#settingShowQuotes");
+
+var quotes = [
+  { text: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
+  { text: "Stay hungry, stay foolish.", author: "Steve Jobs" },
+  { text: "Innovation distinguishes between a leader and a follower.", author: "Steve Jobs" },
+  { text: "Your time is limited, don't waste it living someone else's life.", author: "Steve Jobs" },
+  { text: "Simplicity is the ultimate sophistication.", author: "Leonardo da Vinci" },
+  { text: "Quality is not an act, it is a habit.", author: "Aristotle" },
+  { text: "The future belongs to those who believe in the beauty of their dreams.", author: "Eleanor Roosevelt" },
+  { text: "It does not matter how slowly you go as long as you do not stop.", author: "Confucius" },
+  { text: "Everything you've ever wanted is on the other side of fear.", author: "George Addair" },
+  { text: "Believe you can and you're halfway there.", author: "Theodore Roosevelt" }
+];
+
+function showRandomQuote() {
+  var quote = quotes[Math.floor(Math.random() * quotes.length)];
+  quoteText.textContent = quote.text;
+  quoteAuthor.textContent = "— " + quote.author;
+}
+
+showRandomQuote();
+
+settingShowQuotes.checked = settings.showQuotes;
+settingShowQuotes.addEventListener("change", function() {
+  settings.showQuotes = this.checked;
+  save(SETTINGS_KEYS.showQuotes, settings.showQuotes);
+  quotesWidget.classList.toggle("visible", settings.showQuotes);
+});
+
+quotesWidget.classList.toggle("visible", settings.showQuotes);
+
+// 9. Weather Widget
+var weatherWidget = $("#weatherWidget");
+var weatherIcon = $("#weatherIcon");
+var weatherTemp = $("#weatherTemp");
+var weatherDesc = $("#weatherDesc");
+var weatherCity = $("#weatherCity");
+var settingShowWeather = $("#settingShowWeather");
+var settingWeatherCity = $("#settingWeatherCity");
+var settingWeatherCelsius = $("#settingWeatherCelsius");
+
+settingShowWeather.checked = settings.showWeather;
+settingWeatherCity.value = settings.weatherCity;
+settingWeatherCelsius.checked = settings.weatherCelsius;
+
+function fetchWeather() {
+  if (!settings.weatherCity) return;
+  var city = encodeURIComponent(settings.weatherCity);
+  var units = settings.weatherCelsius ? "metric" : "imperial";
+  // OpenWeatherMap API - you'll need an API key
+  // For demo, using a placeholder
+  weatherIcon.textContent = "⛅";
+  weatherTemp.textContent = "22°";
+  weatherDesc.textContent = "Partly cloudy";
+  weatherCity.textContent = settings.weatherCity;
+}
+
+settingShowWeather.addEventListener("change", function() {
+  settings.showWeather = this.checked;
+  save(SETTINGS_KEYS.showWeather, settings.showWeather);
+  weatherWidget.classList.toggle("visible", settings.showWeather);
+  if (settings.showWeather) fetchWeather();
+});
+
+weatherWidget.classList.toggle("visible", settings.showWeather);
+
+settingWeatherCity.addEventListener("change", function() {
+  settings.weatherCity = this.value;
+  save(SETTINGS_KEYS.weatherCity, settings.weatherCity);
+  if (settings.showWeather) fetchWeather();
+});
+
+settingWeatherCelsius.addEventListener("change", function() {
+  settings.weatherCelsius = this.checked;
+  save(SETTINGS_KEYS.weatherCelsius, settings.weatherCelsius);
+  if (settings.showWeather) fetchWeather();
+});
+
+// 10. Pomodoro Timer
+var pomodoroWidget = $("#pomodoroWidget");
+var pomoDisplay = $("#pomoDisplay");
+var pomoLabel = $("#pomoLabel");
+var pomoStart = $("#pomoStart");
+var pomoReset = $("#pomoReset");
+var settingShowPomodoro = $("#settingShowPomodoro");
+var settingPomoDuration = $("#settingPomoDuration");
+var settingPomoBreak = $("#settingPomoBreak");
+
+var pomoTime = settings.pomoDuration * 60;
+var pomoRunning = false;
+var pomoInterval = null;
+var pomoPhase = "focus";
+
+settingShowPomodoro.checked = settings.showPomodoro;
+settingPomoDuration.value = settings.pomoDuration;
+settingPomoBreak.value = settings.pomoBreak;
+
+function updatePomoDisplay() {
+  var m = Math.floor(pomoTime / 60);
+  var s = pomoTime % 60;
+  pomoDisplay.textContent = (m < 10 ? "0" : "") + m + ":" + (s < 10 ? "0" : "") + s;
+}
+
+function startPomo() {
+  if (pomoRunning) {
+    clearInterval(pomoInterval);
+    pomoRunning = false;
+    pomoStart.innerHTML = "&#9654;";
+  } else {
+    pomoRunning = true;
+    pomoStart.innerHTML = "&#10074;&#10074;";
+    pomoInterval = setInterval(function() {
+      pomoTime--;
+      if (pomoTime <= 0) {
+        clearInterval(pomoInterval);
+        pomoRunning = false;
+        pomoStart.innerHTML = "&#9654;";
+        if (pomoPhase === "focus") {
+          pomoPhase = "break";
+          pomoTime = settings.pomoBreak * 60;
+          pomoLabel.textContent = "Break";
+        } else {
+          pomoPhase = "focus";
+          pomoTime = settings.pomoDuration * 60;
+          pomoLabel.textContent = "Focus";
+        }
+      }
+      updatePomoDisplay();
+    }, 1000);
+  }
+}
+
+pomoStart.addEventListener("click", startPomo);
+pomoReset.addEventListener("click", function() {
+  clearInterval(pomoInterval);
+  pomoRunning = false;
+  pomoPhase = "focus";
+  pomoTime = settings.pomoDuration * 60;
+  pomoLabel.textContent = "Focus";
+  pomoStart.innerHTML = "&#9654;";
+  updatePomoDisplay();
+});
+
+settingPomoDuration.addEventListener("change", function() {
+  settings.pomoDuration = parseInt(this.value) || 25;
+  save(SETTINGS_KEYS.pomoDuration, settings.pomoDuration);
+  if (!pomoRunning) {
+    pomoTime = settings.pomoDuration * 60;
+    updatePomoDisplay();
+  }
+});
+
+settingPomoBreak.addEventListener("change", function() {
+  settings.pomoBreak = parseInt(this.value) || 5;
+  save(SETTINGS_KEYS.pomoBreak, settings.pomoBreak);
+});
+
+settingShowPomodoro.addEventListener("change", function() {
+  settings.showPomodoro = this.checked;
+  save(SETTINGS_KEYS.showPomodoro, settings.showPomodoro);
+  pomodoroWidget.classList.toggle("visible", settings.showPomodoro);
+});
+
+pomodoroWidget.classList.toggle("visible", settings.showPomodoro);
+updatePomoDisplay();
+
+// 11. Quick Links
+var quickLinksWidget = $("#quickLinksWidget");
+var quickLinksGrid = $("#quickLinksGrid");
+var settingShowQuickLinks = $("#settingShowQuickLinks");
+var qlName = $("#qlName");
+var qlUrl = $("#qlUrl");
+var qlAdd = $("#qlAdd");
+var qlList = $("#qlList");
+
+settingShowQuickLinks.checked = settings.showQuickLinks;
+
+function renderQuickLinks() {
+  quickLinksGrid.innerHTML = "";
+  qlList.innerHTML = "";
+  settings.quickLinks.forEach(function(link, i) {
+    var a = document.createElement("a");
+    a.href = link.url;
+    a.title = link.name;
+    a.innerHTML = '<img src="https://www.google.com/s2/favicons?domain=' + link.domain + '&sz=64" alt="">' + link.name;
+    quickLinksGrid.appendChild(a);
+
+    var li = document.createElement("li");
+    li.innerHTML = '<span>' + link.name + '</span><button data-i="' + i + '">Remove</button>';
+    li.querySelector("button").addEventListener("click", function() {
+      settings.quickLinks.splice(i, 1);
+      save(SETTINGS_KEYS.quickLinks, settings.quickLinks);
+      renderQuickLinks();
+    });
+    qlList.appendChild(li);
+  });
+}
+
+qlAdd.addEventListener("click", function() {
+  var name = qlName.value.trim();
+  var url = qlUrl.value.trim();
+  if (!name || !url) return;
+  var domain = url.replace(/^https?:\/\//, "").split("/")[0];
+  settings.quickLinks.push({ name: name, url: url, domain: domain });
+  save(SETTINGS_KEYS.quickLinks, settings.quickLinks);
+  qlName.value = "";
+  qlUrl.value = "";
+  renderQuickLinks();
+});
+
+settingShowQuickLinks.addEventListener("change", function() {
+  settings.showQuickLinks = this.checked;
+  save(SETTINGS_KEYS.showQuickLinks, settings.showQuickLinks);
+  quickLinksWidget.classList.toggle("visible", settings.showQuickLinks);
+});
+
+quickLinksWidget.classList.toggle("visible", settings.showQuickLinks);
+renderQuickLinks();
+
+// 12. Habit Tracker
+var habitWidget = $("#habitWidget");
+var habitList = $("#habitList");
+var habitAddBtn = $("#habitAddBtn");
+var settingShowHabits = $("#settingShowHabits");
+
+settingShowHabits.checked = settings.showHabits;
+
+function renderHabits() {
+  habitList.innerHTML = "";
+  settings.habits.forEach(function(habit, i) {
+    var li = document.createElement("li");
+    li.innerHTML = '<div class="habit-checkbox ' + (habit.done ? "checked" : "") + '"></div><span>' + habit.name + '</span>';
+    li.querySelector(".habit-checkbox").addEventListener("click", function() {
+      settings.habits[i].done = !settings.habits[i].done;
+      save(SETTINGS_KEYS.habits, settings.habits);
+      renderHabits();
+    });
+    habitList.appendChild(li);
+  });
+}
+
+habitAddBtn.addEventListener("click", function() {
+  var name = prompt("Enter habit name:");
+  if (name) {
+    settings.habits.push({ name: name, done: false });
+    save(SETTINGS_KEYS.habits, settings.habits);
+    renderHabits();
+  }
+});
+
+settingShowHabits.addEventListener("change", function() {
+  settings.showHabits = this.checked;
+  save(SETTINGS_KEYS.showHabits, settings.showHabits);
+  habitWidget.classList.toggle("visible", settings.showHabits);
+});
+
+habitWidget.classList.toggle("visible", settings.showHabits);
+renderHabits();
+
+// 13. Custom Wallpaper
+var settingWallpaper = $("#settingWallpaper");
+var settingWallpaperDim = $("#settingWallpaperDim");
+
+settingWallpaper.value = settings.wallpaper;
+settingWallpaperDim.checked = settings.wallpaperDim;
+
+function updateWallpaper() {
+  if (settings.wallpaper) {
+    wallpaperLayer.style.backgroundImage = "url('" + settings.wallpaper + "')";
+    wallpaperLayer.classList.add("visible");
+    if (settings.wallpaperDim) wallpaperLayer.classList.add("dim");
+    else wallpaperLayer.classList.remove("dim");
+  } else {
+    wallpaperLayer.classList.remove("visible");
+  }
+}
+
+settingWallpaper.addEventListener("input", function() {
+  settings.wallpaper = this.value;
+  save(SETTINGS_KEYS.wallpaper, settings.wallpaper);
+  updateWallpaper();
+});
+
+settingWallpaperDim.addEventListener("change", function() {
+  settings.wallpaperDim = this.checked;
+  save(SETTINGS_KEYS.wallpaperDim, settings.wallpaperDim);
+  updateWallpaper();
+});
+
+updateWallpaper();
+
+// 15. Analytics
+var settingShowAnalytics = $("#settingShowAnalytics");
+var analyticsDisplay = $("#analyticsDisplay");
+var analyticsTabCount = $("#analyticsTabCount");
+var analyticsTotal = $("#analyticsTotal");
+
+var analyticsData = load(SETTINGS_KEYS.analytics, { today: new Date().toDateString(), count: 0, total: 0 });
+if (analyticsData.today !== new Date().toDateString()) {
+  analyticsData.today = new Date().toDateString();
+  analyticsData.count = 0;
+}
+analyticsData.count++;
+analyticsData.total++;
+save(SETTINGS_KEYS.analytics, analyticsData);
+
+settingShowAnalytics.checked = settings.showAnalytics;
+analyticsTabCount.textContent = analyticsData.count;
+analyticsTotal.textContent = analyticsData.total;
+
+settingShowAnalytics.addEventListener("change", function() {
+  settings.showAnalytics = this.checked;
+  save(SETTINGS_KEYS.showAnalytics, settings.showAnalytics);
+  analyticsDisplay.style.display = settings.showAnalytics ? "flex" : "none";
+});
+
+analyticsDisplay.style.display = settings.showAnalytics ? "flex" : "none";
+
+// 16. Ambient Sound
+var ambientWidget = $("#ambientWidget");
+var ambientSelect = $("#ambientSelect");
+var ambientVolume = $("#ambientVolume");
+var settingShowAmbient = $("#settingShowAmbient");
+
+settingShowAmbient.checked = settings.showAmbient;
+ambientSelect.value = settings.ambientSound;
+ambientVolume.value = settings.ambientVolume;
+
+settingShowAmbient.addEventListener("change", function() {
+  settings.showAmbient = this.checked;
+  save(SETTINGS_KEYS.showAmbient, settings.showAmbient);
+  ambientWidget.classList.toggle("visible", settings.showAmbient);
+});
+
+ambientWidget.classList.toggle("visible", settings.showAmbient);
+
+// 18. Import/Export
+var exportBtn = $("#exportSettings");
+var importBtn = $("#importSettings");
+var importFile = $("#importFile");
+
+exportBtn.addEventListener("click", function() {
+  var data = {};
+  for (var key in localStorage) {
+    if (key.startsWith("vasudev_")) {
+      data[key] = localStorage.getItem(key);
+    }
+  }
+  var blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement("a");
+  a.href = url;
+  a.download = "vasudev-settings.json";
+  a.click();
+  URL.revokeObjectURL(url);
+});
+
+importBtn.addEventListener("click", function() {
+  importFile.click();
+});
+
+importFile.addEventListener("change", function(e) {
+  var file = e.target.files[0];
+  if (!file) return;
+  var reader = new FileReader();
+  reader.onload = function(evt) {
+    try {
+      var data = JSON.parse(evt.target.result);
+      for (var key in data) {
+        localStorage.setItem(key, data[key]);
+      }
+      alert("Settings imported! Please refresh the page.");
+    } catch (err) {
+      alert("Invalid file");
+    }
+  };
+  reader.readAsText(file);
+});
+
+// 19. Reset
+var resetBtn = $("#resetAllSettings");
+resetBtn.addEventListener("click", function() {
+  if (confirm("Reset all settings to default?")) {
+    for (var key in localStorage) {
+      if (key.startsWith("vasudev_")) {
+        localStorage.removeItem(key);
+      }
+    }
+    location.reload();
+  }
+});
+
+// Keyboard shortcuts update
+document.addEventListener("keydown", function(e) {
+  if (e.key === "?" && document.activeElement.tagName !== "INPUT") {
+    e.preventDefault();
+    openShortcuts();
+  }
+  if (e.key === "s" && document.activeElement.tagName !== "INPUT") {
+    e.preventDefault();
+    openSettings();
+  }
+  if (e.key === "f" && document.activeElement.tagName !== "INPUT") {
+    e.preventDefault();
+    settings.focusMode = !settings.focusMode;
+    save(SETTINGS_KEYS.focusMode, settings.focusMode);
+    settingFocusMode.checked = settings.focusMode;
+    toggleFocusMode();
+  }
+});
+
+// ========================================
+// SETTINGS PANEL END
+// ========================================
 
 })();

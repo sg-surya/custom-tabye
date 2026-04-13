@@ -40,7 +40,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Inter:wght@300;400;500;600&family=Poppins:wght@300;400;500;600&family=Space+Grotesk:wght@300;400;500;600&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -67,6 +67,13 @@
         <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
       </svg>
       <span class="key-hint">T</span>
+    </button>
+    <button class="icon-btn" id="settingsToggle" title="Settings (S)">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
+        <path d="M12 15a3 3 0 100-6 3 3 0 000 6z"/>
+        <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/>
+      </svg>
+      <span class="key-hint">S</span>
     </button>
   </div>
 
@@ -191,6 +198,342 @@
       </div>
     </div>
   </div>
+
+  <!-- Quotes Widget (floating, shown when enabled) -->
+  <div class="quotes-widget" id="quotesWidget">
+    <p class="quote-text" id="quoteText"></p>
+    <span class="quote-author" id="quoteAuthor"></span>
+  </div>
+
+  <!-- Weather Widget (floating, shown when enabled) -->
+  <div class="weather-widget" id="weatherWidget">
+    <div class="weather-icon" id="weatherIcon"></div>
+    <div class="weather-info">
+      <span class="weather-temp" id="weatherTemp">--&deg;</span>
+      <span class="weather-desc" id="weatherDesc">--</span>
+      <span class="weather-city" id="weatherCity">--</span>
+    </div>
+  </div>
+
+  <!-- Pomodoro Timer Widget (floating, shown when enabled) -->
+  <div class="pomodoro-widget" id="pomodoroWidget">
+    <div class="pomo-display" id="pomoDisplay">25:00</div>
+    <div class="pomo-label" id="pomoLabel">Focus</div>
+    <div class="pomo-controls">
+      <button class="pomo-btn" id="pomoStart" title="Start/Pause">&#9654;</button>
+      <button class="pomo-btn" id="pomoReset" title="Reset">&#8634;</button>
+    </div>
+  </div>
+
+  <!-- Habit Tracker Widget (floating, shown when enabled) -->
+  <div class="habit-widget" id="habitWidget">
+    <div class="habit-header">
+      <span class="habit-title">Habits</span>
+      <button class="habit-add-btn" id="habitAddBtn" title="Add habit">+</button>
+    </div>
+    <ul class="habit-list" id="habitList"></ul>
+  </div>
+
+  <!-- Quick Links Grid Widget (floating, shown when enabled) -->
+  <div class="quicklinks-widget" id="quickLinksWidget">
+    <div class="quicklinks-header">
+      <span class="quicklinks-title">Quick Links</span>
+    </div>
+    <div class="quicklinks-grid" id="quickLinksGrid"></div>
+  </div>
+
+  <!-- Ambient Sound Widget (floating mini-player) -->
+  <div class="ambient-widget" id="ambientWidget">
+    <span class="ambient-label">Ambient</span>
+    <select class="ambient-select" id="ambientSelect">
+      <option value="">Off</option>
+      <option value="rain">Rain</option>
+      <option value="ocean">Ocean Waves</option>
+      <option value="fire">Fireplace</option>
+      <option value="birds">Birds</option>
+      <option value="wind">Wind</option>
+      <option value="cafe">Cafe</option>
+    </select>
+    <input type="range" class="ambient-volume" id="ambientVolume" min="0" max="100" value="50">
+  </div>
+
+  <!-- Settings Panel Overlay -->
+  <div class="settings-overlay" id="settingsOverlay">
+    <div class="settings-panel" id="settingsPanel">
+      <div class="settings-header">
+        <span class="settings-title">Settings</span>
+        <button class="settings-close" id="settingsClose">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+            <path d="M18 6L6 18M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+      <div class="settings-body" id="settingsBody">
+
+        <!-- 1. Greeting / User Name -->
+        <div class="settings-section">
+          <div class="settings-section-title">Greeting</div>
+          <label class="settings-label">Your Name</label>
+          <input type="text" class="settings-input" id="settingUserName" placeholder="Enter your name...">
+        </div>
+
+        <!-- 2. Clock Options -->
+        <div class="settings-section">
+          <div class="settings-section-title">Clock</div>
+          <div class="settings-row">
+            <label class="settings-label">Show Clock</label>
+            <label class="settings-toggle"><input type="checkbox" id="settingShowClock"><span class="toggle-slider"></span></label>
+          </div>
+          <div class="settings-row">
+            <label class="settings-label">24-Hour Format</label>
+            <label class="settings-toggle"><input type="checkbox" id="settingClock24h" checked><span class="toggle-slider"></span></label>
+          </div>
+          <div class="settings-row">
+            <label class="settings-label">Show Seconds</label>
+            <label class="settings-toggle"><input type="checkbox" id="settingShowSeconds"><span class="toggle-slider"></span></label>
+          </div>
+        </div>
+
+        <!-- 3. Accent Color -->
+        <div class="settings-section">
+          <div class="settings-section-title">Accent Color</div>
+          <div class="settings-color-row">
+            <div class="color-swatch active" data-color="#34C759" style="background:#34C759" title="Green"></div>
+            <div class="color-swatch" data-color="#007AFF" style="background:#007AFF" title="Blue"></div>
+            <div class="color-swatch" data-color="#FF9500" style="background:#FF9500" title="Orange"></div>
+            <div class="color-swatch" data-color="#FF3B30" style="background:#FF3B30" title="Red"></div>
+            <div class="color-swatch" data-color="#AF52DE" style="background:#AF52DE" title="Purple"></div>
+            <div class="color-swatch" data-color="#FF2D55" style="background:#FF2D55" title="Pink"></div>
+            <div class="color-swatch" data-color="#5AC8FA" style="background:#5AC8FA" title="Cyan"></div>
+            <div class="color-swatch" data-color="#FFCC00" style="background:#FFCC00" title="Yellow"></div>
+            <input type="color" class="color-custom" id="settingCustomColor" value="#34C759" title="Custom color">
+          </div>
+        </div>
+
+        <!-- 4. Theme Presets -->
+        <div class="settings-section">
+          <div class="settings-section-title">Theme Presets</div>
+          <div class="settings-preset-row" id="themePresetRow">
+            <button class="preset-btn active" data-preset="default">Default</button>
+            <button class="preset-btn" data-preset="midnight">Midnight</button>
+            <button class="preset-btn" data-preset="ocean">Ocean</button>
+            <button class="preset-btn" data-preset="sunset">Sunset</button>
+            <button class="preset-btn" data-preset="forest">Forest</button>
+            <button class="preset-btn" data-preset="monochrome">Mono</button>
+          </div>
+        </div>
+
+        <!-- 5. Font Selector -->
+        <div class="settings-section">
+          <div class="settings-section-title">Font</div>
+          <select class="settings-select" id="settingFont">
+            <option value="Inter">Inter</option>
+            <option value="Poppins">Poppins</option>
+            <option value="Space Grotesk">Space Grotesk</option>
+            <option value="Outfit">Outfit</option>
+            <option value="JetBrains Mono">JetBrains Mono</option>
+          </select>
+        </div>
+
+        <!-- 6. Layout Options -->
+        <div class="settings-section">
+          <div class="settings-section-title">Layout</div>
+          <div class="settings-preset-row" id="layoutPresetRow">
+            <button class="preset-btn active" data-layout="center">Center</button>
+            <button class="preset-btn" data-layout="compact">Compact</button>
+            <button class="preset-btn" data-layout="minimal">Minimal</button>
+          </div>
+        </div>
+
+        <!-- 7. Focus Mode -->
+        <div class="settings-section">
+          <div class="settings-section-title">Focus Mode</div>
+          <div class="settings-row">
+            <label class="settings-label">Hide everything except search</label>
+            <label class="settings-toggle"><input type="checkbox" id="settingFocusMode"><span class="toggle-slider"></span></label>
+          </div>
+        </div>
+
+        <!-- 8. Quotes Widget -->
+        <div class="settings-section">
+          <div class="settings-section-title">Quotes / Motivation</div>
+          <div class="settings-row">
+            <label class="settings-label">Show Daily Quote</label>
+            <label class="settings-toggle"><input type="checkbox" id="settingShowQuotes"><span class="toggle-slider"></span></label>
+          </div>
+        </div>
+
+        <!-- 9. Weather Widget -->
+        <div class="settings-section">
+          <div class="settings-section-title">Weather</div>
+          <div class="settings-row">
+            <label class="settings-label">Show Weather</label>
+            <label class="settings-toggle"><input type="checkbox" id="settingShowWeather"><span class="toggle-slider"></span></label>
+          </div>
+          <label class="settings-label">City</label>
+          <input type="text" class="settings-input" id="settingWeatherCity" placeholder="e.g. London">
+          <div class="settings-row" style="margin-top:8px">
+            <label class="settings-label">Celsius</label>
+            <label class="settings-toggle"><input type="checkbox" id="settingWeatherCelsius" checked><span class="toggle-slider"></span></label>
+          </div>
+        </div>
+
+        <!-- 10. Pomodoro Timer -->
+        <div class="settings-section">
+          <div class="settings-section-title">Pomodoro Timer</div>
+          <div class="settings-row">
+            <label class="settings-label">Show Timer</label>
+            <label class="settings-toggle"><input type="checkbox" id="settingShowPomodoro"><span class="toggle-slider"></span></label>
+          </div>
+          <label class="settings-label">Focus Duration (min)</label>
+          <input type="number" class="settings-input" id="settingPomoDuration" value="25" min="1" max="120">
+          <label class="settings-label" style="margin-top:6px">Break Duration (min)</label>
+          <input type="number" class="settings-input" id="settingPomoBreak" value="5" min="1" max="30">
+        </div>
+
+        <!-- 11. Quick Links Grid -->
+        <div class="settings-section">
+          <div class="settings-section-title">Quick Links</div>
+          <div class="settings-row">
+            <label class="settings-label">Show Quick Links</label>
+            <label class="settings-toggle"><input type="checkbox" id="settingShowQuickLinks"><span class="toggle-slider"></span></label>
+          </div>
+          <div id="quickLinksManager">
+            <div class="quicklink-inputs">
+              <input type="text" class="settings-input settings-input-sm" id="qlName" placeholder="Name">
+              <input type="text" class="settings-input settings-input-sm" id="qlUrl" placeholder="URL">
+              <button class="settings-btn-sm" id="qlAdd">+</button>
+            </div>
+            <ul class="ql-list" id="qlList"></ul>
+          </div>
+        </div>
+
+        <!-- 12. Habit Tracker -->
+        <div class="settings-section">
+          <div class="settings-section-title">Habit Tracker</div>
+          <div class="settings-row">
+            <label class="settings-label">Show Habits</label>
+            <label class="settings-toggle"><input type="checkbox" id="settingShowHabits"><span class="toggle-slider"></span></label>
+          </div>
+        </div>
+
+        <!-- 13. Custom Background -->
+        <div class="settings-section">
+          <div class="settings-section-title">Background</div>
+          <label class="settings-label">Wallpaper URL (leave empty for default)</label>
+          <input type="text" class="settings-input" id="settingWallpaper" placeholder="https://example.com/image.jpg">
+          <div class="settings-row" style="margin-top:8px">
+            <label class="settings-label">Dim Overlay</label>
+            <label class="settings-toggle"><input type="checkbox" id="settingWallpaperDim" checked><span class="toggle-slider"></span></label>
+          </div>
+        </div>
+
+        <!-- 14. Bookmark Shortcuts -->
+        <div class="settings-section">
+          <div class="settings-section-title">Bookmark Shortcuts</div>
+          <p class="settings-hint">Your dock sites act as bookmarks. Add more via the + button in the dock.</p>
+        </div>
+
+        <!-- 15. Analytics / Screen Time -->
+        <div class="settings-section">
+          <div class="settings-section-title">Screen Time</div>
+          <div class="settings-row">
+            <label class="settings-label">Track Tab Opens</label>
+            <label class="settings-toggle"><input type="checkbox" id="settingShowAnalytics"><span class="toggle-slider"></span></label>
+          </div>
+          <div class="analytics-display" id="analyticsDisplay">
+            <div class="analytics-stat">
+              <span class="analytics-num" id="analyticsTabCount">0</span>
+              <span class="analytics-label">tabs today</span>
+            </div>
+            <div class="analytics-stat">
+              <span class="analytics-num" id="analyticsTotal">0</span>
+              <span class="analytics-label">total tabs</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 16. Ambient Sound -->
+        <div class="settings-section">
+          <div class="settings-section-title">Ambient Sound</div>
+          <div class="settings-row">
+            <label class="settings-label">Show Ambient Player</label>
+            <label class="settings-toggle"><input type="checkbox" id="settingShowAmbient"><span class="toggle-slider"></span></label>
+          </div>
+        </div>
+
+        <!-- 17. Drag & Drop Layout -->
+        <div class="settings-section">
+          <div class="settings-section-title">Widget Layout</div>
+          <p class="settings-hint">Drag widgets to reorder them on the main page. Toggle widgets with the W key.</p>
+        </div>
+
+        <!-- 18. Import / Export Settings -->
+        <div class="settings-section">
+          <div class="settings-section-title">Import / Export</div>
+          <div class="settings-btn-row">
+            <button class="settings-btn" id="exportSettings">Export JSON</button>
+            <button class="settings-btn" id="importSettings">Import JSON</button>
+            <input type="file" id="importFile" accept=".json" style="display:none">
+          </div>
+        </div>
+
+        <!-- 19. Keyboard Shortcuts -->
+        <div class="settings-section">
+          <div class="settings-section-title">Keyboard Shortcuts</div>
+          <div class="shortcuts-grid">
+            <kbd>/</kbd><span>Focus search</span>
+            <kbd>T</kbd><span>Toggle theme</span>
+            <kbd>W</kbd><span>Toggle widgets</span>
+            <kbd>S</kbd><span>Open settings</span>
+            <kbd>?</kbd><span>Show shortcuts</span>
+            <kbd>Esc</kbd><span>Close / unfocus</span>
+            <kbd>F</kbd><span>Toggle focus mode</span>
+          </div>
+        </div>
+
+        <!-- 20. Reset -->
+        <div class="settings-section">
+          <div class="settings-section-title">Reset</div>
+          <button class="settings-btn settings-btn-danger" id="resetAllSettings">Reset All Settings</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Keyboard Shortcuts Modal (press ?) -->
+  <div class="shortcuts-overlay" id="shortcutsOverlay">
+    <div class="shortcuts-modal" id="shortcutsModal">
+      <div class="settings-header">
+        <span class="settings-title">Keyboard Shortcuts</span>
+        <button class="settings-close" id="shortcutsClose">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+            <path d="M18 6L6 18M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-grid shortcuts-grid-lg">
+          <kbd>/</kbd><span>Focus search bar</span>
+          <kbd>T</kbd><span>Toggle light / dark theme</span>
+          <kbd>W</kbd><span>Toggle widgets panel</span>
+          <kbd>S</kbd><span>Open / close settings</span>
+          <kbd>?</kbd><span>Show this shortcuts panel</span>
+          <kbd>F</kbd><span>Toggle focus mode</span>
+          <kbd>Esc</kbd><span>Close panel / unfocus</span>
+          <kbd>Enter</kbd><span>Search or select suggestion</span>
+          <kbd>&uarr; &darr;</kbd><span>Navigate search suggestions</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Custom Wallpaper Layer -->
+  <div class="wallpaper-layer" id="wallpaperLayer"></div>
+
+  <!-- Focus Mode Overlay (dims everything except search) -->
+  <div class="focus-overlay" id="focusOverlay"></div>
 
   <!-- GitHub Open Source Badge -->
   <a href="https://github.com/sg-surya/custom-tabye" target="_blank" class="github-badge" id="githubBadge" title="View on GitHub - Open Source">
