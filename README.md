@@ -5,7 +5,7 @@
 ### A premium, minimal, Apple-style new tab experience for Chrome.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Chrome Extension](https://img.shields.io/badge/Chrome-Extension-blue?logo=googlechrome&logoColor=white)](https://github.com/sg-surya/custom-tab)
+[![Chrome Extension](https://img.shields.io/badge/Chrome-Extension-blue?logo=googlechrome&logoColor=white)](https://github.com/sg-surya/custom-tabye)
 [![Manifest V3](https://img.shields.io/badge/Manifest-V3-orange)](https://developer.chrome.com/docs/extensions/mv3/)
 [![Open Source](https://img.shields.io/badge/Open%20Source-Vasudev%20AI-purple)](https://vasudev.online)
 
@@ -17,7 +17,7 @@
 
 ![Minimal Tab Preview](screenshoots/light.png)
 
-**[View Demo](https://vasudev.online)** &middot; **[Report Bug](https://github.com/sg-surya/custom-tab/issues)** &middot; **[Request Feature](https://github.com/sg-surya/custom-tab/issues)**
+**[View Demo](http://search.vasudev.online/)** &middot; **[Report Bug](https://github.com/sg-surya/custom-tabye/issues)** &middot; **[Request Feature](https://github.com/sg-surya/custom-tabye/issues)**
 
 </div>
 
@@ -91,7 +91,7 @@
 
 1. **Download** this repository:
    ```bash
-   git clone https://github.com/sg-surya/custom-tab.git
+   git clone https://github.com/sg-surya/custom-tabye.git
    ```
    Or download as ZIP and extract it.
 
@@ -179,7 +179,7 @@ Planned features for future releases:
 - [ ] Quotes / motivational text widget
 - [ ] Multi-language support
 
-> Got an idea? [Open an issue](https://github.com/sg-surya/custom-tab/issues) and let us know!
+> Got an idea? [Open an issue](https://github.com/sg-surya/custom-tabye/issues) and let us know!
 
 ---
 
