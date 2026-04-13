@@ -1105,7 +1105,13 @@ var settings = {
 
 // Open/Close Settings
 function openSettings() {
-  settingsOverlay.classList.add("visible");
+  console.log("Opening settings panel...");
+  if (settingsOverlay) {
+    settingsOverlay.classList.add("visible");
+    console.log("Settings panel should be visible now");
+  } else {
+    console.log("ERROR: settingsOverlay is null!");
+  }
   save(SETTINGS_KEYS.settingsOpen, true);
 }
 

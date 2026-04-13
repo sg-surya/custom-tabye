@@ -1762,40 +1762,48 @@ SETTINGS PANEL
 Inner + Outer shadow, NO hover effects
 ======================================== */
 .settings-overlay {
-position: fixed;
-inset: 0;
-background: rgba(0, 0, 0, 0.45);
-backdrop-filter: blur(8px);
--webkit-backdrop-filter: blur(8px);
-z-index: 3000;
-display: none;
-align-items: center;
-justify-content: center;
-opacity: 0;
+  position: fixed;
+  inset: 0;
+  right: 0;
+  left: auto;
+  width: 420px;
+  max-width: 100vw;
+  background: transparent;
+  z-index: 3000;
+  display: none;
 }
 
 .settings-overlay.visible {
-display: flex;
-opacity: 1;
+  display: block;
+}
+
+.settings-overlay.visible .settings-panel {
+  transform: translateX(0);
 }
 
 .settings-panel {
-width: 480px;
-max-width: 92vw;
-max-height: 80vh;
-background: var(--card-bg);
-backdrop-filter: blur(40px);
--webkit-backdrop-filter: blur(40px);
-border-radius: 20px;
-display: flex;
-flex-direction: column;
-overflow: hidden;
-box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25), 0 40px 100px rgba(0, 0, 0, 0.15), inset 0 2px 6px rgba(255, 255, 255, 0.4), inset 0 -2px 6px rgba(0, 0, 0, 0.06);
-border: 1px solid var(--card-border);
+  position: fixed;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 420px;
+  max-width: 100vw;
+  height: 100vh;
+  max-height: 100vh;
+  background: var(--card-bg);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  border-radius: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.2), inset 0 2px 6px rgba(255, 255, 255, 0.4), inset 0 -2px 6px rgba(0, 0, 0, 0.06);
+  border: 1px solid var(--card-border);
+  border-left: 1px solid var(--card-border);
 }
 
 [data-theme="dark"] .settings-panel {
-box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 40px 100px rgba(0, 0, 0, 0.35), inset 0 2px 6px rgba(255, 255, 255, 0.04), inset 0 -2px 8px rgba(0, 0, 0, 0.3);
+  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.3), inset 0 2px 6px rgba(255, 255, 255, 0.04), inset 0 -2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .settings-header {
