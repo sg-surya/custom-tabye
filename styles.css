@@ -570,7 +570,7 @@ ntp-middle-slot, ntp-doodle, ntp-realbox,
 }
 
 .search-wrapper:hover {
-  transform: translateY(-3px);
+  transform: none;
 }
 
 .search-icon {
@@ -617,8 +617,8 @@ ntp-middle-slot, ntp-doodle, ntp-realbox,
 
 .search-bar:focus {
   transform: scale(1.015);
-  box-shadow: var(--float-shadow-hover), var(--search-focus-glow);
-  border-color: var(--accent);
+  box-shadow: var(--float-shadow-hover);
+  border-color: var(--card-border);
 }
 
 .search-bar:focus::placeholder {
@@ -626,7 +626,7 @@ ntp-middle-slot, ntp-doodle, ntp-realbox,
 }
 
 .search-bar:focus ~ .search-icon {
-  color: var(--accent);
+  color: var(--text);
   transform: translateY(-50%) scale(1.15) rotate(-8deg);
 }
 
@@ -1464,6 +1464,81 @@ ntp-middle-slot, ntp-doodle, ntp-realbox,
 }
 
 /* ========================================
+   GITHUB OPEN SOURCE BADGE
+   ======================================== */
+.github-badge {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 14px 7px 10px;
+  background: var(--card-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  text-decoration: none;
+  color: var(--text-secondary);
+  opacity: 0.3;
+  z-index: 100;
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  animation: fadeUp 0.5s ease 0.5s forwards;
+  overflow: hidden;
+}
+
+.github-badge::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, var(--accent-soft) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.github-badge:hover {
+  opacity: 1;
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: var(--shadow-hover);
+  color: var(--text);
+}
+
+.github-badge:hover::before {
+  opacity: 1;
+}
+
+.github-badge:active {
+  transform: translateY(-1px) scale(0.97);
+  transition-duration: 0.1s;
+}
+
+.github-badge-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.github-badge:hover .github-badge-icon {
+  transform: rotate(-15deg) scale(1.15);
+}
+
+.github-badge-text {
+  font-size: 11px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: 0.3px;
+  position: relative;
+  z-index: 1;
+  white-space: nowrap;
+}
+
+/* ========================================
    FOOTER
    ======================================== */
 .footer {
@@ -1655,5 +1730,18 @@ ntp-middle-slot, ntp-doodle, ntp-realbox,
   .vasudev-bg-gradient::after {
     width: 300px;
     height: 300px;
+  }
+  .github-badge {
+    bottom: 14px;
+    left: 14px;
+    padding: 5px 10px 5px 8px;
+    border-radius: 10px;
+  }
+  .github-badge-icon {
+    width: 14px;
+    height: 14px;
+  }
+  .github-badge-text {
+    font-size: 9px;
   }
 }

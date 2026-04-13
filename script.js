@@ -18,7 +18,7 @@
     "taskList", "newTaskInput", "clearDone", "calendarMonth",
     "calendarGrid", "dockAddBtn", "addSiteModal", "modalCard",
     "modalClose", "siteUrlInput", "siteNameInput", "modalCancel",
-    "modalAdd", "omniboxDropdown"
+    "modalAdd", "omniboxDropdown", "githubBadge"
   ];
 
   function isOurElement(node) {
@@ -35,6 +35,7 @@
           node.classList.contains("footer") ||
           node.classList.contains("main-container") ||
           node.classList.contains("modal-overlay") ||
+          node.classList.contains("github-badge") ||
           node.classList.contains("blob3") ||
           node.classList.contains("blob4")) return true;
     }
@@ -44,6 +45,7 @@
       node.closest("#vasudevDock") ||
       node.closest("#vasudevFooter") ||
       node.closest("#addSiteModal") ||
+      node.closest("#githubBadge") ||
       node.closest(".vasudev-bg-gradient") ||
       node.closest(".vasudev-curtain")
     )) return true;
