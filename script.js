@@ -19,6 +19,8 @@
     "calendarGrid", "dockAddBtn", "addSiteModal", "modalCard",
     "modalClose", "siteUrlInput", "siteNameInput", "modalCancel",
     "modalAdd", "omniboxDropdown", "githubBadge",
+    // Gmail Profile
+    "gmailProfile", "profilePic", "bottomControls",
     // Settings Panel elements
     "settingsToggle", "settingsOverlay", "settingsPanel", "settingsClose", "settingsBody",
     "settingUserName", "settingShowClock", "settingClock24h", "settingShowSeconds",
@@ -60,6 +62,13 @@
         node.classList.contains("github-badge") ||
         node.classList.contains("blob3") ||
         node.classList.contains("blob4") ||
+        // Gmail Profile
+        node.classList.contains("gmail-profile") ||
+        node.classList.contains("gmail-link") ||
+        node.classList.contains("gmail-icon") ||
+        node.classList.contains("profile-pic") ||
+        node.classList.contains("dock-btn") ||
+        node.classList.contains("bottom-controls") ||
         // Settings Panel
         node.classList.contains("settings-overlay") ||
         node.classList.contains("settings-panel") ||
@@ -210,6 +219,34 @@
     var blob4 = document.createElement("div");
     blob4.className = "blob4";
     bgGradient.appendChild(blob4);
+  }
+
+  // ========================================
+  // GMAIL PROFILE SYNC
+  // ========================================
+  var profilePic = document.getElementById("profilePic");
+  var savedProfilePic = load("vasudev_profile_pic", "");
+
+  function loadProfilePic() {
+    if (typeof chrome !== "undefined" && chrome.identity && chrome.identity.getProfileUserInfo) {
+      chrome.identity.getProfileUserInfo(function(userInfo) {
+        if (userInfo && userInfo.avatarUrl) {
+          profilePic.src = userInfo.avatarUrl;
+          profilePic.classList.add("visible");
+          save("vasudev_profile_pic", userInfo.avatarUrl);
+        } else if (savedProfilePic) {
+          profilePic.src = savedProfilePic;
+          profilePic.classList.add("visible");
+        }
+      });
+    } else if (savedProfilePic) {
+      profilePic.src = savedProfilePic;
+      profilePic.classList.add("visible");
+    }
+  }
+
+  if (profilePic) {
+    loadProfilePic();
   }
 
   // ========================================

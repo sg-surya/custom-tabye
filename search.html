@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search - Vasudev AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="search.css">
+  <style>
+    /* Search Page Specific - Full Width */
+    body.search-mode {
+      overflow: hidden;
+    }
+    
+    .search-page {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    
+    .search-page.loaded {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .search-overlay {
+      position: fixed;
+      inset: 0;
+      background: var(--bg-primary);
+      z-index: 9999;
+      opacity: 1;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+    }
+    
+    .search-overlay.hidden {
+      opacity: 0;
+    }
+  </style>
+</head>
+<body data-theme="dark">
+  <!-- Transition Overlay -->
+  <div class="search-overlay" id="searchOverlay"></div>
+  
+  <div class="search-page" id="searchPage">
+    <!-- Background Blobs -->
+    <div class="bg-gradient" id="bgGradient">
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+      <div class="blob blob-3"></div>
+      <div class="blob blob-4"></div>
+    </div>
+
+    <!-- Header - Full Width -->
+    <header class="search-header">
+      <div class="header-content">
+        <a href="index.html" class="logo-link">
+          <div class="logo-icon">V</div>
+          <span class="logo-name">Vasudev AI</span>
+        </a>
+        
+        <button class="theme-btn" id="themeBtn" title="Toggle theme">
+          <svg class="icon-sun" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="5"/>
+            <path d="M12 1v2m0 18v2m9-9h-2M5 12H3"/>
+          </svg>
+          <svg class="icon-moon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Search Section - Full Width -->
+    <section class="search-section">
+      <div class="search-wrapper" id="searchWrapper">
+        <svg class="search-icon" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <circle cx="11" cy="11" r="8"/>
+          <path d="m21 21-4.35-4.35"/>
+        </svg>
+        <input type="text" id="searchInput" class="search-input" placeholder="Search your stuff..." autocomplete="off">
+        <span class="search-hint">Press <kbd>/</kbd></span>
+        <div class="omnibox-dropdown" id="omnibox"></div>
+      </div>
+    </section>
+
+    <!-- Results - Full Width -->
+    <main class="results-wrapper">
+      <!-- Results Info -->
+      <div class="results-info" id="resultsInfo">
+        <span id="resultsCount"></span>
+        <span id="resultsTime"></span>
+      </div>
+
+      <!-- Results -->
+      <div class="results-container" id="resultsContainer"></div>
+
+      <!-- Loading -->
+      <div class="loading-container" id="loading">
+        <div class="skeleton-result">
+          <div class="skel skel-title"></div>
+          <div class="skel skel-url"></div>
+          <div class="skel skel-desc"></div>
+        </div>
+        <div class="skeleton-result">
+          <div class="skel skel-title"></div>
+          <div class="skel skel-url"></div>
+          <div class="skel skel-desc"></div>
+        </div>
+        <div class="skeleton-result">
+          <div class="skel skel-title"></div>
+          <div class="skel skel-url"></div>
+          <div class="skel skel-desc"></div>
+        </div>
+      </div>
+
+      <!-- No Results -->
+      <div class="no-results" id="noResults">
+        <div class="no-results-icon">
+          <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="8"/>
+            <path d="m21 21-4.35-4.35"/>
+            <path d="M8 11h6"/>
+          </svg>
+        </div>
+        <h2>No results found</h2>
+        <p>Try different keywords</p>
+        <div class="search-engines">
+          <a href="https://google.com/search?q=" class="engine-btn" target="_blank">Google</a>
+          <a href="https://duckduckgo.com/?q=" class="engine-btn" target="_blank">DuckDuckGo</a>
+          <a href="https://bing.com/search?q=" class="engine-btn" target="_blank">Bing</a>
+        </div>
+      </div>
+
+      <!-- Pagination -->
+      <nav class="pagination" id="pagination"></nav>
+    </main>
+  </div>
+
+  <script src="search.js"></script>
+  <script>
+    // Theme init & toggle
+    (function() {
+      var btn = document.getElementById('themeBtn');
+      var sun = btn.querySelector('.icon-sun');
+      var moon = btn.querySelector('.icon-moon');
+      var theme = localStorage.getItem('vasudev_theme') || 'dark';
+      
+      document.body.setAttribute('data-theme', theme);
+      sun.style.display = theme === 'dark' ? 'none' : 'block';
+      moon.style.display = theme === 'dark' ? 'block' : 'none';
+      
+      btn.addEventListener('click', function() {
+        theme = theme === 'dark' ? 'light' : 'dark';
+        document.body.setAttribute('data-theme', theme);
+        localStorage.setItem('vasudev_theme', theme);
+        sun.style.display = theme === 'dark' ? 'none' : 'block';
+        moon.style.display = theme === 'dark' ? 'block' : 'none';
+      });
+      
+      // Fade in page
+      document.body.classList.add('search-mode');
+      var overlay = document.getElementById('searchOverlay');
+      var page = document.getElementById('searchPage');
+      
+      setTimeout(function() {
+        overlay.classList.add('hidden');
+        page.classList.add('loaded');
+      }, 100);
+    })();
+  </script>
+</body>
+</html>
