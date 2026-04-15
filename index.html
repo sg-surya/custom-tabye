@@ -252,17 +252,37 @@
 
   <!-- Ambient Sound Widget (floating mini-player) -->
   <div class="ambient-widget" id="ambientWidget">
-    <span class="ambient-label">Ambient</span>
-    <select class="ambient-select" id="ambientSelect">
-      <option value="">Off</option>
-      <option value="rain">Rain</option>
-      <option value="ocean">Ocean Waves</option>
-      <option value="fire">Fireplace</option>
-      <option value="birds">Birds</option>
-      <option value="wind">Wind</option>
-      <option value="cafe">Cafe</option>
-    </select>
-    <input type="range" class="ambient-volume" id="ambientVolume" min="0" max="100" value="50">
+    <div class="ambient-player">
+      <button class="ambient-play-btn" id="ambientPlayBtn">
+        <svg class="play-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="pause-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+      </button>
+      <div class="ambient-info">
+        <span class="ambient-sound-name" id="ambientSoundName">Select Sound</span>
+        <div class="ambient-progress-bar">
+          <div class="ambient-progress-fill" id="ambientProgressFill"></div>
+        </div>
+      </div>
+      <button class="ambient-sound-btn" id="ambientSoundBtn">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+          <path d="M12 3v18M3 12h18M5.64 5.64l12.72 12.72M18.36 5.64L5.64 18.36"/>
+        </svg>
+      </button>
+    </div>
+    <div class="ambient-sound-menu" id="ambientSoundMenu">
+      <div class="sound-option" data-sound="">Off</div>
+      <div class="sound-option" data-sound="rain">🌧️ Rain</div>
+      <div class="sound-option" data-sound="ocean">🌊 Ocean</div>
+      <div class="sound-option" data-sound="fire">🔥 Fire</div>
+      <div class="sound-option" data-sound="birds">🐦 Birds</div>
+      <div class="sound-option" data-sound="wind">💨 Wind</div>
+      <div class="sound-option" data-sound="cafe">☕ Cafe</div>
+    </div>
+    <div class="ambient-volume-row">
+      <svg class="volume-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+      <input type="range" class="ambient-volume" id="ambientVolume" min="0" max="100" value="50">
+      <span class="volume-percent" id="volumePercent">50%</span>
+    </div>
   </div>
 
   <!-- Settings Panel Overlay -->
@@ -283,6 +303,13 @@
           <div class="settings-section-title">Greeting</div>
           <label class="settings-label">Your Name</label>
           <input type="text" class="settings-input" id="settingUserName" placeholder="Enter your name...">
+        </div>
+
+        <!-- 1b. Brand Name -->
+        <div class="settings-section">
+          <div class="settings-section-title">Brand Name</div>
+          <label class="settings-label">Display Name</label>
+          <input type="text" class="settings-input" id="settingBrandName" placeholder="Vasudev AI" value="Vasudev AI">
         </div>
 
         <!-- 2. Clock Options -->
@@ -334,13 +361,16 @@
         <!-- 5. Font Selector -->
         <div class="settings-section">
           <div class="settings-section-title">Font</div>
-          <select class="settings-select" id="settingFont">
-            <option value="Inter">Inter</option>
-            <option value="Poppins">Poppins</option>
-            <option value="Space Grotesk">Space Grotesk</option>
-            <option value="Outfit">Outfit</option>
-            <option value="JetBrains Mono">JetBrains Mono</option>
-          </select>
+          <div class="custom-dropdown" id="fontDropdown">
+            <div class="dropdown-selected" id="fontSelected">Inter</div>
+            <div class="dropdown-options">
+              <div class="dropdown-option" data-value="Inter">Inter</div>
+              <div class="dropdown-option" data-value="Poppins">Poppins</div>
+              <div class="dropdown-option" data-value="Space Grotesk">Space Grotesk</div>
+              <div class="dropdown-option" data-value="Outfit">Outfit</div>
+              <div class="dropdown-option" data-value="JetBrains Mono">JetBrains Mono</div>
+            </div>
+          </div>
         </div>
 
         <!-- 6. Layout Options -->
@@ -430,6 +460,13 @@
           <div class="settings-section-title">Background</div>
           <label class="settings-label">Wallpaper URL (leave empty for default)</label>
           <input type="text" class="settings-input" id="settingWallpaper" placeholder="https://example.com/image.jpg">
+          <div class="wallpaper-upload-row">
+            <label class="wallpaper-upload-btn">
+              <input type="file" id="wallpaperUpload" accept="image/*" hidden>
+              <span>Upload Image</span>
+            </label>
+            <button class="wallpaper-clear-btn" id="wallpaperClear">Clear</button>
+          </div>
           <div class="settings-row" style="margin-top:8px">
             <label class="settings-label">Dim Overlay</label>
             <label class="settings-toggle"><input type="checkbox" id="settingWallpaperDim" checked><span class="toggle-slider"></span></label>

@@ -24,7 +24,7 @@
     // Settings Panel elements
     "settingsToggle", "settingsOverlay", "settingsPanel", "settingsClose", "settingsBody",
     "settingUserName", "settingShowClock", "settingClock24h", "settingShowSeconds",
-    "settingCustomColor", "settingFont", "settingFocusMode", "settingShowQuotes",
+    "settingCustomColor", "settingFont", "fontDropdown", "fontSelected", "settingFocusMode", "settingShowQuotes",
     "settingShowWeather", "settingWeatherCity", "settingWeatherCelsius",
     "settingShowPomodoro", "settingPomoDuration", "settingPomoBreak",
     "settingShowQuickLinks", "settingShowHabits", "settingWallpaper", "settingWallpaperDim",
@@ -38,9 +38,10 @@
     "pomodoroWidget", "pomoDisplay", "pomoLabel", "pomoStart", "pomoReset",
     "habitWidget", "habitList", "habitAddBtn",
     "quickLinksWidget", "quickLinksGrid",
-    "ambientWidget", "ambientSelect", "ambientVolume",
+    "ambientWidget", "ambientPlayBtn", "ambientSoundName", "ambientProgressFill", 
+    "ambientSoundBtn", "ambientSoundMenu", "ambientVolume", "volumePercent",
     // Overlays
-    "wallpaperLayer", "focusOverlay",
+    "wallpaperLayer", "wallpaperUpload", "wallpaperClear", "focusOverlay",
     // Analytics
     "analyticsDisplay", "analyticsTabCount", "analyticsTotal"
   ];
@@ -370,7 +371,13 @@
     var now = new Date();
     var h = now.getHours();
     var m = now.getMinutes();
-    var hStr = h < 10 ? "0" + h : "" + h;
+    // Check 24h from localStorage
+    var is24h = localStorage.getItem("vasudev_clock_24h");
+    var use24h = is24h === null ? true : is24h === "true";
+    
+    var hStr = use24h 
+      ? (h < 10 ? "0" + h : "" + h)
+      : (h === 0 ? "12" : h > 12 ? "" + (h - 12) : "" + h);
     var mStr = m < 10 ? "0" + m : "" + m;
     var timeStr = hStr + ":" + mStr;
 
@@ -1071,6 +1078,7 @@ if (e.key === "w" && !isInputFocused) {
 // ========================================
 var SETTINGS_KEYS = {
   userName: "vasudev_user_name",
+  brandName: "vasudev_brand_name",
   showClock: "vasudev_show_clock",
   clock24h: "vasudev_clock_24h",
   showSeconds: "vasudev_show_seconds",
@@ -1113,6 +1121,7 @@ var wallpaperLayer = $("#wallpaperLayer");
 // Settings state
 var settings = {
   userName: load(SETTINGS_KEYS.userName, ""),
+  brandName: load(SETTINGS_KEYS.brandName, "Vasudev AI"),
   showClock: load(SETTINGS_KEYS.showClock, false),
   clock24h: load(SETTINGS_KEYS.clock24h, true),
   showSeconds: load(SETTINGS_KEYS.showSeconds, false),
@@ -1186,6 +1195,20 @@ settingUserName.addEventListener("input", function() {
   updateGreeting();
 });
 
+// 1b. Brand Name
+var settingBrandName = $("#settingBrandName");
+settingBrandName.value = settings.brandName;
+settingBrandName.addEventListener("input", function() {
+  settings.brandName = this.value || "Vasudev AI";
+  save(SETTINGS_KEYS.brandName, settings.brandName);
+  updateBrandName();
+});
+
+function updateBrandName() {
+  var brandEl = $(".brand-name");
+  if (brandEl) brandEl.textContent = settings.brandName;
+}
+
 function updateGreeting() {
   var now = new Date();
   var h = now.getHours();
@@ -1199,6 +1222,7 @@ function updateGreeting() {
 }
 
 updateGreeting();
+updateBrandName();
 
 // 2. Clock Options
 var settingShowClock = $("#settingShowClock");
@@ -1279,14 +1303,35 @@ presetBtns.forEach(function(btn) {
 
 document.documentElement.setAttribute("data-preset", settings.themePreset);
 
-// 5. Font Selector
-var settingFont = $("#settingFont");
+// 5. Font Selector (Custom Dropdown)
+var fontDropdown = document.getElementById("fontDropdown");
+var fontSelected = document.getElementById("fontSelected");
+var fontOptions = fontDropdown.querySelectorAll(".dropdown-option");
 
-settingFont.value = settings.fontFamily;
-settingFont.addEventListener("change", function() {
-  settings.fontFamily = this.value;
-  save(SETTINGS_KEYS.fontFamily, settings.fontFamily);
-  document.body.style.fontFamily = "'" + settings.fontFamily + "', -apple-system, BlinkMacSystemFont, sans-serif";
+fontSelected.textContent = settings.fontFamily;
+fontOptions.forEach(function(opt) {
+  if (opt.dataset.value === settings.fontFamily) opt.classList.add("selected");
+});
+
+fontSelected.addEventListener("click", function(e) {
+  e.stopPropagation();
+  fontDropdown.classList.toggle("open");
+});
+
+fontOptions.forEach(function(opt) {
+  opt.addEventListener("click", function() {
+    settings.fontFamily = this.dataset.value;
+    save(SETTINGS_KEYS.fontFamily, settings.fontFamily);
+    fontSelected.textContent = settings.fontFamily;
+    fontOptions.forEach(function(o) { o.classList.remove("selected"); });
+    this.classList.add("selected");
+    fontDropdown.classList.remove("open");
+    document.body.style.fontFamily = "'" + settings.fontFamily + "', -apple-system, BlinkMacSystemFont, sans-serif";
+  });
+});
+
+document.addEventListener("click", function() {
+  fontDropdown.classList.remove("open");
 });
 
 document.body.style.fontFamily = "'" + settings.fontFamily + "', -apple-system, BlinkMacSystemFont, sans-serif";
@@ -1612,6 +1657,8 @@ renderHabits();
 // 13. Custom Wallpaper
 var settingWallpaper = $("#settingWallpaper");
 var settingWallpaperDim = $("#settingWallpaperDim");
+var wallpaperUpload = document.getElementById("wallpaperUpload");
+var wallpaperClear = document.getElementById("wallpaperClear");
 
 settingWallpaper.value = settings.wallpaper;
 settingWallpaperDim.checked = settings.wallpaperDim;
@@ -1636,6 +1683,27 @@ settingWallpaper.addEventListener("input", function() {
 settingWallpaperDim.addEventListener("change", function() {
   settings.wallpaperDim = this.checked;
   save(SETTINGS_KEYS.wallpaperDim, settings.wallpaperDim);
+  updateWallpaper();
+});
+
+wallpaperUpload.addEventListener("change", function(e) {
+  var file = e.target.files[0];
+  if (file) {
+    var reader = new FileReader();
+    reader.onload = function(event) {
+      settings.wallpaper = event.target.result;
+      save(SETTINGS_KEYS.wallpaper, settings.wallpaper);
+      settingWallpaper.value = "";
+      updateWallpaper();
+    };
+    reader.readAsDataURL(file);
+  }
+});
+
+wallpaperClear.addEventListener("click", function() {
+  settings.wallpaper = "";
+  save(SETTINGS_KEYS.wallpaper, settings.wallpaper);
+  settingWallpaper.value = "";
   updateWallpaper();
 });
 
@@ -1670,14 +1738,125 @@ analyticsDisplay.style.display = settings.showAnalytics ? "flex" : "none";
 
 // 16. Ambient Sound
 var ambientWidget = $("#ambientWidget");
-var ambientSelect = $("#ambientSelect");
-var ambientVolume = $("#ambientVolume");
+var ambientPlayBtn = document.getElementById("ambientPlayBtn");
+var ambientSoundName = document.getElementById("ambientSoundName");
+var ambientProgressFill = document.getElementById("ambientProgressFill");
+var ambientSoundBtn = document.getElementById("ambientSoundBtn");
+var ambientSoundMenu = document.getElementById("ambientSoundMenu");
+var ambientVolume = document.getElementById("ambientVolume");
+var volumePercent = document.getElementById("volumePercent");
 var settingShowAmbient = $("#settingShowAmbient");
 
-settingShowAmbient.checked = settings.showAmbient;
-ambientSelect.value = settings.ambientSound;
-ambientVolume.value = settings.ambientVolume;
+var ambientAudio = null;
+var ambientIsPlaying = false;
+var ambientProgressInterval = null;
 
+var soundNames = {
+  "": "Select Sound",
+  "rain": "Rain",
+  "ocean": "Ocean",
+  "fire": "Fire",
+  "birds": "Birds",
+  "wind": "Wind",
+  "cafe": "Cafe"
+};
+
+var soundUrls = {
+  "rain": "https://assets.mixkit.co/active_storage/sfx/2515/2515-preview.mp3",
+  "ocean": "https://assets.mixkit.co/active_storage/sfx/2432/2432-preview.mp3",
+  "fire": "https://assets.mixkit.co/active_storage/sfx/2521/2521-preview.mp3",
+  "birds": "https://assets.mixkit.co/active_storage/sfx/2430/2430-preview.mp3",
+  "wind": "https://assets.mixkit.co/active_storage/sfx/2528/2528-preview.mp3",
+  "cafe": "https://assets.mixkit.co/active_storage/sfx/2508/2508-preview.mp3"
+};
+
+function updateAmbientUI() {
+  ambientSoundName.textContent = soundNames[settings.ambientSound] || "Select Sound";
+  volumePercent.textContent = settings.ambientVolume + "%";
+  ambientVolume.value = settings.ambientVolume;
+  
+  document.querySelectorAll(".sound-option").forEach(function(opt) {
+    opt.classList.toggle("active", opt.dataset.sound === settings.ambientSound);
+  });
+  
+  if (ambientAudio) {
+    ambientAudio.volume = settings.ambientVolume / 100;
+  }
+}
+
+function loadAmbientSound(sound) {
+  if (ambientAudio) {
+    ambientAudio.pause();
+    ambientAudio = null;
+  }
+  if (ambientIsPlaying) {
+    ambientIsPlaying = false;
+    ambientPlayBtn.classList.remove("playing");
+    clearInterval(ambientProgressInterval);
+  }
+  
+  if (sound && soundUrls[sound]) {
+    ambientAudio = new Audio(soundUrls[sound]);
+    ambientAudio.loop = true;
+    ambientAudio.volume = settings.ambientVolume / 100;
+  }
+}
+
+function toggleAmbientPlay() {
+  if (!settings.ambientSound || !ambientAudio) return;
+  
+  if (ambientIsPlaying) {
+    ambientAudio.pause();
+    ambientIsPlaying = false;
+    ambientPlayBtn.classList.remove("playing");
+    clearInterval(ambientProgressInterval);
+  } else {
+    ambientAudio.play().catch(function() {});
+    ambientIsPlaying = true;
+    ambientPlayBtn.classList.add("playing");
+    ambientProgressFill.style.width = "0%";
+    ambientProgressInterval = setInterval(function() {
+      if (ambientAudio && ambientAudio.duration) {
+        var progress = (ambientAudio.currentTime / ambientAudio.duration) * 100;
+        ambientProgressFill.style.width = progress + "%";
+      }
+    }, 500);
+  }
+}
+
+ambientPlayBtn.addEventListener("click", toggleAmbientPlay);
+
+ambientSoundBtn.addEventListener("click", function(e) {
+  e.stopPropagation();
+  ambientSoundMenu.classList.toggle("open");
+});
+
+document.querySelectorAll(".sound-option").forEach(function(opt) {
+  opt.addEventListener("click", function() {
+    settings.ambientSound = this.dataset.sound;
+    save(SETTINGS_KEYS.ambientSound, settings.ambientSound);
+    loadAmbientSound(settings.ambientSound);
+    ambientSoundMenu.classList.remove("open");
+    updateAmbientUI();
+  });
+});
+
+ambientVolume.addEventListener("input", function() {
+  settings.ambientVolume = parseInt(this.value, 10);
+  save(SETTINGS_KEYS.ambientVolume, settings.ambientVolume);
+  volumePercent.textContent = settings.ambientVolume + "%";
+  if (ambientAudio) {
+    ambientAudio.volume = settings.ambientVolume / 100;
+  }
+});
+
+document.addEventListener("click", function(e) {
+  if (!ambientSoundMenu.contains(e.target) && e.target !== ambientSoundBtn) {
+    ambientSoundMenu.classList.remove("open");
+  }
+});
+
+settingShowAmbient.checked = settings.showAmbient;
 settingShowAmbient.addEventListener("change", function() {
   settings.showAmbient = this.checked;
   save(SETTINGS_KEYS.showAmbient, settings.showAmbient);
@@ -1685,6 +1864,8 @@ settingShowAmbient.addEventListener("change", function() {
 });
 
 ambientWidget.classList.toggle("visible", settings.showAmbient);
+loadAmbientSound(settings.ambientSound);
+updateAmbientUI();
 
 // 18. Import/Export
 var exportBtn = $("#exportSettings");
