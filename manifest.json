@@ -13,7 +13,6 @@
   },
   "permissions": ["identity"],
   "host_permissions": [
-    "https://suggestqueries.google.com/*",
-    "https://api.openweathermap.org/*"
+    "https://suggestqueries.google.com/*"
   ]
 }

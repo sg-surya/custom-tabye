@@ -51,25 +51,8 @@
   <!-- Animated Background Gradient -->
   <div class="vasudev-bg-gradient" id="bgGradient"></div>
 
-  <!-- Gmail Profile (top right) -->
-  <div class="gmail-profile" id="gmailProfile">
-    <a href="https://mail.google.com" class="gmail-link" title="Gmail">
-      <img src="https://www.google.com/s2/favicons?domain=gmail.com&sz=128" alt="Gmail" class="gmail-icon">
-    </a>
-    <img src="" alt="Profile" class="profile-pic" id="profilePic">
-  </div>
-
   <!-- Main Content -->
   <main class="main-container" id="vasudevMain">
-
-    <!-- Clock & Greeting -->
-    <section class="time-section">
-      <div class="time" id="clock">
-        <span id="hours">--</span><span class="time-colon">:</span><span id="minutes">--</span>
-      </div>
-      <div class="date" id="dateDisplay"></div>
-      <div class="greeting" id="greeting"></div>
-    </section>
 
     <!-- Branding -->
     <section class="branding">
@@ -90,62 +73,21 @@
       </div>
     </section>
 
-    <!-- Widgets Section -->
-    <section class="widgets-container" id="widgetsPanel">
-
-      <!-- Notes Widget -->
-      <div class="widget">
-        <div class="widget-header">
-          <svg class="widget-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
-            <path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
-          </svg>
-          <span class="widget-title">Notes</span>
-        </div>
-        <textarea class="notes-input" id="notesArea" placeholder="Write something..."></textarea>
-      </div>
-
-      <!-- Tasks Widget -->
-      <div class="widget">
-        <div class="widget-header">
-          <svg class="widget-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
-            <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
-          </svg>
-          <span class="widget-title">Tasks</span>
-          <button class="clear-done-btn" id="clearDone" title="Clear completed">Clear</button>
-        </div>
-        <ul class="task-list" id="taskList"></ul>
-        <div class="task-add">
-          <input type="text" class="task-input" id="newTaskInput" placeholder="Add a task...">
-        </div>
-      </div>
-
-      <!-- Calendar Widget -->
-      <div class="widget">
-        <div class="widget-header">
-          <svg class="widget-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
-            <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-          </svg>
-          <span class="widget-title" id="calendarMonth"></span>
-        </div>
-        <div class="calendar-grid" id="calendarGrid"></div>
-      </div>
-
-    </section>
   </main>
 
   <!-- Dock (icons only, no labels) -->
   <nav class="dock" id="vasudevDock">
     <a href="https://vasudev.online" class="dock-item" title="Vasudev AI">
-      <img src="https://www.google.com/s2/favicons?domain=vasudev.online&sz=128" alt="Vasudev AI" class="dock-icon">
+      <div class="dock-icon">V</div>
     </a>
     <a href="https://youtube.com" class="dock-item" title="YouTube">
-      <img src="https://www.google.com/s2/favicons?domain=youtube.com&sz=128" alt="YouTube" class="dock-icon">
+      <div class="dock-icon">Y</div>
     </a>
     <a href="https://chatgpt.com" class="dock-item" title="ChatGPT">
-      <img src="https://www.google.com/s2/favicons?domain=chatgpt.com&sz=128" alt="ChatGPT" class="dock-icon">
+      <div class="dock-icon">C</div>
     </a>
     <a href="https://github.com" class="dock-item" title="GitHub">
-      <img src="https://www.google.com/s2/favicons?domain=github.com&sz=128" alt="GitHub" class="dock-icon">
+      <div class="dock-icon">G</div>
     </a>
     <!-- Separator -->
     <div class="dock-separator"></div>
@@ -157,23 +99,8 @@
     </button>
   </nav>
 
-  <!-- Bottom Right Controls (Theme, Widgets, Settings) -->
+  <!-- Bottom Right Controls (Settings) -->
   <div class="bottom-controls" id="bottomControls">
-    <button class="icon-btn" id="widgetToggle" title="Toggle Widgets (W)">
-      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
-        <rect x="3" y="3" width="7" height="7" rx="1.5"/>
-        <rect x="14" y="3" width="7" height="7" rx="1.5"/>
-        <rect x="3" y="14" width="7" height="7" rx="1.5"/>
-        <rect x="14" y="14" width="7" height="7" rx="1.5"/>
-      </svg>
-      <span class="key-hint">W</span>
-    </button>
-    <button class="icon-btn" id="themeToggle" title="Toggle Theme (T)">
-      <svg id="themeIcon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
-        <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
-      </svg>
-      <span class="key-hint">T</span>
-    </button>
     <button class="icon-btn" id="settingsToggle" title="Settings (S)">
       <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
         <path d="M12 15a3 3 0 100-6 3 3 0 000 6z"/>
@@ -182,6 +109,13 @@
       <span class="key-hint">S</span>
     </button>
   </div>
+
+  <!-- Bottom Clock -->
+  <section class="time-section bottom-clock" id="bottomClockSection">
+    <div class="time" id="clock">
+      <span class="time-value" id="clockValue">--:-- AM</span>
+    </div>
+  </section>
 
   <!-- Add Website Modal -->
   <div class="modal-overlay" id="addSiteModal">
@@ -207,84 +141,6 @@
     </div>
   </div>
 
-  <!-- Quotes Widget (floating, shown when enabled) -->
-  <div class="quotes-widget" id="quotesWidget">
-    <p class="quote-text" id="quoteText"></p>
-    <span class="quote-author" id="quoteAuthor"></span>
-  </div>
-
-  <!-- Weather Widget (floating, shown when enabled) -->
-  <div class="weather-widget" id="weatherWidget">
-    <div class="weather-icon" id="weatherIcon"></div>
-    <div class="weather-info">
-      <span class="weather-temp" id="weatherTemp">--&deg;</span>
-      <span class="weather-desc" id="weatherDesc">--</span>
-      <span class="weather-city" id="weatherCity">--</span>
-    </div>
-  </div>
-
-  <!-- Pomodoro Timer Widget (floating, shown when enabled) -->
-  <div class="pomodoro-widget" id="pomodoroWidget">
-    <div class="pomo-display" id="pomoDisplay">25:00</div>
-    <div class="pomo-label" id="pomoLabel">Focus</div>
-    <div class="pomo-controls">
-      <button class="pomo-btn" id="pomoStart" title="Start/Pause">&#9654;</button>
-      <button class="pomo-btn" id="pomoReset" title="Reset">&#8634;</button>
-    </div>
-  </div>
-
-  <!-- Habit Tracker Widget (floating, shown when enabled) -->
-  <div class="habit-widget" id="habitWidget">
-    <div class="habit-header">
-      <span class="habit-title">Habits</span>
-      <button class="habit-add-btn" id="habitAddBtn" title="Add habit">+</button>
-    </div>
-    <ul class="habit-list" id="habitList"></ul>
-  </div>
-
-  <!-- Quick Links Grid Widget (floating, shown when enabled) -->
-  <div class="quicklinks-widget" id="quickLinksWidget">
-    <div class="quicklinks-header">
-      <span class="quicklinks-title">Quick Links</span>
-    </div>
-    <div class="quicklinks-grid" id="quickLinksGrid"></div>
-  </div>
-
-  <!-- Ambient Sound Widget (floating mini-player) -->
-  <div class="ambient-widget" id="ambientWidget">
-    <div class="ambient-player">
-      <button class="ambient-play-btn" id="ambientPlayBtn">
-        <svg class="play-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-        <svg class="pause-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
-      </button>
-      <div class="ambient-info">
-        <span class="ambient-sound-name" id="ambientSoundName">Select Sound</span>
-        <div class="ambient-progress-bar">
-          <div class="ambient-progress-fill" id="ambientProgressFill"></div>
-        </div>
-      </div>
-      <button class="ambient-sound-btn" id="ambientSoundBtn">
-        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-          <path d="M12 3v18M3 12h18M5.64 5.64l12.72 12.72M18.36 5.64L5.64 18.36"/>
-        </svg>
-      </button>
-    </div>
-    <div class="ambient-sound-menu" id="ambientSoundMenu">
-      <div class="sound-option" data-sound="">Off</div>
-      <div class="sound-option" data-sound="rain">🌧️ Rain</div>
-      <div class="sound-option" data-sound="ocean">🌊 Ocean</div>
-      <div class="sound-option" data-sound="fire">🔥 Fire</div>
-      <div class="sound-option" data-sound="birds">🐦 Birds</div>
-      <div class="sound-option" data-sound="wind">💨 Wind</div>
-      <div class="sound-option" data-sound="cafe">☕ Cafe</div>
-    </div>
-    <div class="ambient-volume-row">
-      <svg class="volume-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
-      <input type="range" class="ambient-volume" id="ambientVolume" min="0" max="100" value="50">
-      <span class="volume-percent" id="volumePercent">50%</span>
-    </div>
-  </div>
-
   <!-- Settings Panel Overlay -->
   <div class="settings-overlay" id="settingsOverlay">
     <div class="settings-panel" id="settingsPanel">
@@ -298,18 +154,20 @@
       </div>
       <div class="settings-body" id="settingsBody">
 
-        <!-- 1. Greeting / User Name -->
-        <div class="settings-section">
-          <div class="settings-section-title">Greeting</div>
-          <label class="settings-label">Your Name</label>
-          <input type="text" class="settings-input" id="settingUserName" placeholder="Enter your name...">
-        </div>
-
-        <!-- 1b. Brand Name -->
+        <!-- 1. Brand Name -->
         <div class="settings-section">
           <div class="settings-section-title">Brand Name</div>
           <label class="settings-label">Display Name</label>
           <input type="text" class="settings-input" id="settingBrandName" placeholder="Vasudev AI" value="Vasudev AI">
+          <label class="settings-label" style="margin-top:10px">Title Color</label>
+          <input type="color" class="color-custom" id="settingTitleColor" value="#34C759" title="Title color">
+          <div class="settings-range-row" style="margin-top:10px">
+            <div class="settings-range-head">
+              <label class="settings-label" for="settingTitleShadow">Title Shadow</label>
+              <span class="settings-value" id="titleShadowValue">35%</span>
+            </div>
+            <input type="range" class="settings-range" id="settingTitleShadow" min="0" max="100" step="1" value="35">
+          </div>
         </div>
 
         <!-- 2. Clock Options -->
@@ -345,9 +203,37 @@
           </div>
         </div>
 
-        <!-- 4. Theme Presets -->
+        <!-- 4. Background Colors -->
+        <div class="settings-section">
+          <div class="settings-section-title">Background Colors</div>
+          <div class="settings-row">
+            <label class="settings-label">Background Mode</label>
+            <select class="settings-input settings-input-sm bg-mode-select" id="settingBgMode">
+              <option value="default">Default</option>
+              <option value="solid">Solid</option>
+              <option value="gradient">Gradient</option>
+            </select>
+          </div>
+          <div class="settings-row" id="bgSolidRow">
+            <label class="settings-label">Solid Color</label>
+            <input type="color" class="color-custom" id="settingBgSolidColor" value="#131316" title="Solid color">
+          </div>
+          <div id="bgGradientRow">
+            <label class="settings-label">Gradient Colors</label>
+            <div class="settings-color-row" style="margin-top:6px">
+              <input type="color" class="color-custom" id="settingBgGradientFrom" value="#0f172a" title="Gradient from">
+              <input type="color" class="color-custom" id="settingBgGradientTo" value="#1f2937" title="Gradient to">
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. Theme Presets -->
         <div class="settings-section">
           <div class="settings-section-title">Theme Presets</div>
+          <div class="settings-row" style="margin-bottom:10px">
+            <label class="settings-label">Dark Theme</label>
+            <label class="settings-toggle"><input type="checkbox" id="settingDarkTheme"><span class="toggle-slider"></span></label>
+          </div>
           <div class="settings-preset-row" id="themePresetRow">
             <button class="preset-btn active" data-preset="default">Default</button>
             <button class="preset-btn" data-preset="midnight">Midnight</button>
@@ -358,7 +244,7 @@
           </div>
         </div>
 
-        <!-- 5. Font Selector -->
+        <!-- 6. Font Selector -->
         <div class="settings-section">
           <div class="settings-section-title">Font</div>
           <div class="custom-dropdown" id="fontDropdown">
@@ -373,91 +259,91 @@
           </div>
         </div>
 
-        <!-- 6. Layout Options -->
+        <!-- 7. Search Bar -->
         <div class="settings-section">
-          <div class="settings-section-title">Layout</div>
-          <div class="settings-preset-row" id="layoutPresetRow">
-            <button class="preset-btn active" data-layout="center">Center</button>
-            <button class="preset-btn" data-layout="compact">Compact</button>
-            <button class="preset-btn" data-layout="minimal">Minimal</button>
-          </div>
-        </div>
-
-        <!-- 7. Focus Mode -->
-        <div class="settings-section">
-          <div class="settings-section-title">Focus Mode</div>
-          <div class="settings-row">
-            <label class="settings-label">Hide everything except search</label>
-            <label class="settings-toggle"><input type="checkbox" id="settingFocusMode"><span class="toggle-slider"></span></label>
-          </div>
-        </div>
-
-        <!-- 8. Quotes Widget -->
-        <div class="settings-section">
-          <div class="settings-section-title">Quotes / Motivation</div>
-          <div class="settings-row">
-            <label class="settings-label">Show Daily Quote</label>
-            <label class="settings-toggle"><input type="checkbox" id="settingShowQuotes"><span class="toggle-slider"></span></label>
-          </div>
-        </div>
-
-        <!-- 9. Weather Widget -->
-        <div class="settings-section">
-          <div class="settings-section-title">Weather</div>
-          <div class="settings-row">
-            <label class="settings-label">Show Weather</label>
-            <label class="settings-toggle"><input type="checkbox" id="settingShowWeather"><span class="toggle-slider"></span></label>
-          </div>
-          <label class="settings-label">City</label>
-          <input type="text" class="settings-input" id="settingWeatherCity" placeholder="e.g. London">
-          <div class="settings-row" style="margin-top:8px">
-            <label class="settings-label">Celsius</label>
-            <label class="settings-toggle"><input type="checkbox" id="settingWeatherCelsius" checked><span class="toggle-slider"></span></label>
-          </div>
-        </div>
-
-        <!-- 10. Pomodoro Timer -->
-        <div class="settings-section">
-          <div class="settings-section-title">Pomodoro Timer</div>
-          <div class="settings-row">
-            <label class="settings-label">Show Timer</label>
-            <label class="settings-toggle"><input type="checkbox" id="settingShowPomodoro"><span class="toggle-slider"></span></label>
-          </div>
-          <label class="settings-label">Focus Duration (min)</label>
-          <input type="number" class="settings-input" id="settingPomoDuration" value="25" min="1" max="120">
-          <label class="settings-label" style="margin-top:6px">Break Duration (min)</label>
-          <input type="number" class="settings-input" id="settingPomoBreak" value="5" min="1" max="30">
-        </div>
-
-        <!-- 11. Quick Links Grid -->
-        <div class="settings-section">
-          <div class="settings-section-title">Quick Links</div>
-          <div class="settings-row">
-            <label class="settings-label">Show Quick Links</label>
-            <label class="settings-toggle"><input type="checkbox" id="settingShowQuickLinks"><span class="toggle-slider"></span></label>
-          </div>
-          <div id="quickLinksManager">
-            <div class="quicklink-inputs">
-              <input type="text" class="settings-input settings-input-sm" id="qlName" placeholder="Name">
-              <input type="text" class="settings-input settings-input-sm" id="qlUrl" placeholder="URL">
-              <button class="settings-btn-sm" id="qlAdd">+</button>
+          <div class="settings-section-title">Search Bar</div>
+          <div class="settings-hint">Tune the search bar to match your theme.</div>
+          <div class="search-settings-grid">
+            <div class="search-settings-pair">
+              <div class="settings-field">
+                <label class="settings-label" for="settingSearchBgColor">Background</label>
+                <input type="color" class="color-custom" id="settingSearchBgColor" value="#2b2b2f" title="Search background">
+              </div>
+              <div class="settings-field">
+                <label class="settings-label" for="settingSearchTextColor">Text Color</label>
+                <input type="color" class="color-custom" id="settingSearchTextColor" value="#ffffff" title="Search text">
+              </div>
             </div>
-            <ul class="ql-list" id="qlList"></ul>
+
+            <div class="settings-range-row">
+              <div class="settings-range-head">
+                <label class="settings-label" for="settingSearchRadius">Border Radius</label>
+                <span class="settings-value" id="searchRadiusValue">20px</span>
+              </div>
+              <input type="range" class="settings-range" id="settingSearchRadius" min="12" max="28" step="1" value="20">
+            </div>
+
+            <div class="settings-range-row">
+              <div class="settings-range-head">
+                <label class="settings-label" for="settingSearchWidth">Width</label>
+                <span class="settings-value" id="searchWidthValue">560px</span>
+              </div>
+              <input type="range" class="settings-range" id="settingSearchWidth" min="420" max="760" step="10" value="560">
+            </div>
+
+            <div class="settings-range-row">
+              <div class="settings-range-head">
+                <label class="settings-label" for="settingSearchShadow">Shadow</label>
+                <span class="settings-value" id="searchShadowValue">55%</span>
+              </div>
+              <input type="range" class="settings-range" id="settingSearchShadow" min="0" max="100" step="1" value="55">
+            </div>
+
+            <div class="search-preview-card">
+              <div class="search-preview-label">Live preview</div>
+              <div class="search-preview-bar" id="searchPreviewBar">
+                <span class="search-preview-icon">⌕</span>
+                <span class="search-preview-placeholder" id="searchPreviewPlaceholder">Search the web</span>
+              </div>
+            </div>
           </div>
         </div>
 
-        <!-- 12. Habit Tracker -->
+        <!-- 8. Suggestions Dropdown -->
         <div class="settings-section">
-          <div class="settings-section-title">Habit Tracker</div>
-          <div class="settings-row">
-            <label class="settings-label">Show Habits</label>
-            <label class="settings-toggle"><input type="checkbox" id="settingShowHabits"><span class="toggle-slider"></span></label>
+          <div class="settings-section-title">Suggestions</div>
+          <div class="settings-hint">Customize the dropdown that appears while typing.</div>
+          <div class="search-settings-grid">
+            <div class="search-settings-pair">
+              <div class="settings-field">
+                <label class="settings-label" for="settingOmniBgColor">Background</label>
+                <input type="color" class="color-custom" id="settingOmniBgColor" value="#1f2028" title="Suggestions background">
+              </div>
+              <div class="settings-field">
+                <label class="settings-label" for="settingOmniTextColor">Text Color</label>
+                <input type="color" class="color-custom" id="settingOmniTextColor" value="#f5f5f7" title="Suggestions text color">
+              </div>
+            </div>
+
+            <div class="search-settings-pair">
+              <div class="settings-field">
+                <label class="settings-label" for="settingOmniHighlightColor">Highlight</label>
+                <input type="color" class="color-custom" id="settingOmniHighlightColor" value="#34c759" title="Suggestions highlight color">
+              </div>
+              <div class="settings-range-row">
+                <div class="settings-range-head">
+                  <label class="settings-label" for="settingOmniRadius">Corner Radius</label>
+                  <span class="settings-value" id="omniRadiusValue">20px</span>
+                </div>
+                <input type="range" class="settings-range" id="settingOmniRadius" min="10" max="28" step="1" value="20">
+              </div>
+            </div>
           </div>
         </div>
 
-        <!-- 13. Custom Background -->
+        <!-- 9. Custom Background Image -->
         <div class="settings-section">
-          <div class="settings-section-title">Background</div>
+          <div class="settings-section-title">Background Image</div>
           <label class="settings-label">Wallpaper URL (leave empty for default)</label>
           <input type="text" class="settings-input" id="settingWallpaper" placeholder="https://example.com/image.jpg">
           <div class="wallpaper-upload-row">
@@ -473,47 +359,31 @@
           </div>
         </div>
 
-        <!-- 14. Bookmark Shortcuts -->
+        <!-- 10. Bookmark Shortcuts -->
+        <div class="settings-section">
+          <div class="settings-section-title">Tab Icon</div>
+          <label class="settings-label">Icon URL (png/svg/ico)</label>
+          <input type="text" class="settings-input" id="settingTabIcon" placeholder="https://example.com/favicon.png">
+          <div class="wallpaper-upload-row">
+            <label class="wallpaper-upload-btn">
+              <input type="file" id="tabIconUpload" accept="image/*,.ico,.svg" hidden>
+              <span>Upload Icon</span>
+            </label>
+            <button class="wallpaper-clear-btn" id="tabIconClear">Clear</button>
+          </div>
+        </div>
+
+        <!-- 11. Bookmark Shortcuts -->
         <div class="settings-section">
           <div class="settings-section-title">Bookmark Shortcuts</div>
+          <div class="settings-row">
+            <label class="settings-label">Show Dock</label>
+            <label class="settings-toggle"><input type="checkbox" id="settingShowDock" checked><span class="toggle-slider"></span></label>
+          </div>
           <p class="settings-hint">Your dock sites act as bookmarks. Add more via the + button in the dock.</p>
         </div>
 
-        <!-- 15. Analytics / Screen Time -->
-        <div class="settings-section">
-          <div class="settings-section-title">Screen Time</div>
-          <div class="settings-row">
-            <label class="settings-label">Track Tab Opens</label>
-            <label class="settings-toggle"><input type="checkbox" id="settingShowAnalytics"><span class="toggle-slider"></span></label>
-          </div>
-          <div class="analytics-display" id="analyticsDisplay">
-            <div class="analytics-stat">
-              <span class="analytics-num" id="analyticsTabCount">0</span>
-              <span class="analytics-label">tabs today</span>
-            </div>
-            <div class="analytics-stat">
-              <span class="analytics-num" id="analyticsTotal">0</span>
-              <span class="analytics-label">total tabs</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- 16. Ambient Sound -->
-        <div class="settings-section">
-          <div class="settings-section-title">Ambient Sound</div>
-          <div class="settings-row">
-            <label class="settings-label">Show Ambient Player</label>
-            <label class="settings-toggle"><input type="checkbox" id="settingShowAmbient"><span class="toggle-slider"></span></label>
-          </div>
-        </div>
-
-        <!-- 17. Drag & Drop Layout -->
-        <div class="settings-section">
-          <div class="settings-section-title">Widget Layout</div>
-          <p class="settings-hint">Drag widgets to reorder them on the main page. Toggle widgets with the W key.</p>
-        </div>
-
-        <!-- 18. Import / Export Settings -->
+        <!-- 11. Import / Export Settings -->
         <div class="settings-section">
           <div class="settings-section-title">Import / Export</div>
           <div class="settings-btn-row">
@@ -523,21 +393,19 @@
           </div>
         </div>
 
-        <!-- 19. Keyboard Shortcuts -->
+        <!-- 12. Keyboard Shortcuts -->
         <div class="settings-section">
           <div class="settings-section-title">Keyboard Shortcuts</div>
           <div class="shortcuts-grid">
             <kbd>/</kbd><span>Focus search</span>
             <kbd>T</kbd><span>Toggle theme</span>
-            <kbd>W</kbd><span>Toggle widgets</span>
             <kbd>S</kbd><span>Open settings</span>
             <kbd>?</kbd><span>Show shortcuts</span>
             <kbd>Esc</kbd><span>Close / unfocus</span>
-            <kbd>F</kbd><span>Toggle focus mode</span>
           </div>
         </div>
 
-        <!-- 20. Reset -->
+        <!-- 13. Reset -->
         <div class="settings-section">
           <div class="settings-section-title">Reset</div>
           <button class="settings-btn settings-btn-danger" id="resetAllSettings">Reset All Settings</button>
@@ -562,10 +430,8 @@
         <div class="shortcuts-grid shortcuts-grid-lg">
           <kbd>/</kbd><span>Focus search bar</span>
           <kbd>T</kbd><span>Toggle light / dark theme</span>
-          <kbd>W</kbd><span>Toggle widgets panel</span>
           <kbd>S</kbd><span>Open / close settings</span>
           <kbd>?</kbd><span>Show this shortcuts panel</span>
-          <kbd>F</kbd><span>Toggle focus mode</span>
           <kbd>Esc</kbd><span>Close panel / unfocus</span>
           <kbd>Enter</kbd><span>Search or select suggestion</span>
           <kbd>&uarr; &darr;</kbd><span>Navigate search suggestions</span>
@@ -577,9 +443,6 @@
   <!-- Custom Wallpaper Layer -->
   <div class="wallpaper-layer" id="wallpaperLayer"></div>
 
-  <!-- Focus Mode Overlay (dims everything except search) -->
-  <div class="focus-overlay" id="focusOverlay"></div>
-
   <!-- GitHub Open Source Badge -->
   <a href="https://github.com/sg-surya/custom-tabye" target="_blank" class="github-badge" id="githubBadge" title="View on GitHub - Open Source">
     <svg class="github-badge-icon" viewBox="0 0 24 24" fill="currentColor">
@@ -587,11 +450,6 @@
     </svg>
     <span class="github-badge-text">Open Source</span>
   </a>
-
-  <!-- Footer -->
-  <footer class="footer" id="vasudevFooter">
-    <a href="https://vasudev.online" target="_blank">Powered by Vasudev AI &middot; vasudev.online</a>
-  </footer>
 
   <script src="script.js"></script>
 </body>

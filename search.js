@@ -28,10 +28,7 @@
 
   // Local data
   var data = {
-    docks: [],
-    notes: "",
-    tasks: [],
-    links: []
+    docks: []
   };
 
   // Init
@@ -77,9 +74,6 @@
   function loadData() {
     try {
       data.docks = JSON.parse(localStorage.getItem("vasudev_dock_sites")) || getDefaultSites();
-      data.notes = localStorage.getItem("vasudev_notes") || "";
-      data.tasks = JSON.parse(localStorage.getItem("vasudev_tasks")) || [];
-      data.links = JSON.parse(localStorage.getItem("vasudev_quicklinks")) || [];
     } catch(e) {
       data.docks = getDefaultSites();
     }
@@ -140,13 +134,6 @@
     data.docks.forEach(function(s) {
       if (s.name && s.name.toLowerCase().includes(lower)) {
         omniList.push({ text: s.name, type: "bookmark" });
-      }
-    });
-
-    // Search links
-    data.links.forEach(function(l) {
-      if (l.name && l.name.toLowerCase().includes(lower)) {
-        omniList.push({ text: l.name, type: "link" });
       }
     });
 
@@ -222,44 +209,6 @@
           title: s.name,
           url: s.url,
           desc: "Bookmark • " + (s.domain || "")
-        });
-      }
-    });
-
-    // Search links
-    data.links.forEach(function(l) {
-      if (l.name && l.name.toLowerCase().includes(lower)) {
-        allResults.push({
-          type: "link",
-          icon: "🔗",
-          title: l.name,
-          url: l.url,
-          desc: "Quick link"
-        });
-      }
-    });
-
-    // Search notes
-    if (data.notes && data.notes.toLowerCase().includes(lower)) {
-      var preview = data.notes.substring(0, 120).replace(/\n/g, " ");
-      allResults.push({
-        type: "note",
-        icon: "📝",
-        title: "Note matching: " + q,
-        url: "index.html",
-        desc: preview
-      });
-    }
-
-    // Search tasks
-    data.tasks.forEach(function(t) {
-      if (t.text && t.text.toLowerCase().includes(lower)) {
-        allResults.push({
-          type: "task",
-          icon: t.done ? "✓" : "○",
-          title: t.text,
-          url: "index.html",
-          desc: t.done ? "Completed" : "Pending"
         });
       }
     });

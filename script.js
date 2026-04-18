@@ -13,37 +13,25 @@
   var OUR_IDS = [
     "curtain", "bgGradient", "vasudevTopBar", "vasudevMain",
     "vasudevDock", "vasudevFooter", "clock", "hours", "minutes",
-    "dateDisplay", "greeting", "searchInput", "themeToggle",
-    "themeIcon", "widgetToggle", "widgetsPanel", "notesArea",
-    "taskList", "newTaskInput", "clearDone", "calendarMonth",
-    "calendarGrid", "dockAddBtn", "addSiteModal", "modalCard",
+    "bottomClockSection", "clockValue", "ampm",
+    "dateDisplay", "greeting", "searchInput", "dockAddBtn", "addSiteModal", "modalCard",
     "modalClose", "siteUrlInput", "siteNameInput", "modalCancel",
     "modalAdd", "omniboxDropdown", "githubBadge",
     // Gmail Profile
     "gmailProfile", "profilePic", "bottomControls",
     // Settings Panel elements
     "settingsToggle", "settingsOverlay", "settingsPanel", "settingsClose", "settingsBody",
-    "settingUserName", "settingShowClock", "settingClock24h", "settingShowSeconds",
-    "settingCustomColor", "settingFont", "fontDropdown", "fontSelected", "settingFocusMode", "settingShowQuotes",
-    "settingShowWeather", "settingWeatherCity", "settingWeatherCelsius",
-    "settingShowPomodoro", "settingPomoDuration", "settingPomoBreak",
-    "settingShowQuickLinks", "settingShowHabits", "settingWallpaper", "settingWallpaperDim",
-    "settingShowAnalytics", "settingShowAmbient",
-    "qlName", "qlUrl", "qlList", "qlAdd",
+    "settingShowClock", "settingClock24h", "settingShowSeconds", "settingDarkTheme",
+    "settingBgMode", "settingBgSolidColor", "settingBgGradientFrom", "settingBgGradientTo", "bgSolidRow", "bgGradientRow",
+    "settingTitleColor",
+    "settingSearchBgColor", "settingSearchTextColor", "settingSearchRadius", "settingSearchWidth",
+    "settingTabIcon", "tabIconUpload", "tabIconClear",
+    "settingCustomColor", "settingFont", "fontDropdown", "fontSelected",
+    "settingWallpaper", "settingWallpaperDim",
     "exportSettings", "importSettings", "importFile", "resetAllSettings",
     "shortcutsOverlay", "shortcutsModal", "shortcutsClose",
-    // Widgets
-    "quotesWidget", "quoteText", "quoteAuthor",
-    "weatherWidget", "weatherIcon", "weatherTemp", "weatherDesc", "weatherCity",
-    "pomodoroWidget", "pomoDisplay", "pomoLabel", "pomoStart", "pomoReset",
-    "habitWidget", "habitList", "habitAddBtn",
-    "quickLinksWidget", "quickLinksGrid",
-    "ambientWidget", "ambientPlayBtn", "ambientSoundName", "ambientProgressFill", 
-    "ambientSoundBtn", "ambientSoundMenu", "ambientVolume", "volumePercent",
     // Overlays
-    "wallpaperLayer", "wallpaperUpload", "wallpaperClear", "focusOverlay",
-    // Analytics
-    "analyticsDisplay", "analyticsTabCount", "analyticsTotal"
+    "wallpaperLayer", "wallpaperUpload", "wallpaperClear"
   ];
 
   function isOurElement(node) {
@@ -52,96 +40,58 @@
     var tag = (node.tagName || "").toLowerCase();
     if (tag === "main" || tag === "nav" || tag === "footer" ||
         tag === "script" || tag === "link" || tag === "style" || tag === "head") return true;
-  if (node.classList) {
-    if (node.classList.contains("vasudev-curtain") ||
-        node.classList.contains("vasudev-bg-gradient") ||
-        node.classList.contains("top-bar") ||
-        node.classList.contains("dock") ||
-        node.classList.contains("footer") ||
-        node.classList.contains("main-container") ||
-        node.classList.contains("modal-overlay") ||
-        node.classList.contains("github-badge") ||
-        node.classList.contains("blob3") ||
-        node.classList.contains("blob4") ||
-        // Gmail Profile
-        node.classList.contains("gmail-profile") ||
-        node.classList.contains("gmail-link") ||
-        node.classList.contains("gmail-icon") ||
-        node.classList.contains("profile-pic") ||
-        node.classList.contains("dock-btn") ||
-        node.classList.contains("bottom-controls") ||
-        // Settings Panel
-        node.classList.contains("settings-overlay") ||
-        node.classList.contains("settings-panel") ||
-        node.classList.contains("settings-header") ||
-        node.classList.contains("settings-body") ||
-        node.classList.contains("settings-section") ||
-        node.classList.contains("settings-section-title") ||
-        node.classList.contains("settings-label") ||
-        node.classList.contains("settings-input") ||
-        node.classList.contains("settings-toggle") ||
-        node.classList.contains("toggle-slider") ||
-        node.classList.contains("color-swatch") ||
-        node.classList.contains("color-custom") ||
-        node.classList.contains("preset-btn") ||
-        node.classList.contains("settings-select") ||
-        node.classList.contains("settings-preset-row") ||
-        node.classList.contains("settings-color-row") ||
-        node.classList.contains("settings-row") ||
-        node.classList.contains("settings-btn") ||
-        node.classList.contains("settings-btn-sm") ||
-        node.classList.contains("settings-btn-row") ||
-        node.classList.contains("settings-btn-danger") ||
-        node.classList.contains("settings-hint") ||
-        node.classList.contains("settings-title") ||
-        node.classList.contains("settings-close") ||
-        // Widgets
-        node.classList.contains("quotes-widget") ||
-        node.classList.contains("weather-widget") ||
-        node.classList.contains("pomodoro-widget") ||
-        node.classList.contains("habit-widget") ||
-        node.classList.contains("quicklinks-widget") ||
-        node.classList.contains("ambient-widget") ||
-        // Shortcuts modal
-        node.classList.contains("shortcuts-overlay") ||
-        node.classList.contains("shortcuts-modal") ||
-        node.classList.contains("shortcuts-body") ||
-        node.classList.contains("shortcuts-grid") ||
-        node.classList.contains("shortcuts-grid-lg") ||
-        // Overlays
-        node.classList.contains("wallpaper-layer") ||
-        node.classList.contains("focus-overlay") ||
-        // Analytics
-        node.classList.contains("analytics-display") ||
-        node.classList.contains("analytics-stat") ||
-        node.classList.contains("analytics-num") ||
-        node.classList.contains("analytics-label") ||
-        // Quick Links
-        node.classList.contains("quicklink-inputs") ||
-        node.classList.contains("ql-list") ||
-        // Other
-        node.classList.contains("quote-text") ||
-        node.classList.contains("quote-author") ||
-        node.classList.contains("weather-icon") ||
-        node.classList.contains("weather-info") ||
-        node.classList.contains("weather-temp") ||
-        node.classList.contains("weather-desc") ||
-        node.classList.contains("weather-city") ||
-        node.classList.contains("pomo-display") ||
-        node.classList.contains("pomo-label") ||
-        node.classList.contains("pomo-controls") ||
-        node.classList.contains("pomo-btn") ||
-        node.classList.contains("habit-header") ||
-        node.classList.contains("habit-title") ||
-        node.classList.contains("habit-add-btn") ||
-        node.classList.contains("habit-list") ||
-        node.classList.contains("quicklinks-header") ||
-        node.classList.contains("quicklinks-title") ||
-        node.classList.contains("quicklinks-grid") ||
-        node.classList.contains("ambient-label") ||
-        node.classList.contains("ambient-select") ||
-        node.classList.contains("ambient-volume")) return true;
-  }
+  if (node.classList && (
+    node.classList.contains("vasudev-curtain") ||
+    node.classList.contains("vasudev-bg-gradient") ||
+    node.classList.contains("top-bar") ||
+    node.classList.contains("dock") ||
+    node.classList.contains("footer") ||
+    node.classList.contains("main-container") ||
+    node.classList.contains("modal-overlay") ||
+    node.classList.contains("github-badge") ||
+    node.classList.contains("blob3") ||
+    node.classList.contains("blob4") ||
+    // Gmail Profile
+    node.classList.contains("gmail-profile") ||
+    node.classList.contains("gmail-link") ||
+    node.classList.contains("gmail-icon") ||
+    node.classList.contains("profile-pic") ||
+    node.classList.contains("dock-btn") ||
+    node.classList.contains("bottom-controls") ||
+    // Settings Panel
+    node.classList.contains("settings-overlay") ||
+    node.classList.contains("settings-panel") ||
+    node.classList.contains("settings-header") ||
+    node.classList.contains("settings-body") ||
+    node.classList.contains("settings-section") ||
+    node.classList.contains("settings-section-title") ||
+    node.classList.contains("settings-label") ||
+    node.classList.contains("settings-input") ||
+    node.classList.contains("settings-toggle") ||
+    node.classList.contains("toggle-slider") ||
+    node.classList.contains("color-swatch") ||
+    node.classList.contains("color-custom") ||
+    node.classList.contains("preset-btn") ||
+    node.classList.contains("settings-select") ||
+    node.classList.contains("settings-preset-row") ||
+    node.classList.contains("settings-color-row") ||
+    node.classList.contains("settings-row") ||
+    node.classList.contains("settings-btn") ||
+    node.classList.contains("settings-btn-sm") ||
+    node.classList.contains("settings-btn-row") ||
+    node.classList.contains("settings-btn-danger") ||
+    node.classList.contains("settings-hint") ||
+    node.classList.contains("settings-title") ||
+    node.classList.contains("settings-close") ||
+    // Shortcuts modal
+    node.classList.contains("shortcuts-overlay") ||
+    node.classList.contains("shortcuts-modal") ||
+    node.classList.contains("shortcuts-body") ||
+    node.classList.contains("shortcuts-grid") ||
+    node.classList.contains("shortcuts-grid-lg") ||
+    // Overlays
+    node.classList.contains("wallpaper-layer")
+  )) return true;
   if (node.closest && (
     node.closest("#vasudevTopBar") ||
     node.closest("#vasudevMain") ||
@@ -155,14 +105,7 @@
     node.closest("#settingsPanel") ||
     node.closest("#shortcutsOverlay") ||
     node.closest("#shortcutsModal") ||
-    node.closest(".quotes-widget") ||
-    node.closest(".weather-widget") ||
-    node.closest(".pomodoro-widget") ||
-    node.closest(".habit-widget") ||
-    node.closest(".quicklinks-widget") ||
-    node.closest(".ambient-widget") ||
-    node.closest(".wallpaper-layer") ||
-    node.closest(".focus-overlay")
+    node.closest(".wallpaper-layer")
   )) return true;
     return false;
   }
@@ -254,21 +197,8 @@
   // DOM ELEMENTS
   // ========================================
   var $ = function (sel) { return document.querySelector(sel); };
-  var hoursEl = $("#hours");
-  var minutesEl = $("#minutes");
-  var dateEl = $("#dateDisplay");
-  var greetingEl = $("#greeting");
+  var clockValueEl = $("#clockValue");
   var searchInput = $("#searchInput");
-  var themeToggle = $("#themeToggle");
-  var themeIcon = $("#themeIcon");
-  var widgetToggle = $("#widgetToggle");
-  var widgetsPanel = $("#widgetsPanel");
-  var notesArea = $("#notesArea");
-  var taskList = $("#taskList");
-  var newTaskInput = $("#newTaskInput");
-  var clearDoneBtn = $("#clearDone");
-  var calendarMonth = $("#calendarMonth");
-  var calendarGrid = $("#calendarGrid");
   var dock = $("#vasudevDock");
   var dockAddBtn = $("#dockAddBtn");
   var modal = $("#addSiteModal");
@@ -285,9 +215,6 @@
   // ========================================
   var KEYS = {
     theme: "vasudev_theme",
-    notes: "vasudev_notes",
-    tasks: "vasudev_tasks",
-    widgets: "vasudev_widgets_visible",
     dockSites: "vasudev_dock_sites",
   };
 
@@ -321,45 +248,27 @@
   // ========================================
   // 1. THEME
   // ========================================
-  var sunPath = "M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z";
-  var moonPath = "M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z";
-
   var savedTheme = load(KEYS.theme, null);
   var systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
   var currentTheme = savedTheme || (systemDark ? "dark" : "light");
 
   document.documentElement.setAttribute("data-theme", currentTheme);
-  var initPath = themeIcon.querySelector("path");
-  if (initPath) {
-    initPath.setAttribute("d", currentTheme === "dark" ? moonPath : sunPath);
-  }
 
   function applyTheme(theme) {
     document.documentElement.setAttribute("data-theme", theme);
-    var path = themeIcon.querySelector("path");
-    if (path) {
-      themeIcon.style.transition = "transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s ease";
-      themeIcon.style.transform = "rotate(180deg) scale(0.5)";
-      themeIcon.style.opacity = "0";
-      setTimeout(function () {
-        path.setAttribute("d", theme === "dark" ? moonPath : sunPath);
-        themeIcon.style.transform = "rotate(0deg) scale(1)";
-        themeIcon.style.opacity = "1";
-      }, 200);
-    }
+  }
+
+  function toggleTheme() {
+    var cur = document.documentElement.getAttribute("data-theme");
+    var next = cur === "dark" ? "light" : "dark";
+    applyTheme(next);
+    save(KEYS.theme, next);
   }
 
   window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", function (e) {
     if (!load(KEYS.theme, null)) {
       applyTheme(e.matches ? "dark" : "light");
     }
-  });
-
-  themeToggle.addEventListener("click", function () {
-    var cur = document.documentElement.getAttribute("data-theme");
-    var next = cur === "dark" ? "light" : "dark";
-    applyTheme(next);
-    save(KEYS.theme, next);
   });
 
   // ========================================
@@ -373,27 +282,18 @@
     var m = now.getMinutes();
     // Check 24h from localStorage
     var is24h = localStorage.getItem("vasudev_clock_24h");
-    var use24h = is24h === null ? true : is24h === "true";
+    var use24h = is24h === null ? false : is24h === "true";
     
     var hStr = use24h 
       ? (h < 10 ? "0" + h : "" + h)
       : (h === 0 ? "12" : h > 12 ? "" + (h - 12) : "" + h);
     var mStr = m < 10 ? "0" + m : "" + m;
     var timeStr = hStr + ":" + mStr;
+    var displayTime = timeStr + " " + (h >= 12 ? "PM" : "AM");
 
-    if (timeStr !== lastTimeStr) {
-      lastTimeStr = timeStr;
-      hoursEl.textContent = hStr;
-      minutesEl.textContent = mStr;
-
-      if (h >= 5 && h < 12) greetingEl.textContent = "Good morning";
-      else if (h >= 12 && h < 17) greetingEl.textContent = "Good afternoon";
-      else if (h >= 17 && h < 21) greetingEl.textContent = "Good evening";
-      else greetingEl.textContent = "Good night";
-
-      var days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
-      var months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-      dateEl.textContent = days[now.getDay()] + ", " + months[now.getMonth()] + " " + now.getDate();
+    if (displayTime !== lastTimeStr) {
+      lastTimeStr = displayTime;
+      if (clockValueEl) clockValueEl.textContent = displayTime;
     }
 
     var msToNext = 1000 - now.getMilliseconds();
@@ -443,29 +343,8 @@
     });
   }
 
-  addRipple(themeToggle);
-  addRipple(widgetToggle);
-
   // ========================================
-  // 5. 3D TILT - SEARCH
-  // ========================================
-  searchWrapper.addEventListener("mousemove", function (e) {
-    var rect = searchWrapper.getBoundingClientRect();
-    var x = e.clientX - rect.left;
-    var y = e.clientY - rect.top;
-    var centerX = rect.width / 2;
-    var centerY = rect.height / 2;
-    var rotateX = ((y - centerY) / centerY) * -2.5;
-    var rotateY = ((x - centerX) / centerX) * 2.5;
-    searchWrapper.style.transform = "perspective(600px) rotateX(" + rotateX + "deg) rotateY(" + rotateY + "deg) translateY(-3px)";
-  });
-
-  searchWrapper.addEventListener("mouseleave", function () {
-    searchWrapper.style.transform = "perspective(600px) rotateX(0) rotateY(0) translateY(0)";
-  });
-
-  // ========================================
-  // 6. 3D TILT + MAGNETIC HOVER - DOCK
+  // 5. 3D TILT + MAGNETIC HOVER - DOCK
   // ========================================
   function setupDockTilt() {
     var items = document.querySelectorAll(".dock-item");
@@ -520,24 +399,9 @@
       a.className = "dock-item";
       a.title = site.name || site.domain;
 
-      var img = document.createElement("img");
-      img.src = "https://www.google.com/s2/favicons?domain=" + site.domain + "&sz=128";
-      img.alt = site.name || site.domain;
-      img.className = "dock-icon";
-      img.onerror = function () {
-        // Fallback: show first letter
-        this.style.display = "none";
-        var fallback = document.createElement("div");
-        fallback.className = "dock-icon";
-        fallback.style.display = "flex";
-        fallback.style.alignItems = "center";
-        fallback.style.justifyContent = "center";
-        fallback.style.fontSize = "14px";
-        fallback.style.fontWeight = "600";
-        fallback.style.color = "var(--text-secondary)";
-        fallback.textContent = (site.name || site.domain).charAt(0).toUpperCase();
-        a.insertBefore(fallback, this);
-      };
+      var icon = document.createElement("div");
+      icon.className = "dock-icon";
+      icon.textContent = (site.name || site.domain).charAt(0).toUpperCase();
 
       // Tooltip
       var tooltip = document.createElement("span");
@@ -556,7 +420,7 @@
         renderDock();
       });
 
-      a.appendChild(img);
+      a.appendChild(icon);
       a.appendChild(tooltip);
       a.appendChild(removeBtn);
       dock.appendChild(a);
@@ -911,145 +775,10 @@
   }
 
   // ========================================
-  // 10. WIDGETS TOGGLE
-  // ========================================
-  var widgetsVisible = load(KEYS.widgets, false);
-
-  function setWidgetsVisible(visible) {
-    widgetsVisible = visible;
-    if (visible) {
-      widgetsPanel.classList.add("visible");
-    } else {
-      widgetsPanel.style.transition = "opacity 0.25s ease, transform 0.25s ease";
-      widgetsPanel.style.opacity = "0";
-      widgetsPanel.style.transform = "translateY(8px) scale(0.98)";
-      setTimeout(function () {
-        widgetsPanel.classList.remove("visible");
-        widgetsPanel.style.opacity = "";
-        widgetsPanel.style.transform = "";
-        widgetsPanel.style.transition = "";
-      }, 250);
-    }
-    save(KEYS.widgets, visible);
-  }
-
-  if (widgetsVisible) {
-    widgetsPanel.classList.add("visible");
-    widgetsPanel.style.animation = "none";
-    widgetsPanel.style.opacity = "1";
-    widgetsPanel.style.transform = "none";
-  }
-
-  widgetToggle.addEventListener("click", function () {
-    setWidgetsVisible(!widgetsVisible);
-  });
-
-  // ========================================
-  // 11. NOTES
-  // ========================================
-  notesArea.value = load(KEYS.notes, "");
-  var notesTimer = null;
-  notesArea.addEventListener("input", function () {
-    clearTimeout(notesTimer);
-    notesTimer = setTimeout(function () { save(KEYS.notes, notesArea.value); }, 300);
-  });
-
-  // ========================================
-  // 12. TASKS
-  // ========================================
-  var tasks = load(KEYS.tasks, []);
-
-  function saveTasks() { save(KEYS.tasks, tasks); }
-
-  function renderTasks() {
-    taskList.innerHTML = "";
-    if (tasks.length === 0) {
-      var empty = document.createElement("li");
-      empty.className = "task-item";
-      empty.style.justifyContent = "center";
-      empty.style.opacity = "0.4";
-      empty.style.fontSize = "12px";
-      empty.style.padding = "12px 0";
-      empty.textContent = "No tasks yet";
-      taskList.appendChild(empty);
-      return;
-    }
-    tasks.forEach(function (task, index) {
-      var li = document.createElement("li");
-      li.className = "task-item";
-      li.style.animationDelay = (index * 0.04) + "s";
-
-      var checkbox = document.createElement("div");
-      checkbox.className = "task-checkbox" + (task.done ? " checked" : "");
-      checkbox.addEventListener("click", function () {
-        tasks[index].done = !tasks[index].done;
-        saveTasks();
-        renderTasks();
-      });
-
-      var text = document.createElement("span");
-      text.className = "task-text" + (task.done ? " completed" : "");
-      text.textContent = task.text;
-
-      li.appendChild(checkbox);
-      li.appendChild(text);
-      taskList.appendChild(li);
-    });
-  }
-
-  newTaskInput.addEventListener("keydown", function (e) {
-    if (e.key !== "Enter") return;
-    var val = newTaskInput.value.trim();
-    if (!val) return;
-    tasks.unshift({ text: val, done: false });
-    saveTasks();
-    newTaskInput.value = "";
-    newTaskInput.style.transform = "scale(0.97)";
-    setTimeout(function () { newTaskInput.style.transform = "scale(1)"; }, 120);
-    renderTasks();
-  });
-
-  clearDoneBtn.addEventListener("click", function () {
-    tasks = tasks.filter(function (t) { return !t.done; });
-    saveTasks();
-    renderTasks();
-  });
-
-  renderTasks();
-
-  // ========================================
-  // 13. CALENDAR
-  // ========================================
-  function renderCalendar() {
-    var now = new Date();
-    var year = now.getFullYear();
-    var month = now.getMonth();
-    var today = now.getDate();
-    var firstDay = new Date(year, month, 1).getDay();
-    var daysInMonth = new Date(year, month + 1, 0).getDate();
-    var monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-
-    calendarMonth.textContent = monthNames[month] + " " + year;
-
-    var html = "";
-    var dayNames = ["S","M","T","W","T","F","S"];
-    dayNames.forEach(function (d) { html += '<div class="cal-head">' + d + "</div>"; });
-    for (var i = 0; i < firstDay; i++) { html += '<div class="cal-day empty"></div>'; }
-    for (var d = 1; d <= daysInMonth; d++) {
-      html += '<div class="cal-day' + (d === today ? " today" : "") + '">' + d + "</div>";
-    }
-    calendarGrid.innerHTML = html;
-  }
-
-  renderCalendar();
-
-  // ========================================
-  // 14. KEYBOARD SHORTCUTS
+  // 10. KEYBOARD SHORTCUTS
   // ========================================
   document.addEventListener("keydown", function (e) {
     var isInputFocused = document.activeElement === searchInput ||
-                         document.activeElement === notesArea ||
-                         document.activeElement === newTaskInput ||
                          document.activeElement === siteUrlInput ||
                          document.activeElement === siteNameInput;
 
@@ -1066,45 +795,40 @@
       }
     }
     if (e.key === "t" && !isInputFocused) {
-      themeToggle.click();
+      toggleTheme();
     }
-if (e.key === "w" && !isInputFocused) {
-    widgetToggle.click();
-  }
-});
+  });
 
 // ========================================
 // SETTINGS PANEL - All 20 Features
 // ========================================
 var SETTINGS_KEYS = {
-  userName: "vasudev_user_name",
   brandName: "vasudev_brand_name",
+  titleColor: "vasudev_title_color",
+  titleShadow: "vasudev_title_shadow",
+  searchBgColor: "vasudev_search_bg_color",
+  searchTextColor: "vasudev_search_text_color",
+  searchRadius: "vasudev_search_radius",
+  searchWidth: "vasudev_search_width",
+  searchShadow: "vasudev_search_shadow",
+  omniBgColor: "vasudev_omni_bg_color",
+  omniTextColor: "vasudev_omni_text_color",
+  omniHighlightColor: "vasudev_omni_highlight_color",
+  omniRadius: "vasudev_omni_radius",
   showClock: "vasudev_show_clock",
+  showDock: "vasudev_show_dock",
   clock24h: "vasudev_clock_24h",
   showSeconds: "vasudev_show_seconds",
   accentColor: "vasudev_accent_color",
   themePreset: "vasudev_theme_preset",
   fontFamily: "vasudev_font_family",
-  layout: "vasudev_layout",
-  focusMode: "vasudev_focus_mode",
-  showQuotes: "vasudev_show_quotes",
-  showWeather: "vasudev_show_weather",
-  weatherCity: "vasudev_weather_city",
-  weatherCelsius: "vasudev_weather_celsius",
-  showPomodoro: "vasudev_show_pomodoro",
-  pomoDuration: "vasudev_pomo_duration",
-  pomoBreak: "vasudev_pomo_break",
-  showQuickLinks: "vasudev_show_quicklinks",
-  quickLinks: "vasudev_quicklinks",
-  showHabits: "vasudev_show_habits",
-  habits: "vasudev_habits",
+  bgMode: "vasudev_bg_mode",
+  bgSolidColor: "vasudev_bg_solid_color",
+  bgGradientFrom: "vasudev_bg_gradient_from",
+  bgGradientTo: "vasudev_bg_gradient_to",
   wallpaper: "vasudev_wallpaper",
   wallpaperDim: "vasudev_wallpaper_dim",
-  showAnalytics: "vasudev_show_analytics",
-  analytics: "vasudev_analytics_data",
-  showAmbient: "vasudev_show_ambient",
-  ambientSound: "vasudev_ambient_sound",
-  ambientVolume: "vasudev_ambient_volume",
+  tabIcon: "vasudev_tab_icon",
   settingsOpen: "vasudev_settings_open"
 };
 
@@ -1120,33 +844,32 @@ var wallpaperLayer = $("#wallpaperLayer");
 
 // Settings state
 var settings = {
-  userName: load(SETTINGS_KEYS.userName, ""),
   brandName: load(SETTINGS_KEYS.brandName, "Vasudev AI"),
+  titleColor: load(SETTINGS_KEYS.titleColor, ""),
+  titleShadow: load(SETTINGS_KEYS.titleShadow, 35),
+  searchBgColor: load(SETTINGS_KEYS.searchBgColor, "#2b2b2f"),
+  searchTextColor: load(SETTINGS_KEYS.searchTextColor, "#ffffff"),
+  searchRadius: load(SETTINGS_KEYS.searchRadius, 20),
+  searchWidth: load(SETTINGS_KEYS.searchWidth, 560),
+  searchShadow: load(SETTINGS_KEYS.searchShadow, 55),
+  omniBgColor: load(SETTINGS_KEYS.omniBgColor, "#1f2028"),
+  omniTextColor: load(SETTINGS_KEYS.omniTextColor, "#f5f5f7"),
+  omniHighlightColor: load(SETTINGS_KEYS.omniHighlightColor, "#34c759"),
+  omniRadius: load(SETTINGS_KEYS.omniRadius, 20),
   showClock: load(SETTINGS_KEYS.showClock, false),
-  clock24h: load(SETTINGS_KEYS.clock24h, true),
+  showDock: load(SETTINGS_KEYS.showDock, true),
+  clock24h: load(SETTINGS_KEYS.clock24h, false),
   showSeconds: load(SETTINGS_KEYS.showSeconds, false),
   accentColor: load(SETTINGS_KEYS.accentColor, "#34C759"),
   themePreset: load(SETTINGS_KEYS.themePreset, "default"),
   fontFamily: load(SETTINGS_KEYS.fontFamily, "Inter"),
-  layout: load(SETTINGS_KEYS.layout, "center"),
-  focusMode: load(SETTINGS_KEYS.focusMode, false),
-  showQuotes: load(SETTINGS_KEYS.showQuotes, false),
-  showWeather: load(SETTINGS_KEYS.showWeather, false),
-  weatherCity: load(SETTINGS_KEYS.weatherCity, ""),
-  weatherCelsius: load(SETTINGS_KEYS.weatherCelsius, true),
-  showPomodoro: load(SETTINGS_KEYS.showPomodoro, false),
-  pomoDuration: load(SETTINGS_KEYS.pomoDuration, 25),
-  pomoBreak: load(SETTINGS_KEYS.pomoBreak, 5),
-  showQuickLinks: load(SETTINGS_KEYS.showQuickLinks, false),
-  quickLinks: load(SETTINGS_KEYS.quickLinks, []),
-  showHabits: load(SETTINGS_KEYS.showHabits, false),
-  habits: load(SETTINGS_KEYS.habits, []),
+  bgMode: load(SETTINGS_KEYS.bgMode, "default"),
+  bgSolidColor: load(SETTINGS_KEYS.bgSolidColor, "#131316"),
+  bgGradientFrom: load(SETTINGS_KEYS.bgGradientFrom, "#0f172a"),
+  bgGradientTo: load(SETTINGS_KEYS.bgGradientTo, "#1f2937"),
   wallpaper: load(SETTINGS_KEYS.wallpaper, ""),
   wallpaperDim: load(SETTINGS_KEYS.wallpaperDim, true),
-  showAnalytics: load(SETTINGS_KEYS.showAnalytics, false),
-  showAmbient: load(SETTINGS_KEYS.showAmbient, false),
-  ambientSound: load(SETTINGS_KEYS.ambientSound, ""),
-  ambientVolume: load(SETTINGS_KEYS.ambientVolume, 50)
+  tabIcon: load(SETTINGS_KEYS.tabIcon, ""),
 };
 
 // Open/Close Settings
@@ -1186,16 +909,7 @@ shortcutsOverlay.addEventListener("click", function(e) {
   if (e.target === shortcutsOverlay) closeShortcutsPanel();
 });
 
-// 1. Greeting with User Name
-var settingUserName = $("#settingUserName");
-settingUserName.value = settings.userName;
-settingUserName.addEventListener("input", function() {
-  settings.userName = this.value;
-  save(SETTINGS_KEYS.userName, settings.userName);
-  updateGreeting();
-});
-
-// 1b. Brand Name
+// 1. Brand Name
 var settingBrandName = $("#settingBrandName");
 settingBrandName.value = settings.brandName;
 settingBrandName.addEventListener("input", function() {
@@ -1209,30 +923,247 @@ function updateBrandName() {
   if (brandEl) brandEl.textContent = settings.brandName;
 }
 
-function updateGreeting() {
-  var now = new Date();
-  var h = now.getHours();
-  var greeting = "";
-  if (h >= 5 && h < 12) greeting = "Good morning";
-  else if (h >= 12 && h < 17) greeting = "Good afternoon";
-  else if (h >= 17 && h < 21) greeting = "Good evening";
-  else greeting = "Good night";
-  if (settings.userName) greeting += ", " + settings.userName;
-  greetingEl.textContent = greeting;
+function applyTitleColor() {
+  var brandEl = $(".brand-name");
+  if (!brandEl) return;
+
+  var titleShadowStrength = Math.max(0, Math.min(100, parseInt(settings.titleShadow, 10) || 0));
+  var titleShadowOpacity = (0.02 + titleShadowStrength * 0.003).toFixed(3);
+  var titleShadowBlur = (4 + titleShadowStrength * 0.26).toFixed(1);
+  var titleShadowY = (1 + titleShadowStrength * 0.09).toFixed(1);
+  var titleShadowVar = titleShadowStrength === 0
+    ? "none"
+    : "0 " + titleShadowY + "px " + titleShadowBlur + "px rgba(0, 0, 0, " + titleShadowOpacity + ")";
+  document.documentElement.style.setProperty("--title-shadow", titleShadowVar);
+
+  var titleShadowValue = $("#titleShadowValue");
+  if (titleShadowValue) titleShadowValue.textContent = titleShadowStrength + "%";
+
+  if (settings.titleColor) {
+    brandEl.style.background = "none";
+    brandEl.style.webkitTextFillColor = settings.titleColor;
+    brandEl.style.color = settings.titleColor;
+  } else {
+    brandEl.style.background = "";
+    brandEl.style.webkitTextFillColor = "";
+    brandEl.style.color = "";
+  }
 }
 
-updateGreeting();
+function buildSearchShadow(strength) {
+  var safe = Math.max(0, Math.min(100, parseInt(strength, 10) || 0));
+  if (safe === 0) return "none";
+
+  var insetDark = (0.015 + safe * 0.0006).toFixed(3);
+  var outerOneY = (3 + safe * 0.10).toFixed(1);
+  var outerOneBlur = (10 + safe * 0.20).toFixed(1);
+  var outerOneAlpha = (0.05 + safe * 0.0012).toFixed(3);
+  var outerTwoY = (10 + safe * 0.18).toFixed(1);
+  var outerTwoBlur = (28 + safe * 0.28).toFixed(1);
+  var outerTwoAlpha = (0.08 + safe * 0.0016).toFixed(3);
+
+  return "inset 0 2px 4px rgba(255, 255, 255, 0.55), " +
+         "inset 0 -2px 6px rgba(0, 0, 0, " + insetDark + "), " +
+         "0 " + outerOneY + "px " + outerOneBlur + "px rgba(0, 0, 0, " + outerOneAlpha + "), " +
+         "0 " + outerTwoY + "px " + outerTwoBlur + "px rgba(0, 0, 0, " + outerTwoAlpha + ")";
+}
+
+function applySearchBarSettings() {
+  document.documentElement.style.setProperty("--search-bar-bg", settings.searchBgColor);
+  document.documentElement.style.setProperty("--search-bar-text", settings.searchTextColor);
+  document.documentElement.style.setProperty("--search-bar-radius", settings.searchRadius + "px");
+  document.documentElement.style.setProperty("--search-max-width", settings.searchWidth + "px");
+
+  var searchShadowStrength = Math.max(0, Math.min(100, parseInt(settings.searchShadow, 10) || 0));
+  document.documentElement.style.setProperty("--search-custom-shadow", buildSearchShadow(searchShadowStrength));
+  document.documentElement.style.setProperty("--search-custom-shadow-hover", buildSearchShadow(Math.min(100, searchShadowStrength + 12)));
+
+  var bg = settings.searchBgColor.replace("#", "");
+  var placeholderColor = "rgba(255, 255, 255, 0.55)";
+  if (bg.length === 6) {
+    var r = parseInt(bg.slice(0, 2), 16);
+    var g = parseInt(bg.slice(2, 4), 16);
+    var b = parseInt(bg.slice(4, 6), 16);
+    placeholderColor = "rgba(" + r + ", " + g + ", " + b + ", 0.55)";
+    document.documentElement.style.setProperty("--search-placeholder", placeholderColor);
+  }
+
+  var searchRadiusValue = $("#searchRadiusValue");
+  var searchWidthValue = $("#searchWidthValue");
+  var searchShadowValue = $("#searchShadowValue");
+  var searchPreviewBar = $("#searchPreviewBar");
+  var searchPreviewPlaceholder = $("#searchPreviewPlaceholder");
+
+  if (searchRadiusValue) searchRadiusValue.textContent = settings.searchRadius + "px";
+  if (searchWidthValue) searchWidthValue.textContent = settings.searchWidth + "px";
+  if (searchShadowValue) searchShadowValue.textContent = searchShadowStrength + "%";
+  if (searchPreviewBar) {
+    searchPreviewBar.style.background = settings.searchBgColor;
+    searchPreviewBar.style.color = settings.searchTextColor;
+    searchPreviewBar.style.borderRadius = settings.searchRadius + "px";
+    searchPreviewBar.style.maxWidth = settings.searchWidth + "px";
+    searchPreviewBar.style.boxShadow = buildSearchShadow(searchShadowStrength);
+  }
+  if (searchPreviewPlaceholder) {
+    searchPreviewPlaceholder.style.color = placeholderColor;
+  }
+}
+
+function applyOmniboxSettings() {
+  document.documentElement.style.setProperty("--omni-custom-bg", settings.omniBgColor);
+  document.documentElement.style.setProperty("--omni-custom-text", settings.omniTextColor);
+  document.documentElement.style.setProperty("--omni-custom-radius", settings.omniRadius + "px");
+
+  var textHex = settings.omniTextColor.replace("#", "");
+  if (textHex.length === 6) {
+    var tr = parseInt(textHex.slice(0, 2), 16);
+    var tg = parseInt(textHex.slice(2, 4), 16);
+    var tb = parseInt(textHex.slice(4, 6), 16);
+    document.documentElement.style.setProperty("--omni-custom-subtle", "rgba(" + tr + ", " + tg + ", " + tb + ", 0.62)");
+    document.documentElement.style.setProperty("--omni-custom-divider", "rgba(" + tr + ", " + tg + ", " + tb + ", 0.10)");
+  }
+
+  var h = settings.omniHighlightColor.replace("#", "");
+  if (h.length === 6) {
+    var hr = parseInt(h.slice(0, 2), 16);
+    var hg = parseInt(h.slice(2, 4), 16);
+    var hb = parseInt(h.slice(4, 6), 16);
+    document.documentElement.style.setProperty("--omni-custom-hover", "rgba(" + hr + ", " + hg + ", " + hb + ", 0.18)");
+    document.documentElement.style.setProperty("--omni-custom-accent", settings.omniHighlightColor);
+  }
+
+  var omniRadiusValue = $("#omniRadiusValue");
+  if (omniRadiusValue) omniRadiusValue.textContent = settings.omniRadius + "px";
+}
+
 updateBrandName();
+applyTitleColor();
+applySearchBarSettings();
+applyOmniboxSettings();
+
+var settingTitleColor = $("#settingTitleColor");
+var settingTitleShadow = $("#settingTitleShadow");
+if (settingTitleColor) {
+  settingTitleColor.value = settings.titleColor || "#34C759";
+  settingTitleColor.addEventListener("input", function() {
+    settings.titleColor = this.value;
+    save(SETTINGS_KEYS.titleColor, settings.titleColor);
+    applyTitleColor();
+  });
+}
+
+if (settingTitleShadow) {
+  settingTitleShadow.value = settings.titleShadow;
+  settingTitleShadow.addEventListener("input", function() {
+    settings.titleShadow = parseInt(this.value, 10) || 0;
+    save(SETTINGS_KEYS.titleShadow, settings.titleShadow);
+    applyTitleColor();
+  });
+}
+
+var settingSearchBgColor = $("#settingSearchBgColor");
+var settingSearchTextColor = $("#settingSearchTextColor");
+var settingSearchRadius = $("#settingSearchRadius");
+var settingSearchWidth = $("#settingSearchWidth");
+var settingSearchShadow = $("#settingSearchShadow");
+var settingOmniBgColor = $("#settingOmniBgColor");
+var settingOmniTextColor = $("#settingOmniTextColor");
+var settingOmniHighlightColor = $("#settingOmniHighlightColor");
+var settingOmniRadius = $("#settingOmniRadius");
+
+if (settingSearchBgColor) settingSearchBgColor.value = settings.searchBgColor;
+if (settingSearchTextColor) settingSearchTextColor.value = settings.searchTextColor;
+if (settingSearchRadius) settingSearchRadius.value = settings.searchRadius;
+if (settingSearchWidth) settingSearchWidth.value = settings.searchWidth;
+if (settingSearchShadow) settingSearchShadow.value = settings.searchShadow;
+if (settingOmniBgColor) settingOmniBgColor.value = settings.omniBgColor;
+if (settingOmniTextColor) settingOmniTextColor.value = settings.omniTextColor;
+if (settingOmniHighlightColor) settingOmniHighlightColor.value = settings.omniHighlightColor;
+if (settingOmniRadius) settingOmniRadius.value = settings.omniRadius;
+
+if (settingSearchBgColor) {
+  settingSearchBgColor.addEventListener("input", function() {
+    settings.searchBgColor = this.value;
+    save(SETTINGS_KEYS.searchBgColor, settings.searchBgColor);
+    applySearchBarSettings();
+  });
+}
+
+if (settingSearchTextColor) {
+  settingSearchTextColor.addEventListener("input", function() {
+    settings.searchTextColor = this.value;
+    save(SETTINGS_KEYS.searchTextColor, settings.searchTextColor);
+    applySearchBarSettings();
+  });
+}
+
+if (settingSearchRadius) {
+  settingSearchRadius.addEventListener("input", function() {
+    settings.searchRadius = parseInt(this.value, 10) || 20;
+    save(SETTINGS_KEYS.searchRadius, settings.searchRadius);
+    applySearchBarSettings();
+  });
+}
+
+if (settingSearchWidth) {
+  settingSearchWidth.addEventListener("input", function() {
+    settings.searchWidth = parseInt(this.value, 10) || 560;
+    save(SETTINGS_KEYS.searchWidth, settings.searchWidth);
+    applySearchBarSettings();
+  });
+}
+
+if (settingSearchShadow) {
+  settingSearchShadow.addEventListener("input", function() {
+    settings.searchShadow = parseInt(this.value, 10) || 0;
+    save(SETTINGS_KEYS.searchShadow, settings.searchShadow);
+    applySearchBarSettings();
+  });
+}
+
+if (settingOmniBgColor) {
+  settingOmniBgColor.addEventListener("input", function() {
+    settings.omniBgColor = this.value;
+    save(SETTINGS_KEYS.omniBgColor, settings.omniBgColor);
+    applyOmniboxSettings();
+  });
+}
+
+if (settingOmniTextColor) {
+  settingOmniTextColor.addEventListener("input", function() {
+    settings.omniTextColor = this.value;
+    save(SETTINGS_KEYS.omniTextColor, settings.omniTextColor);
+    applyOmniboxSettings();
+  });
+}
+
+if (settingOmniHighlightColor) {
+  settingOmniHighlightColor.addEventListener("input", function() {
+    settings.omniHighlightColor = this.value;
+    save(SETTINGS_KEYS.omniHighlightColor, settings.omniHighlightColor);
+    applyOmniboxSettings();
+  });
+}
+
+if (settingOmniRadius) {
+  settingOmniRadius.addEventListener("input", function() {
+    settings.omniRadius = parseInt(this.value, 10) || 20;
+    save(SETTINGS_KEYS.omniRadius, settings.omniRadius);
+    applyOmniboxSettings();
+  });
+}
 
 // 2. Clock Options
 var settingShowClock = $("#settingShowClock");
 var settingClock24h = $("#settingClock24h");
 var settingShowSeconds = $("#settingShowSeconds");
+var settingDarkTheme = $("#settingDarkTheme");
 var timeSection = $(".time-section");
 
 settingShowClock.checked = settings.showClock;
 settingClock24h.checked = settings.clock24h;
 settingShowSeconds.checked = settings.showSeconds;
+settingDarkTheme.checked = document.documentElement.getAttribute("data-theme") === "dark";
 
 settingShowClock.addEventListener("change", function() {
   settings.showClock = this.checked;
@@ -1251,6 +1182,27 @@ settingShowSeconds.addEventListener("change", function() {
   settings.showSeconds = this.checked;
   save(SETTINGS_KEYS.showSeconds, settings.showSeconds);
 });
+
+settingDarkTheme.addEventListener("change", function() {
+  applyTheme(this.checked ? "dark" : "light");
+  save(KEYS.theme, this.checked ? "dark" : "light");
+});
+
+// 2b. Dock Visibility
+var settingShowDock = $("#settingShowDock");
+
+function applyDockVisibility() {
+  dock.style.display = settings.showDock ? "flex" : "none";
+}
+
+settingShowDock.checked = settings.showDock;
+settingShowDock.addEventListener("change", function() {
+  settings.showDock = this.checked;
+  save(SETTINGS_KEYS.showDock, settings.showDock);
+  applyDockVisibility();
+});
+
+applyDockVisibility();
 
 // 3. Accent Color
 var colorSwatches = document.querySelectorAll(".color-swatch");
@@ -1336,325 +1288,72 @@ document.addEventListener("click", function() {
 
 document.body.style.fontFamily = "'" + settings.fontFamily + "', -apple-system, BlinkMacSystemFont, sans-serif";
 
-// 6. Layout Options
-var layoutBtns = document.querySelectorAll("[data-layout]");
+// 6. Background Mode (Default / Solid / Gradient)
+var settingBgMode = $("#settingBgMode");
+var settingBgSolidColor = $("#settingBgSolidColor");
+var settingBgGradientFrom = $("#settingBgGradientFrom");
+var settingBgGradientTo = $("#settingBgGradientTo");
+var bgSolidRow = $("#bgSolidRow");
+var bgGradientRow = $("#bgGradientRow");
 
-layoutBtns.forEach(function(btn) {
-  if (btn.dataset.layout === settings.layout) btn.classList.add("active");
-  btn.addEventListener("click", function() {
-    layoutBtns.forEach(function(b) {
-      b.classList.remove("active");
-    });
-    this.classList.add("active");
-    settings.layout = this.dataset.layout;
-    save(SETTINGS_KEYS.layout, settings.layout);
-    applyLayout();
-  });
-});
+function applyBackgroundMode() {
+  if (bgGradient) bgGradient.style.display = settings.bgMode === "default" ? "" : "none";
 
-function applyLayout() {
-  var main = $(".main-container");
-  if (settings.layout === "compact") {
-    main.style.padding = "20px 16px";
-    $(".brand-name").style.fontSize = "36px";
-  } else if (settings.layout === "minimal") {
-    main.style.padding = "10px";
-    $(".brand-name").style.fontSize = "28px";
-    $(".widgets-container").style.display = "none";
+  if (settings.bgMode === "solid") {
+    document.documentElement.style.setProperty("--bg", settings.bgSolidColor);
+    document.documentElement.style.setProperty("--bg-solid", settings.bgSolidColor);
+  } else if (settings.bgMode === "gradient") {
+    document.documentElement.style.setProperty("--bg", "linear-gradient(135deg, " + settings.bgGradientFrom + " 0%, " + settings.bgGradientTo + " 100%)");
+    document.documentElement.style.setProperty("--bg-solid", settings.bgGradientFrom);
   } else {
-    main.style.padding = "";
-    $(".brand-name").style.fontSize = "";
-    if (widgetsVisible) $(".widgets-container").style.display = "grid";
+    document.documentElement.style.removeProperty("--bg");
+    document.documentElement.style.removeProperty("--bg-solid");
   }
 }
 
-// 7. Focus Mode
-var settingFocusMode = $("#settingFocusMode");
-
-settingFocusMode.checked = settings.focusMode;
-settingFocusMode.addEventListener("change", function() {
-  settings.focusMode = this.checked;
-  save(SETTINGS_KEYS.focusMode, settings.focusMode);
-  toggleFocusMode();
-});
-
-function toggleFocusMode() {
-  if (settings.focusMode) {
-    document.body.classList.add("focus-mode");
-    focusOverlay.classList.add("visible");
-  } else {
-    document.body.classList.remove("focus-mode");
-    focusOverlay.classList.remove("visible");
-  }
+function updateBackgroundModeUI() {
+  if (!settingBgMode) return;
+  if (bgSolidRow) bgSolidRow.style.display = settingBgMode.value === "solid" ? "flex" : "none";
+  if (bgGradientRow) bgGradientRow.style.display = settingBgMode.value === "gradient" ? "block" : "none";
 }
 
-toggleFocusMode();
+if (settingBgMode) {
+  settingBgMode.value = settings.bgMode;
+  settingBgSolidColor.value = settings.bgSolidColor;
+  settingBgGradientFrom.value = settings.bgGradientFrom;
+  settingBgGradientTo.value = settings.bgGradientTo;
 
-// 8. Quotes Widget
-var quotesWidget = $("#quotesWidget");
-var quoteText = $("#quoteText");
-var quoteAuthor = $("#quoteAuthor");
-var settingShowQuotes = $("#settingShowQuotes");
-
-var quotes = [
-  { text: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
-  { text: "Stay hungry, stay foolish.", author: "Steve Jobs" },
-  { text: "Innovation distinguishes between a leader and a follower.", author: "Steve Jobs" },
-  { text: "Your time is limited, don't waste it living someone else's life.", author: "Steve Jobs" },
-  { text: "Simplicity is the ultimate sophistication.", author: "Leonardo da Vinci" },
-  { text: "Quality is not an act, it is a habit.", author: "Aristotle" },
-  { text: "The future belongs to those who believe in the beauty of their dreams.", author: "Eleanor Roosevelt" },
-  { text: "It does not matter how slowly you go as long as you do not stop.", author: "Confucius" },
-  { text: "Everything you've ever wanted is on the other side of fear.", author: "George Addair" },
-  { text: "Believe you can and you're halfway there.", author: "Theodore Roosevelt" }
-];
-
-function showRandomQuote() {
-  var quote = quotes[Math.floor(Math.random() * quotes.length)];
-  quoteText.textContent = quote.text;
-  quoteAuthor.textContent = "— " + quote.author;
-}
-
-showRandomQuote();
-
-settingShowQuotes.checked = settings.showQuotes;
-settingShowQuotes.addEventListener("change", function() {
-  settings.showQuotes = this.checked;
-  save(SETTINGS_KEYS.showQuotes, settings.showQuotes);
-  quotesWidget.classList.toggle("visible", settings.showQuotes);
-});
-
-quotesWidget.classList.toggle("visible", settings.showQuotes);
-
-// 9. Weather Widget
-var weatherWidget = $("#weatherWidget");
-var weatherIcon = $("#weatherIcon");
-var weatherTemp = $("#weatherTemp");
-var weatherDesc = $("#weatherDesc");
-var weatherCity = $("#weatherCity");
-var settingShowWeather = $("#settingShowWeather");
-var settingWeatherCity = $("#settingWeatherCity");
-var settingWeatherCelsius = $("#settingWeatherCelsius");
-
-settingShowWeather.checked = settings.showWeather;
-settingWeatherCity.value = settings.weatherCity;
-settingWeatherCelsius.checked = settings.weatherCelsius;
-
-function fetchWeather() {
-  if (!settings.weatherCity) return;
-  var city = encodeURIComponent(settings.weatherCity);
-  var units = settings.weatherCelsius ? "metric" : "imperial";
-  // OpenWeatherMap API - you'll need an API key
-  // For demo, using a placeholder
-  weatherIcon.textContent = "⛅";
-  weatherTemp.textContent = "22°";
-  weatherDesc.textContent = "Partly cloudy";
-  weatherCity.textContent = settings.weatherCity;
-}
-
-settingShowWeather.addEventListener("change", function() {
-  settings.showWeather = this.checked;
-  save(SETTINGS_KEYS.showWeather, settings.showWeather);
-  weatherWidget.classList.toggle("visible", settings.showWeather);
-  if (settings.showWeather) fetchWeather();
-});
-
-weatherWidget.classList.toggle("visible", settings.showWeather);
-
-settingWeatherCity.addEventListener("change", function() {
-  settings.weatherCity = this.value;
-  save(SETTINGS_KEYS.weatherCity, settings.weatherCity);
-  if (settings.showWeather) fetchWeather();
-});
-
-settingWeatherCelsius.addEventListener("change", function() {
-  settings.weatherCelsius = this.checked;
-  save(SETTINGS_KEYS.weatherCelsius, settings.weatherCelsius);
-  if (settings.showWeather) fetchWeather();
-});
-
-// 10. Pomodoro Timer
-var pomodoroWidget = $("#pomodoroWidget");
-var pomoDisplay = $("#pomoDisplay");
-var pomoLabel = $("#pomoLabel");
-var pomoStart = $("#pomoStart");
-var pomoReset = $("#pomoReset");
-var settingShowPomodoro = $("#settingShowPomodoro");
-var settingPomoDuration = $("#settingPomoDuration");
-var settingPomoBreak = $("#settingPomoBreak");
-
-var pomoTime = settings.pomoDuration * 60;
-var pomoRunning = false;
-var pomoInterval = null;
-var pomoPhase = "focus";
-
-settingShowPomodoro.checked = settings.showPomodoro;
-settingPomoDuration.value = settings.pomoDuration;
-settingPomoBreak.value = settings.pomoBreak;
-
-function updatePomoDisplay() {
-  var m = Math.floor(pomoTime / 60);
-  var s = pomoTime % 60;
-  pomoDisplay.textContent = (m < 10 ? "0" : "") + m + ":" + (s < 10 ? "0" : "") + s;
-}
-
-function startPomo() {
-  if (pomoRunning) {
-    clearInterval(pomoInterval);
-    pomoRunning = false;
-    pomoStart.innerHTML = "&#9654;";
-  } else {
-    pomoRunning = true;
-    pomoStart.innerHTML = "&#10074;&#10074;";
-    pomoInterval = setInterval(function() {
-      pomoTime--;
-      if (pomoTime <= 0) {
-        clearInterval(pomoInterval);
-        pomoRunning = false;
-        pomoStart.innerHTML = "&#9654;";
-        if (pomoPhase === "focus") {
-          pomoPhase = "break";
-          pomoTime = settings.pomoBreak * 60;
-          pomoLabel.textContent = "Break";
-        } else {
-          pomoPhase = "focus";
-          pomoTime = settings.pomoDuration * 60;
-          pomoLabel.textContent = "Focus";
-        }
-      }
-      updatePomoDisplay();
-    }, 1000);
-  }
-}
-
-pomoStart.addEventListener("click", startPomo);
-pomoReset.addEventListener("click", function() {
-  clearInterval(pomoInterval);
-  pomoRunning = false;
-  pomoPhase = "focus";
-  pomoTime = settings.pomoDuration * 60;
-  pomoLabel.textContent = "Focus";
-  pomoStart.innerHTML = "&#9654;";
-  updatePomoDisplay();
-});
-
-settingPomoDuration.addEventListener("change", function() {
-  settings.pomoDuration = parseInt(this.value) || 25;
-  save(SETTINGS_KEYS.pomoDuration, settings.pomoDuration);
-  if (!pomoRunning) {
-    pomoTime = settings.pomoDuration * 60;
-    updatePomoDisplay();
-  }
-});
-
-settingPomoBreak.addEventListener("change", function() {
-  settings.pomoBreak = parseInt(this.value) || 5;
-  save(SETTINGS_KEYS.pomoBreak, settings.pomoBreak);
-});
-
-settingShowPomodoro.addEventListener("change", function() {
-  settings.showPomodoro = this.checked;
-  save(SETTINGS_KEYS.showPomodoro, settings.showPomodoro);
-  pomodoroWidget.classList.toggle("visible", settings.showPomodoro);
-});
-
-pomodoroWidget.classList.toggle("visible", settings.showPomodoro);
-updatePomoDisplay();
-
-// 11. Quick Links
-var quickLinksWidget = $("#quickLinksWidget");
-var quickLinksGrid = $("#quickLinksGrid");
-var settingShowQuickLinks = $("#settingShowQuickLinks");
-var qlName = $("#qlName");
-var qlUrl = $("#qlUrl");
-var qlAdd = $("#qlAdd");
-var qlList = $("#qlList");
-
-settingShowQuickLinks.checked = settings.showQuickLinks;
-
-function renderQuickLinks() {
-  quickLinksGrid.innerHTML = "";
-  qlList.innerHTML = "";
-  settings.quickLinks.forEach(function(link, i) {
-    var a = document.createElement("a");
-    a.href = link.url;
-    a.title = link.name;
-    a.innerHTML = '<img src="https://www.google.com/s2/favicons?domain=' + link.domain + '&sz=64" alt="">' + link.name;
-    quickLinksGrid.appendChild(a);
-
-    var li = document.createElement("li");
-    li.innerHTML = '<span>' + link.name + '</span><button data-i="' + i + '">Remove</button>';
-    li.querySelector("button").addEventListener("click", function() {
-      settings.quickLinks.splice(i, 1);
-      save(SETTINGS_KEYS.quickLinks, settings.quickLinks);
-      renderQuickLinks();
-    });
-    qlList.appendChild(li);
+  settingBgMode.addEventListener("change", function() {
+    settings.bgMode = this.value;
+    save(SETTINGS_KEYS.bgMode, settings.bgMode);
+    updateBackgroundModeUI();
+    applyBackgroundMode();
   });
-}
 
-qlAdd.addEventListener("click", function() {
-  var name = qlName.value.trim();
-  var url = qlUrl.value.trim();
-  if (!name || !url) return;
-  var domain = url.replace(/^https?:\/\//, "").split("/")[0];
-  settings.quickLinks.push({ name: name, url: url, domain: domain });
-  save(SETTINGS_KEYS.quickLinks, settings.quickLinks);
-  qlName.value = "";
-  qlUrl.value = "";
-  renderQuickLinks();
-});
-
-settingShowQuickLinks.addEventListener("change", function() {
-  settings.showQuickLinks = this.checked;
-  save(SETTINGS_KEYS.showQuickLinks, settings.showQuickLinks);
-  quickLinksWidget.classList.toggle("visible", settings.showQuickLinks);
-});
-
-quickLinksWidget.classList.toggle("visible", settings.showQuickLinks);
-renderQuickLinks();
-
-// 12. Habit Tracker
-var habitWidget = $("#habitWidget");
-var habitList = $("#habitList");
-var habitAddBtn = $("#habitAddBtn");
-var settingShowHabits = $("#settingShowHabits");
-
-settingShowHabits.checked = settings.showHabits;
-
-function renderHabits() {
-  habitList.innerHTML = "";
-  settings.habits.forEach(function(habit, i) {
-    var li = document.createElement("li");
-    li.innerHTML = '<div class="habit-checkbox ' + (habit.done ? "checked" : "") + '"></div><span>' + habit.name + '</span>';
-    li.querySelector(".habit-checkbox").addEventListener("click", function() {
-      settings.habits[i].done = !settings.habits[i].done;
-      save(SETTINGS_KEYS.habits, settings.habits);
-      renderHabits();
-    });
-    habitList.appendChild(li);
+  settingBgSolidColor.addEventListener("input", function() {
+    settings.bgSolidColor = this.value;
+    save(SETTINGS_KEYS.bgSolidColor, settings.bgSolidColor);
+    if (settings.bgMode === "solid") applyBackgroundMode();
   });
+
+  settingBgGradientFrom.addEventListener("input", function() {
+    settings.bgGradientFrom = this.value;
+    save(SETTINGS_KEYS.bgGradientFrom, settings.bgGradientFrom);
+    if (settings.bgMode === "gradient") applyBackgroundMode();
+  });
+
+  settingBgGradientTo.addEventListener("input", function() {
+    settings.bgGradientTo = this.value;
+    save(SETTINGS_KEYS.bgGradientTo, settings.bgGradientTo);
+    if (settings.bgMode === "gradient") applyBackgroundMode();
+  });
+
+  updateBackgroundModeUI();
 }
 
-habitAddBtn.addEventListener("click", function() {
-  var name = prompt("Enter habit name:");
-  if (name) {
-    settings.habits.push({ name: name, done: false });
-    save(SETTINGS_KEYS.habits, settings.habits);
-    renderHabits();
-  }
-});
+applyBackgroundMode();
 
-settingShowHabits.addEventListener("change", function() {
-  settings.showHabits = this.checked;
-  save(SETTINGS_KEYS.showHabits, settings.showHabits);
-  habitWidget.classList.toggle("visible", settings.showHabits);
-});
-
-habitWidget.classList.toggle("visible", settings.showHabits);
-renderHabits();
-
-// 13. Custom Wallpaper
+// 7. Custom Wallpaper
 var settingWallpaper = $("#settingWallpaper");
 var settingWallpaperDim = $("#settingWallpaperDim");
 var wallpaperUpload = document.getElementById("wallpaperUpload");
@@ -1695,6 +1394,7 @@ wallpaperUpload.addEventListener("change", function(e) {
       save(SETTINGS_KEYS.wallpaper, settings.wallpaper);
       settingWallpaper.value = "";
       updateWallpaper();
+      wallpaperUpload.value = "";
     };
     reader.readAsDataURL(file);
   }
@@ -1704,168 +1404,67 @@ wallpaperClear.addEventListener("click", function() {
   settings.wallpaper = "";
   save(SETTINGS_KEYS.wallpaper, settings.wallpaper);
   settingWallpaper.value = "";
+  wallpaperUpload.value = "";
   updateWallpaper();
 });
 
 updateWallpaper();
 
-// 15. Analytics
-var settingShowAnalytics = $("#settingShowAnalytics");
-var analyticsDisplay = $("#analyticsDisplay");
-var analyticsTabCount = $("#analyticsTabCount");
-var analyticsTotal = $("#analyticsTotal");
+// 8. Custom Tab Icon
+var settingTabIcon = $("#settingTabIcon");
+var tabIconUpload = document.getElementById("tabIconUpload");
+var tabIconClear = document.getElementById("tabIconClear");
 
-var analyticsData = load(SETTINGS_KEYS.analytics, { today: new Date().toDateString(), count: 0, total: 0 });
-if (analyticsData.today !== new Date().toDateString()) {
-  analyticsData.today = new Date().toDateString();
-  analyticsData.count = 0;
+function updateTabIcon() {
+  var currentIcon = document.querySelector('link[rel="icon"]');
+  if (settings.tabIcon) {
+    if (!currentIcon) {
+      currentIcon = document.createElement("link");
+      currentIcon.rel = "icon";
+      document.head.appendChild(currentIcon);
+    }
+    currentIcon.href = settings.tabIcon;
+  } else if (currentIcon && currentIcon.parentNode) {
+    currentIcon.parentNode.removeChild(currentIcon);
+  }
 }
-analyticsData.count++;
-analyticsData.total++;
-save(SETTINGS_KEYS.analytics, analyticsData);
 
-settingShowAnalytics.checked = settings.showAnalytics;
-analyticsTabCount.textContent = analyticsData.count;
-analyticsTotal.textContent = analyticsData.total;
-
-settingShowAnalytics.addEventListener("change", function() {
-  settings.showAnalytics = this.checked;
-  save(SETTINGS_KEYS.showAnalytics, settings.showAnalytics);
-  analyticsDisplay.style.display = settings.showAnalytics ? "flex" : "none";
-});
-
-analyticsDisplay.style.display = settings.showAnalytics ? "flex" : "none";
-
-// 16. Ambient Sound
-var ambientWidget = $("#ambientWidget");
-var ambientPlayBtn = document.getElementById("ambientPlayBtn");
-var ambientSoundName = document.getElementById("ambientSoundName");
-var ambientProgressFill = document.getElementById("ambientProgressFill");
-var ambientSoundBtn = document.getElementById("ambientSoundBtn");
-var ambientSoundMenu = document.getElementById("ambientSoundMenu");
-var ambientVolume = document.getElementById("ambientVolume");
-var volumePercent = document.getElementById("volumePercent");
-var settingShowAmbient = $("#settingShowAmbient");
-
-var ambientAudio = null;
-var ambientIsPlaying = false;
-var ambientProgressInterval = null;
-
-var soundNames = {
-  "": "Select Sound",
-  "rain": "Rain",
-  "ocean": "Ocean",
-  "fire": "Fire",
-  "birds": "Birds",
-  "wind": "Wind",
-  "cafe": "Cafe"
-};
-
-var soundUrls = {
-  "rain": "https://assets.mixkit.co/active_storage/sfx/2515/2515-preview.mp3",
-  "ocean": "https://assets.mixkit.co/active_storage/sfx/2432/2432-preview.mp3",
-  "fire": "https://assets.mixkit.co/active_storage/sfx/2521/2521-preview.mp3",
-  "birds": "https://assets.mixkit.co/active_storage/sfx/2430/2430-preview.mp3",
-  "wind": "https://assets.mixkit.co/active_storage/sfx/2528/2528-preview.mp3",
-  "cafe": "https://assets.mixkit.co/active_storage/sfx/2508/2508-preview.mp3"
-};
-
-function updateAmbientUI() {
-  ambientSoundName.textContent = soundNames[settings.ambientSound] || "Select Sound";
-  volumePercent.textContent = settings.ambientVolume + "%";
-  ambientVolume.value = settings.ambientVolume;
-  
-  document.querySelectorAll(".sound-option").forEach(function(opt) {
-    opt.classList.toggle("active", opt.dataset.sound === settings.ambientSound);
+if (settingTabIcon) {
+  settingTabIcon.value = settings.tabIcon;
+  settingTabIcon.addEventListener("input", function() {
+    settings.tabIcon = this.value.trim();
+    save(SETTINGS_KEYS.tabIcon, settings.tabIcon);
+    updateTabIcon();
   });
-  
-  if (ambientAudio) {
-    ambientAudio.volume = settings.ambientVolume / 100;
-  }
 }
 
-function loadAmbientSound(sound) {
-  if (ambientAudio) {
-    ambientAudio.pause();
-    ambientAudio = null;
-  }
-  if (ambientIsPlaying) {
-    ambientIsPlaying = false;
-    ambientPlayBtn.classList.remove("playing");
-    clearInterval(ambientProgressInterval);
-  }
-  
-  if (sound && soundUrls[sound]) {
-    ambientAudio = new Audio(soundUrls[sound]);
-    ambientAudio.loop = true;
-    ambientAudio.volume = settings.ambientVolume / 100;
-  }
-}
-
-function toggleAmbientPlay() {
-  if (!settings.ambientSound || !ambientAudio) return;
-  
-  if (ambientIsPlaying) {
-    ambientAudio.pause();
-    ambientIsPlaying = false;
-    ambientPlayBtn.classList.remove("playing");
-    clearInterval(ambientProgressInterval);
-  } else {
-    ambientAudio.play().catch(function() {});
-    ambientIsPlaying = true;
-    ambientPlayBtn.classList.add("playing");
-    ambientProgressFill.style.width = "0%";
-    ambientProgressInterval = setInterval(function() {
-      if (ambientAudio && ambientAudio.duration) {
-        var progress = (ambientAudio.currentTime / ambientAudio.duration) * 100;
-        ambientProgressFill.style.width = progress + "%";
-      }
-    }, 500);
-  }
-}
-
-ambientPlayBtn.addEventListener("click", toggleAmbientPlay);
-
-ambientSoundBtn.addEventListener("click", function(e) {
-  e.stopPropagation();
-  ambientSoundMenu.classList.toggle("open");
-});
-
-document.querySelectorAll(".sound-option").forEach(function(opt) {
-  opt.addEventListener("click", function() {
-    settings.ambientSound = this.dataset.sound;
-    save(SETTINGS_KEYS.ambientSound, settings.ambientSound);
-    loadAmbientSound(settings.ambientSound);
-    ambientSoundMenu.classList.remove("open");
-    updateAmbientUI();
+if (tabIconUpload) {
+  tabIconUpload.addEventListener("change", function(e) {
+    var file = e.target.files[0];
+    if (!file) return;
+    var reader = new FileReader();
+    reader.onload = function(event) {
+      settings.tabIcon = event.target.result;
+      save(SETTINGS_KEYS.tabIcon, settings.tabIcon);
+      if (settingTabIcon) settingTabIcon.value = "";
+      updateTabIcon();
+      tabIconUpload.value = "";
+    };
+    reader.readAsDataURL(file);
   });
-});
+}
 
-ambientVolume.addEventListener("input", function() {
-  settings.ambientVolume = parseInt(this.value, 10);
-  save(SETTINGS_KEYS.ambientVolume, settings.ambientVolume);
-  volumePercent.textContent = settings.ambientVolume + "%";
-  if (ambientAudio) {
-    ambientAudio.volume = settings.ambientVolume / 100;
-  }
-});
+if (tabIconClear) {
+  tabIconClear.addEventListener("click", function() {
+    settings.tabIcon = "";
+    save(SETTINGS_KEYS.tabIcon, settings.tabIcon);
+    if (settingTabIcon) settingTabIcon.value = "";
+    if (tabIconUpload) tabIconUpload.value = "";
+    updateTabIcon();
+  });
+}
 
-document.addEventListener("click", function(e) {
-  if (!ambientSoundMenu.contains(e.target) && e.target !== ambientSoundBtn) {
-    ambientSoundMenu.classList.remove("open");
-  }
-});
-
-settingShowAmbient.checked = settings.showAmbient;
-settingShowAmbient.addEventListener("change", function() {
-  settings.showAmbient = this.checked;
-  save(SETTINGS_KEYS.showAmbient, settings.showAmbient);
-  ambientWidget.classList.toggle("visible", settings.showAmbient);
-});
-
-ambientWidget.classList.toggle("visible", settings.showAmbient);
-loadAmbientSound(settings.ambientSound);
-updateAmbientUI();
+updateTabIcon();
 
 // 18. Import/Export
 var exportBtn = $("#exportSettings");
@@ -1932,13 +1531,6 @@ document.addEventListener("keydown", function(e) {
   if (e.key === "s" && document.activeElement.tagName !== "INPUT") {
     e.preventDefault();
     openSettings();
-  }
-  if (e.key === "f" && document.activeElement.tagName !== "INPUT") {
-    e.preventDefault();
-    settings.focusMode = !settings.focusMode;
-    save(SETTINGS_KEYS.focusMode, settings.focusMode);
-    settingFocusMode.checked = settings.focusMode;
-    toggleFocusMode();
   }
 });
 
