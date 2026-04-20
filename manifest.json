@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
-  "name": "Vasudev AI New Tab",
-  "description": "A premium, minimal, Apple-style new tab dashboard by Vasudev AI.",
+  "name": "Minimal Tab - New Tab Dashboard",
+  "description": "A premium, minimal, Apple-style new tab dashboard by Vasudev AI. Replace your boring new tab with a beautiful feature-rich dashboard.",
   "version": "1.1",
   "icons": {
     "16": "icons/icon16.png",
@@ -15,5 +15,6 @@
   "host_permissions": [
     "https://suggestqueries.google.com/*",
     "https://api.openweathermap.org/*"
-  ]
+  ],
+  "short_name": "Minimal Tab"
 }
