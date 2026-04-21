@@ -19,7 +19,7 @@ Replace your default Chrome new tab with a beautiful, feature-rich dashboard. Mi
 
 - **Live Demo:** [search.vasudev.online](http://search.vasudev.online/)
 - **Download:** [GitHub Releases](https://github.com/sg-surya/custom-tabye/releases)
-- **Version:** 1.1.0
+- **Version:** 1.2.0
 
 ---
 
@@ -38,21 +38,23 @@ Replace your default Chrome new tab with a beautiful, feature-rich dashboard. Mi
 | # | Feature | Description |
 |---|---------|-------------|
 | 1 | User Name Greeting | Personalize with your name |
-| 2 | Accent Color Picker | 8 preset colors + custom color |
-| 3 | Clock Options | Show/hide, 12h/24h, seconds |
-| 4 | Focus Mode | Hide everything except search |
-| 5 | Quotes Widget | Daily motivation quotes |
-| 6 | Theme Presets | Midnight, Ocean, Sunset, Forest, Mono |
-| 7 | Font Selector | Inter, Poppins, Space Grotesk, Outfit, JetBrains Mono |
-| 8 | Layout Options | Center, Compact, Minimal |
-| 9 | Weather Widget | OpenWeather API integration |
-| 10 | Pomodoro Timer | Focus/work timer |
-| 11 | Quick Links | Custom shortcut grid |
-| 12 | Custom Wallpaper | Upload your own background |
-| 13 | Habit Tracker | Track daily habits |
-| 14 | Bookmark Shortcuts | Dock-based bookmarks |
-| 15 | Ambient Sound | Built-in sound player |
-| 16 | Import/Export | JSON settings backup |
+| 2 | Custom Page Title | Change your tab's title |
+| 3 | Custom Favicon | Set your own icon in the tab |
+| 4 | Accent Color Picker | 8 preset colors + custom color |
+| 5 | Clock Options | Show/hide, 12h/24h, seconds |
+| 6 | Focus Mode | Hide everything except search |
+| 7 | Quotes Widget | Daily motivation quotes |
+| 8 | Theme Presets | Midnight, Ocean, Sunset, Forest, Mono |
+| 9 | Font Selector | Inter, Poppins, Space Grotesk, Outfit, JetBrains Mono |
+| 10 | Layout Options | Center, Compact, Minimal |
+| 11 | Weather Widget | OpenWeather API integration |
+| 12 | Pomodoro Timer | Focus/work timer |
+| 13 | Quick Links | Custom shortcut grid |
+| 14 | Custom Wallpaper | Upload your own background |
+| 15 | Habit Tracker | Track daily habits |
+| 16 | Bookmark Shortcuts | Dock-based bookmarks |
+| 17 | Ambient Sound | Built-in sound player |
+| 18 | Import/Export | JSON settings backup |
 
 ---
 
@@ -68,46 +70,37 @@ Starring helps the project gain visibility and encourages further development.
 
 ### Step 2: Download the Source Code
 
-Choose one of the following methods:
-
-#### Option A: Clone with Git (Recommended)
-```bash
-git clone https://github.com/sg-surya/custom-tabye.git
-cd custom-tabye
-```
-
-#### Option B: Download ZIP
 1. Go to [GitHub Repository](https://github.com/sg-surya/custom-tabye)
 2. Click the green **Code** button
 3. Click **Download ZIP**
 4. Extract the ZIP file
 
-### Step 3: Run Locally (Optional for Testing)
-
-To test the new tab locally before installing:
-
-1. Open `index.html` in your browser, OR
-2. Use a local server:
-```bash
-# If you have Python installed
-python -m http.server 8000
-# Then open http://localhost:8000
-```
-
 ---
 
-## Installation
+## Installation (Chrome Developer Mode)
 
-### Load Unpacked (Developer Mode)
+### Step-by-Step Installation Guide:
 
-For manual installation:
+1. **Download from GitHub**
+   - Go to: https://github.com/sg-surya/custom-tabye
+   - Click green **Code** button
+   - Click **Download ZIP**
+   - Extract the ZIP file
 
-1. Download the source code (see Step 2 above)
-2. Open Chrome and navigate to `chrome://extensions`
-3. Enable **Developer Mode** (toggle in top-right corner)
-4. Click **"Load unpacked"**
-5. Select the `custom-tabye` folder
-6. The extension will be installed and ready
+2. **Enable Developer Mode in Chrome**
+   - Open Chrome browser
+   - Type in address bar: `chrome://extensions`
+   - Find **Developer Mode** toggle (top-right corner)
+   - **Turn ON** the toggle
+
+3. **Load Unpacked Extension**
+   - Click **"Load unpacked"** button (top-left)
+   - Select the extracted `custom-tabye` folder
+   - Click **Select Folder**
+
+4. **Done!**
+   - Open a new tab to see your dashboard
+   - Click the ⚙️ icon to customize
 
 > **Note:** When using manual install, you'll need to manually update the extension when new versions are released.
 

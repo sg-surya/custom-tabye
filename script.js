@@ -1079,6 +1079,8 @@ if (e.key === "w" && !isInputFocused) {
 var SETTINGS_KEYS = {
   userName: "vasudev_user_name",
   brandName: "vasudev_brand_name",
+  customPageTitle: "vasudev_custom_page_title",
+  faviconUrl: "vasudev_favicon_url",
   showClock: "vasudev_show_clock",
   clock24h: "vasudev_clock_24h",
   showSeconds: "vasudev_show_seconds",
@@ -1122,6 +1124,8 @@ var wallpaperLayer = $("#wallpaperLayer");
 var settings = {
   userName: load(SETTINGS_KEYS.userName, ""),
   brandName: load(SETTINGS_KEYS.brandName, "Vasudev AI"),
+  customPageTitle: load(SETTINGS_KEYS.customPageTitle, ""),
+  faviconUrl: load(SETTINGS_KEYS.faviconUrl, ""),
   showClock: load(SETTINGS_KEYS.showClock, false),
   clock24h: load(SETTINGS_KEYS.clock24h, true),
   showSeconds: load(SETTINGS_KEYS.showSeconds, false),
@@ -1204,9 +1208,78 @@ settingBrandName.addEventListener("input", function() {
   updateBrandName();
 });
 
+// 1c. Custom Page Title
+var settingCustomPageTitle = $("#settingCustomPageTitle");
+settingCustomPageTitle.value = settings.customPageTitle;
+settingCustomPageTitle.addEventListener("input", function() {
+  settings.customPageTitle = this.value;
+  save(SETTINGS_KEYS.customPageTitle, settings.customPageTitle);
+  updateCustomPageTitle();
+});
+
+// 1d. Custom Favicon
+var settingFaviconUrl = $("#settingFaviconUrl");
+settingFaviconUrl.value = settings.faviconUrl;
+settingFaviconUrl.addEventListener("input", function() {
+  settings.faviconUrl = this.value;
+  save(SETTINGS_KEYS.faviconUrl, settings.faviconUrl);
+  updateCustomFavicon();
+});
+
+// Favicon Upload
+var settingFaviconUpload = $("#settingFaviconUpload");
+var clearFaviconBtn = $("#clearFavicon");
+
+settingFaviconUpload.addEventListener("change", function(e) {
+  var file = e.target.files[0];
+  if (file) {
+    var reader = new FileReader();
+    reader.onload = function(event) {
+      settings.faviconUrl = event.target.result;
+      save(SETTINGS_KEYS.faviconUrl, settings.faviconUrl);
+      settingFaviconUrl.value = "";
+      updateCustomFavicon();
+    };
+    reader.readAsDataURL(file);
+  }
+});
+
+clearFaviconBtn.addEventListener("click", function() {
+  settings.faviconUrl = "";
+  save(SETTINGS_KEYS.faviconUrl, "");
+  settingFaviconUrl.value = "";
+  settingFaviconUpload.value = "";
+  updateCustomFavicon();
+});
+
 function updateBrandName() {
   var brandEl = $(".brand-name");
   if (brandEl) brandEl.textContent = settings.brandName;
+}
+
+function updateCustomPageTitle() {
+  if (settings.customPageTitle) {
+    document.title = settings.customPageTitle;
+  }
+}
+
+function updateCustomFavicon() {
+  var existingFavicon = document.querySelector("link[rel*='icon']");
+  if (settings.faviconUrl) {
+    if (!existingFavicon) {
+      existingFavicon = document.createElement("link");
+      existingFavicon.rel = "icon";
+      document.head.appendChild(existingFavicon);
+    }
+    existingFavicon.href = settings.faviconUrl;
+  } else {
+    if (!existingFavicon) {
+      existingFavicon = document.createElement("link");
+      existingFavicon.rel = "icon";
+      document.head.appendChild(existingFavicon);
+    }
+    existingFavicon.href = "icons/icon128.png";
+  }
 }
 
 function updateGreeting() {
@@ -1223,6 +1296,8 @@ function updateGreeting() {
 
 updateGreeting();
 updateBrandName();
+updateCustomPageTitle();
+updateCustomFavicon();
 
 // 2. Clock Options
 var settingShowClock = $("#settingShowClock");

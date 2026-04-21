@@ -2208,14 +2208,19 @@ cursor: pointer;
 }
 
 .settings-btn-sm {
-width: 32px;
-height: 36px;
-border-radius: 10px;
+padding: 8px 16px;
+height: auto;
+border-radius: 8px;
 border: 1px solid var(--card-border);
-background: var(--accent);
-color: white;
-font-size: 16px;
+background: rgba(255, 59, 48, 0.15);
+color: #FF3B30;
+font-size: 13px;
+font-weight: 500;
 cursor: pointer;
+transition: all 0.2s ease;
+}
+.settings-btn-sm:hover {
+background: rgba(255, 59, 48, 0.25);
 }
 
 .settings-btn-danger {
