@@ -21,6 +21,8 @@
     "modalAdd", "omniboxDropdown", "githubBadge",
     // Gmail Profile
     "gmailProfile", "profilePic", "bottomControls",
+    // Apps Menu
+    "appsMenu", "appsGridBtn", "appsDropdown",
     // Settings Panel elements
     "settingsToggle", "settingsOverlay", "settingsPanel", "settingsClose", "settingsBody",
     "settingUserName", "settingShowClock", "settingClock24h", "settingShowSeconds",
@@ -1298,6 +1300,23 @@ updateGreeting();
 updateBrandName();
 updateCustomPageTitle();
 updateCustomFavicon();
+
+// Apps Menu Toggle
+var appsGridBtn = $("#appsGridBtn");
+var appsDropdown = $("#appsDropdown");
+
+if (appsGridBtn && appsDropdown) {
+  appsGridBtn.addEventListener("click", function(e) {
+    e.stopPropagation();
+    appsDropdown.classList.toggle("show");
+  });
+
+  document.addEventListener("click", function(e) {
+    if (!appsDropdown.contains(e.target) && e.target !== appsGridBtn) {
+      appsDropdown.classList.remove("show");
+    }
+  });
+}
 
 // 2. Clock Options
 var settingShowClock = $("#settingShowClock");

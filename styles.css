@@ -386,7 +386,7 @@ backdrop-filter: blur(8px);
 
 /* ========================================
 GMAIL PROFILE (top right)
-======================================== */
+========================================*/
 .gmail-profile {
   position: fixed;
   top: 16px;
@@ -395,6 +395,126 @@ GMAIL PROFILE (top right)
   align-items: center;
   gap: 10px;
   z-index: 200;
+}
+
+.apps-menu {
+  position: fixed;
+  top: 16px;
+  right: 85px;
+  z-index: 201;
+}
+
+.apps-grid-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--shadow-sm);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.apps-grid-btn:hover {
+  transform: scale(1.08);
+  box-shadow: var(--shadow);
+  background: var(--accent);
+  color: white;
+}
+
+.apps-dropdown {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  min-width: 200px;
+  padding: 6px;
+  background: var(--card-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.15), 0 8px 20px rgba(0,0,0,0.1);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.25s ease;
+  z-index: 300;
+}
+
+.apps-dropdown.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.apps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3px;
+}
+
+.app-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 12px 6px;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.app-item:hover {
+  background: var(--hover-bg);
+  transform: translateY(-2px);
+}
+
+.app-item:active {
+  transform: translateY(0);
+}
+
+.app-favicon {
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+.app-name {
+  font-size: 10px;
+  color: var(--text-secondary);
+  font-weight: 500;
+  text-align: center;
+}
+
+.gmail-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  border-radius: 10px;
+  background: var(--card-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.gmail-link:hover {
+  transform: scale(1.1);
+  box-shadow: var(--shadow);
+}
+
+.gmail-icon {
+  width: 24px;
+  height: 24px;
 }
 
 .gmail-link {
