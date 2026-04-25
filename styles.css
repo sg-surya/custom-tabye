@@ -3126,50 +3126,40 @@ opacity: 1;
   color: #fff;
 }
 
-.focus-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(10px);
-  z-index: 99;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.4s ease;
-}
-
-.focus-overlay.visible {
-  opacity: 1;
-}
-
-body.focus-mode .focus-overlay {
-  pointer-events: auto;
-}
-
-body.focus-mode .main-container > *:not(.search-container),
-body.focus-mode .dock,
-body.focus-mode .widgets-container,
+/* ========================================
+FOCUS MODE - Search Only (Press 'F' key)
+======================================== */
+body.focus-mode #vasudevDock,
+body.focus-mode #vasudevFooter,
+body.focus-mode #bottomControls,
+body.focus-mode #githubBadge,
+body.focus-mode #focusOverlay,
 body.focus-mode .branding,
 body.focus-mode .time-section,
-body.focus-mode .footer,
-body.focus-mode .github-badge,
-body.focus-mode .quotes-widget,
-body.focus-mode .weather-widget,
-body.focus-mode .pomodoro-widget,
-body.focus-mode .habit-widget,
-body.focus-mode .quicklinks-widget,
-body.focus-mode .ambient-widget {
-  opacity: 0;
-  pointer-events: none;
+body.focus-mode .widgets-container,
+body.focus-mode .ntp-bottom,
+body.focus-mode [data-ntpid="bottom"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
 }
 
-body.focus-mode .search-container {
-  position: relative;
-  z-index: 100;
-  pointer-events: auto;
-}
-
+body.focus-mode .search-container,
 body.focus-mode .search-wrapper {
-  pointer-events: auto;
+  display: flex !important;
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  z-index: 99999 !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+  transform: translate(-50%, -50%) !important;
+  z-index: 99999 !important;
+  visibility: visible !important;
 }
 
 @media (max-width: 480px) {
