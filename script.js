@@ -23,8 +23,9 @@
     "gmailProfile", "profilePic", "bottomControls",
     // Apps Menu
     "appsMenu", "appsGridBtn", "appsDropdown",
-    // Settings Panel elements
-    "settingsToggle", "settingsOverlay", "settingsPanel", "settingsClose", "settingsBody",
+    // Settings Modal elements
+    "settingsToggle", "settingsOverlay", "settingsModal", "settingsClose", "settingsSidebar", "settingsContent",
+    "settingDarkMode",
     "settingUserName", "settingShowClock", "settingClock24h", "settingShowSeconds",
     "settingCustomColor", "settingFont", "fontDropdown", "fontSelected", "settingFocusMode", "settingShowQuotes",
     "settingShowWeather", "settingWeatherCity", "settingWeatherCelsius",
@@ -72,11 +73,14 @@
         node.classList.contains("profile-pic") ||
         node.classList.contains("dock-btn") ||
         node.classList.contains("bottom-controls") ||
-        // Settings Panel
-        node.classList.contains("settings-overlay") ||
-        node.classList.contains("settings-panel") ||
+        // Settings Modal
+        node.classList.contains("settings-modal") ||
         node.classList.contains("settings-header") ||
-        node.classList.contains("settings-body") ||
+        node.classList.contains("settings-main") ||
+        node.classList.contains("settings-sidebar") ||
+        node.classList.contains("settings-tab") ||
+        node.classList.contains("settings-content") ||
+        node.classList.contains("settings-category") ||
         node.classList.contains("settings-section") ||
         node.classList.contains("settings-section-title") ||
         node.classList.contains("settings-label") ||
@@ -97,6 +101,8 @@
         node.classList.contains("settings-hint") ||
         node.classList.contains("settings-title") ||
         node.classList.contains("settings-close") ||
+        node.classList.contains("tab-icon") ||
+        node.classList.contains("tab-label") ||
         // Widgets
         node.classList.contains("quotes-widget") ||
         node.classList.contains("weather-widget") ||
@@ -154,7 +160,10 @@
     node.closest(".vasudev-bg-gradient") ||
     node.closest(".vasudev-curtain") ||
     node.closest("#settingsOverlay") ||
-    node.closest("#settingsPanel") ||
+    node.closest("#settingsModal") ||
+    node.closest("#settingsSidebar") ||
+    node.closest("#settingsContent") ||
+    node.closest(".settings-category") ||
     node.closest("#shortcutsOverlay") ||
     node.closest("#shortcutsModal") ||
     node.closest(".quotes-widget") ||
@@ -1071,8 +1080,15 @@
       themeToggle.click();
     }
 if (e.key === "w" && !isInputFocused) {
-    widgetToggle.click();
-  }
+      widgetToggle.click();
+    }
+    if (e.key === "s" && !isInputFocused) {
+      if (settingsOverlay && settingsOverlay.classList.contains("visible")) {
+        closeSettingsPanel();
+      } else {
+        openSettings();
+      }
+    }
 });
 
 // ========================================
@@ -1115,7 +1131,7 @@ var SETTINGS_KEYS = {
 // Elements
 var settingsToggle = $("#settingsToggle");
 var settingsOverlay = $("#settingsOverlay");
-var settingsPanel = $("#settingsPanel");
+var settingsModal = $("#settingsModal");
 var settingsClose = $("#settingsClose");
 var shortcutsOverlay = $("#shortcutsOverlay");
 var shortcutsClose = $("#shortcutsClose");
@@ -1157,12 +1173,8 @@ var settings = {
 
 // Open/Close Settings
 function openSettings() {
-  console.log("Opening settings panel...");
   if (settingsOverlay) {
     settingsOverlay.classList.add("visible");
-    console.log("Settings panel should be visible now");
-  } else {
-    console.log("ERROR: settingsOverlay is null!");
   }
   save(SETTINGS_KEYS.settingsOpen, true);
 }
@@ -1190,6 +1202,66 @@ settingsOverlay.addEventListener("click", function(e) {
 
 shortcutsOverlay.addEventListener("click", function(e) {
   if (e.target === shortcutsOverlay) closeShortcutsPanel();
+});
+
+// ========================================
+// CATEGORY TAB SWITCHING
+// ========================================
+var settingsTabs = document.querySelectorAll(".settings-tab");
+var settingsCategories = document.querySelectorAll(".settings-category");
+
+settingsTabs.forEach(function(tab) {
+  tab.addEventListener("click", function() {
+    var category = this.getAttribute("data-category");
+    
+    // Update active tab
+    settingsTabs.forEach(function(t) { t.classList.remove("active"); });
+    this.classList.add("active");
+    
+    // Show corresponding category
+    settingsCategories.forEach(function(cat) {
+      if (cat.getAttribute("data-category") === category) {
+        cat.classList.add("active");
+      } else {
+        cat.classList.remove("active");
+      }
+    });
+  });
+});
+
+// ========================================
+// DARK MODE TOGGLE IN SETTINGS
+// ========================================
+var settingDarkMode = $("#settingDarkMode");
+if (settingDarkMode) {
+  var currentTheme = document.documentElement.getAttribute("data-theme");
+  settingDarkMode.checked = currentTheme === "dark";
+  
+  settingDarkMode.addEventListener("change", function() {
+    var theme = this.checked ? "dark" : "light";
+    document.documentElement.setAttribute("data-theme", theme);
+    save(KEYS.theme, theme);
+    
+    // Update theme icon
+    var path = themeIcon.querySelector("path");
+    if (path) {
+      path.setAttribute("d", theme === "dark" ? moonPath : sunPath);
+    }
+  });
+}
+
+// ========================================
+// ESC KEY TO CLOSE SETTINGS
+// ========================================
+document.addEventListener("keydown", function(e) {
+  if (e.key === "Escape") {
+    if (settingsOverlay && settingsOverlay.classList.contains("visible")) {
+      closeSettingsPanel();
+    }
+    if (shortcutsOverlay && shortcutsOverlay.classList.contains("visible")) {
+      closeShortcutsPanel();
+    }
+  }
 });
 
 // 1. Greeting with User Name
