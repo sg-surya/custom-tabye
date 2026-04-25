@@ -1534,6 +1534,25 @@ function applyLayout() {
   }
 }
 
+// 6b. Search Style
+var searchStyleBtns = document.querySelectorAll("[data-search]");
+var currentSearchStyle = localStorage.getItem("vasudev_search_style") || "default";
+
+searchStyleBtns.forEach(function(btn) {
+  if (btn.dataset.search === currentSearchStyle) btn.classList.add("active");
+  btn.addEventListener("click", function() {
+    searchStyleBtns.forEach(function(b) {
+      b.classList.remove("active");
+    });
+    this.classList.add("active");
+    var searchStyle = this.dataset.search;
+    localStorage.setItem("vasudev_search_style", searchStyle);
+    document.body.setAttribute("data-search", searchStyle);
+  });
+});
+
+document.body.setAttribute("data-search", currentSearchStyle);
+
 // 7. Focus Mode
 var settingFocusMode = $("#settingFocusMode");
 
