@@ -15,6 +15,14 @@
 
 ---
 
+## Watch Setup Tutorial
+
+**[YouTube Walkthrough Video](https://www.youtube.com/watch?v=vAh8_tO90no)**
+
+Learn how to install and set up Vasudev AI in under 5 minutes!
+
+---
+
 Replace your default Chrome new tab with a beautiful, feature-rich dashboard. Vasudev AI brings Apple-inspired premium design with 30+ customization options.
 
 - **Live Demo:** [search.vasudev.online](http://search.vasudev.online/)
@@ -65,6 +73,9 @@ Replace your default Chrome new tab with a beautiful, feature-rich dashboard. Va
 ---
 
 ## Getting Started
+
+### Watch Setup Tutorial
+**[YouTube Walkthrough](https://www.youtube.com/watch?v=vAh8_tO90no)** - Install in 5 minutes!
 
 ### Installation (Chrome Developer Mode)
 
