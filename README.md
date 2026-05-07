@@ -17,7 +17,9 @@
 
 ## Watch Setup Tutorial
 
-**[YouTube Walkthrough Video](https://www.youtube.com/watch?v=vAh8_tO90no)**
+<div align="center">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/vAh8_tO90no?autoplay=1&mute=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 Learn how to install and set up Vasudev AI in under 5 minutes!
 
@@ -27,7 +29,7 @@ Replace your default Chrome new tab with a beautiful, feature-rich dashboard. Va
 
 - **Live Demo:** [search.vasudev.online](http://search.vasudev.online/)
 - **Download:** [GitHub Releases](https://github.com/sg-surya/custom-tabye/releases)
-- **Version:** 2.0.0
+- **Version:** 2.1.0
 
 ---
 
@@ -75,7 +77,12 @@ Replace your default Chrome new tab with a beautiful, feature-rich dashboard. Va
 ## Getting Started
 
 ### Watch Setup Tutorial
-**[YouTube Walkthrough](https://www.youtube.com/watch?v=vAh8_tO90no)** - Install in 5 minutes!
+
+<div align="center">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/vAh8_tO90no?autoplay=1&mute=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+Learn how to install and set up Vasudev AI in under 5 minutes!
 
 ### Installation (Chrome Developer Mode)
 

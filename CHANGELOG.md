@@ -7,6 +7,48 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.1.0] - 2026-05-07
+
+### Added
+- **Enhanced Favicon System**
+  - Replaced deprecated Google favicon API with DuckDuckGo's reliable favicon service
+  - Added intelligent fallbacks showing letter initials when favicons fail to load
+  - Applied to all favicon sources (apps, dock, Gmail, quick links, bookmarks, settings)
+  - Updated CSP to allow `https://icons.duckduckgo.com` and `https://t1.gstatic.com`
+
+- **Accessibility Improvements**
+  - Complete keyboard navigation with visible focus indicators (:focus-visible)
+  - ARIA labels and roles throughout all interactive elements
+  - Custom accessible modals replacing JavaScript alert()/prompt()/confirm()
+  - Expanded touch targets to minimum 44x44px for all interactive elements
+  - Prefers-reduced-motion media query support (disables animations when requested)
+
+- **Performance Optimizations**
+  - Throttled mousemove handlers to 16ms (~60fps) for 3D tilt effects
+  - Reduced focus mode kill loop from 30 rounds (9s) to 10 rounds (3s)
+  - Removed CSS duplication (~60 lines of redundant styles)
+  - Fixed broken CSS rules in focus mode section
+
+- **Enhanced Features**
+  - Integrated Chrome bookmarks (shows recent bookmarks with toggle in settings)
+  - Added Chrome storage sync for cross-device settings synchronization
+  - Weather widget now uses Open-Meteo API (free, no API key required) with geocoding
+  - Pomodoro timer includes Web Audio API sound notification on completion
+  - Keyboard shortcut hints appear on search bar hover (/, S, F, ? keys)
+  - Data export/import now includes schema versioning with migration framework
+
+### Fixed
+- Contrast ratios for better WCAG compliance:
+  - Search hint: 0.4 → 0.7
+  - GitHub badge: 0.3 → 0.5
+  - Footer: 0.25 → 0.4
+  - Omnibox item type: 0.5 → 0.7
+- Removed green focus glow from search bar (replaced with neutral focus style)
+- Fixed all instances of `prompt()`, `alert()`, and `blocking` dialogs
+- Added proper error handling for weather and bookmark APIs
+
+---
+
 ## [2.0.0] - 2025-04-25
 
 ### Added
