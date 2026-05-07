@@ -43,7 +43,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Inter:wght@300;400;500;600&family=Poppins:wght@300;400;500;600&family=Space+Grotesk:wght@300;400;500;600&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body role="document">
 
   <!-- Page Load Curtain -->
   <div class="vasudev-curtain" id="curtain"></div>
@@ -53,7 +53,7 @@
 
   <!-- 9-Dot Apps Menu (left of profile) -->
   <div class="apps-menu" id="appsMenu">
-    <button class="apps-grid-btn" id="appsGridBtn" title="Apps">
+    <button class="apps-grid-btn" id="appsGridBtn" title="Apps" aria-label="Open apps menu" aria-expanded="false" aria-haspopup="true">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
         <circle cx="5" cy="5" r="2"/>
         <circle cx="12" cy="5" r="2"/>
@@ -69,19 +69,23 @@
     <div class="apps-dropdown" id="appsDropdown">
       <div class="apps-grid">
         <a href="https://vasudev.online" class="app-item" target="_blank">
-          <img src="https://www.google.com/s2/favicons?domain=vasudev.online&sz=128" alt="V" class="app-favicon">
+          <img src="https://icons.duckduckgo.com/ip3/vasudev.online.ico" alt="V" class="app-favicon" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <span class="app-favicon-fallback" style="display:none;">V</span>
           <span class="app-name">Vasudev AI</span>
         </a>
         <a href="https://labs.vasudev.online" class="app-item" target="_blank">
-          <img src="https://www.google.com/s2/favicons?domain=labs.vasudev.online&sz=128" alt="L" class="app-favicon">
+          <img src="https://icons.duckduckgo.com/ip3/labs.vasudev.online.ico" alt="L" class="app-favicon" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <span class="app-favicon-fallback" style="display:none;">L</span>
           <span class="app-name">Labs</span>
         </a>
         <a href="https://design.vasudev.online" class="app-item" target="_blank">
-          <img src="https://www.google.com/s2/favicons?domain=design.vasudev.online&sz=128" alt="D" class="app-favicon">
+          <img src="https://icons.duckduckgo.com/ip3/design.vasudev.online.ico" alt="D" class="app-favicon" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <span class="app-favicon-fallback" style="display:none;">D</span>
           <span class="app-name">Design</span>
         </a>
         <a href="https://learnivo.app" class="app-item" target="_blank">
-          <img src="https://www.google.com/s2/favicons?domain=learnivo.app&sz=128" alt="Learnivo" class="app-favicon">
+          <img src="https://icons.duckduckgo.com/ip3/learnivo.app.ico" alt="Learnivo" class="app-favicon" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <span class="app-favicon-fallback" style="display:none;">L</span>
           <span class="app-name">Learnivo</span>
         </a>
       </div>
@@ -90,18 +94,19 @@
 
   <!-- Gmail Profile (top right) -->
   <div class="gmail-profile" id="gmailProfile">
-    <a href="https://mail.google.com" class="gmail-link" title="Gmail">
-      <img src="https://www.google.com/s2/favicons?domain=gmail.com&sz=128" alt="Gmail" class="gmail-icon">
+    <a href="https://mail.google.com" class="gmail-link" title="Gmail" aria-label="Open Gmail">
+      <img src="https://icons.duckduckgo.com/ip3/gmail.com.ico" alt="Gmail" class="gmail-icon" onerror="this.style.display='none';this.parentElement.querySelector('.gmail-fallback').style.display='flex';">
+      <span class="gmail-fallback" style="display:none;">G</span>
     </a>
-    <img src="" alt="Profile" class="profile-pic" id="profilePic">
+    <img src="" alt="Profile picture" class="profile-pic" id="profilePic">
   </div>
 
   <!-- Main Content -->
   <main class="main-container" id="vasudevMain">
 
     <!-- Clock & Greeting -->
-    <section class="time-section">
-      <div class="time" id="clock">
+    <section class="time-section" aria-label="Clock and greeting">
+      <div class="time" id="clock" role="timer" aria-live="polite" aria-atomic="true">
         <span id="hours">--</span><span class="time-colon">:</span><span id="minutes">--</span>
       </div>
       <div class="date" id="dateDisplay"></div>
@@ -120,7 +125,7 @@
           <circle cx="11" cy="11" r="8"/>
           <path d="m21 21-4.35-4.35"/>
         </svg>
-        <input type="text" class="search-bar" id="searchInput" placeholder="Search Google or type a URL..." autocomplete="off" autofocus>
+        <input type="text" class="search-bar" id="searchInput" placeholder="Search Google or type a URL..." autocomplete="off" autofocus aria-label="Search Google or type a URL" role="searchbox">
         <span class="search-hint">Press <kbd>/</kbd> to search</span>
         <!-- Omnibox Suggestions -->
         <div class="omnibox-dropdown" id="omniboxDropdown"></div>
@@ -128,10 +133,10 @@
     </section>
 
     <!-- Widgets Section -->
-    <section class="widgets-container" id="widgetsPanel">
+    <section class="widgets-container" id="widgetsPanel" aria-label="Widgets">
 
       <!-- Notes Widget -->
-      <div class="widget">
+      <div class="widget" role="region" aria-label="Notes">
         <div class="widget-header">
           <svg class="widget-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
             <path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
@@ -142,7 +147,7 @@
       </div>
 
       <!-- Tasks Widget -->
-      <div class="widget">
+      <div class="widget" role="region" aria-label="Tasks">
         <div class="widget-header">
           <svg class="widget-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
             <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
@@ -157,7 +162,7 @@
       </div>
 
       <!-- Calendar Widget -->
-      <div class="widget">
+      <div class="widget" role="region" aria-label="Calendar">
         <div class="widget-header">
           <svg class="widget-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
             <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
@@ -171,18 +176,22 @@
   </main>
 
   <!-- Dock (icons only, no labels) -->
-  <nav class="dock" id="vasudevDock">
+  <nav class="dock" id="vasudevDock" aria-label="Quick access dock">
     <a href="https://vasudev.online" class="dock-item" title="Vasudev AI">
-      <img src="https://www.google.com/s2/favicons?domain=vasudev.online&sz=128" alt="Vasudev AI" class="dock-icon">
+      <img src="https://icons.duckduckgo.com/ip3/vasudev.online.ico" alt="Vasudev AI" class="dock-icon" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <span class="dock-icon-fallback" style="display:none;">V</span>
     </a>
     <a href="https://youtube.com" class="dock-item" title="YouTube">
-      <img src="https://www.google.com/s2/favicons?domain=youtube.com&sz=128" alt="YouTube" class="dock-icon">
+      <img src="https://icons.duckduckgo.com/ip3/youtube.com.ico" alt="YouTube" class="dock-icon" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <span class="dock-icon-fallback" style="display:none;">Y</span>
     </a>
     <a href="https://chatgpt.com" class="dock-item" title="ChatGPT">
-      <img src="https://www.google.com/s2/favicons?domain=chatgpt.com&sz=128" alt="ChatGPT" class="dock-icon">
+      <img src="https://icons.duckduckgo.com/ip3/chatgpt.com.ico" alt="ChatGPT" class="dock-icon" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <span class="dock-icon-fallback" style="display:none;">C</span>
     </a>
     <a href="https://github.com" class="dock-item" title="GitHub">
-      <img src="https://www.google.com/s2/favicons?domain=github.com&sz=128" alt="GitHub" class="dock-icon">
+      <img src="https://icons.duckduckgo.com/ip3/github.com.ico" alt="GitHub" class="dock-icon" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <span class="dock-icon-fallback" style="display:none;">G</span>
     </a>
     <!-- Separator -->
     <div class="dock-separator"></div>
@@ -195,8 +204,8 @@
   </nav>
 
   <!-- Bottom Right Controls (Theme, Widgets, Settings) -->
-  <div class="bottom-controls" id="bottomControls">
-    <button class="icon-btn" id="widgetToggle" title="Toggle Widgets (W)">
+  <div class="bottom-controls" id="bottomControls" role="toolbar" aria-label="Page controls">
+    <button class="icon-btn" id="widgetToggle" title="Toggle Widgets (W)" aria-label="Toggle widgets panel">
       <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
         <rect x="3" y="3" width="7" height="7" rx="1.5"/>
         <rect x="14" y="3" width="7" height="7" rx="1.5"/>
@@ -205,13 +214,13 @@
       </svg>
       <span class="key-hint">W</span>
     </button>
-    <button class="icon-btn" id="themeToggle" title="Toggle Theme (T)">
+    <button class="icon-btn" id="themeToggle" title="Toggle Theme (T)" aria-label="Toggle dark mode">
       <svg id="themeIcon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
         <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
       </svg>
       <span class="key-hint">T</span>
     </button>
-    <button class="icon-btn" id="settingsToggle" title="Settings (S)">
+    <button class="icon-btn" id="settingsToggle" title="Settings (S)" aria-label="Open settings">
       <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
         <path d="M12 15a3 3 0 100-6 3 3 0 000 6z"/>
         <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/>
@@ -221,11 +230,11 @@
   </div>
 
   <!-- Add Website Modal -->
-  <div class="modal-overlay" id="addSiteModal">
+  <div class="modal-overlay" id="addSiteModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
     <div class="modal-card" id="modalCard">
       <div class="modal-header">
-        <span class="modal-title">Add Website</span>
-        <button class="modal-close" id="modalClose">
+        <span class="modal-title" id="modalTitle">Add Website</span>
+        <button class="modal-close" id="modalClose" aria-label="Close dialog">
           <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
             <path d="M18 6L6 18M6 6l12 12"/>
           </svg>
@@ -323,12 +332,12 @@
   </div>
 
   <!-- Settings Panel Overlay (New Center Modal) -->
-  <div class="settings-overlay" id="settingsOverlay">
+  <div class="settings-overlay" id="settingsOverlay" role="dialog" aria-modal="true" aria-label="Settings">
     <div class="settings-modal" id="settingsModal">
       <!-- Header -->
       <div class="settings-header">
         <span class="settings-title">Settings</span>
-        <button class="settings-close" id="settingsClose">
+        <button class="settings-close" id="settingsClose" aria-label="Close settings">
           <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
             <path d="M18 6L6 18M6 6l12 12"/>
           </svg>
@@ -562,6 +571,13 @@
               </div>
             </div>
             <div class="settings-section">
+              <div class="settings-section-title">Chrome Bookmarks</div>
+              <div class="settings-row">
+                <label class="settings-label">Show Recent Bookmarks</label>
+                <label class="settings-toggle"><input type="checkbox" id="settingShowBookmarks"><span class="toggle-slider"></span></label>
+              </div>
+            </div>
+            <div class="settings-section">
               <div class="settings-section-title">Habit Tracker</div>
               <div class="settings-row">
                 <label class="settings-label">Show Habits</label>
@@ -636,11 +652,11 @@
   </div>
 
   <!-- Keyboard Shortcuts Modal (press ?) -->
-  <div class="shortcuts-overlay" id="shortcutsOverlay">
+  <div class="shortcuts-overlay" id="shortcutsOverlay" role="dialog" aria-modal="true" aria-label="Keyboard shortcuts">
     <div class="shortcuts-modal" id="shortcutsModal">
       <div class="settings-header">
         <span class="settings-title">Keyboard Shortcuts</span>
-        <button class="settings-close" id="shortcutsClose">
+        <button class="settings-close" id="shortcutsClose" aria-label="Close shortcuts">
           <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
             <path d="M18 6L6 18M6 6l12 12"/>
           </svg>
@@ -669,7 +685,7 @@
   <div class="focus-overlay" id="focusOverlay"></div>
 
   <!-- GitHub Open Source Badge -->
-  <a href="https://github.com/sg-surya/custom-tabye" target="_blank" class="github-badge" id="githubBadge" title="View on GitHub - Open Source">
+  <a href="https://github.com/sg-surya/custom-tabye" target="_blank" rel="noopener noreferrer" class="github-badge" id="githubBadge" title="View on GitHub - Open Source" aria-label="View source code on GitHub">
     <svg class="github-badge-icon" viewBox="0 0 24 24" fill="currentColor">
       <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
     </svg>

@@ -70,6 +70,9 @@ inset 0 -2px 6px rgba(0, 0, 0, 0.02),
 /* Omnibox */
 --omni-bg: rgba(255, 255, 255, 0.95);
 --omni-hover: rgba(52, 199, 89, 0.08);
+
+/* Focus ring */
+--focus-ring: 0 0 0 3px rgba(52, 199, 89, 0.4);
 }
 
 /* --- Dark Theme --- */
@@ -483,6 +486,20 @@ GMAIL PROFILE (top right)
   object-fit: cover;
 }
 
+.app-favicon-fallback {
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+}
+
 .app-name {
   font-size: 10px;
   color: var(--text-secondary);
@@ -514,28 +531,15 @@ GMAIL PROFILE (top right)
   height: 24px;
 }
 
-.gmail-link {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 6px;
-  border-radius: 10px;
-  background: var(--card-bg);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--card-border);
-  box-shadow: var(--shadow-sm);
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.gmail-link:hover {
-  transform: scale(1.1);
-  box-shadow: var(--shadow);
-}
-
-.gmail-icon {
+.gmail-fallback {
   width: 24px;
   height: 24px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-secondary);
 }
 
 .profile-pic {
@@ -958,6 +962,45 @@ box-shadow: 0 1px 2px rgba(0,0,0,0.06);
 
 .search-bar:focus ~ .search-hint {
 opacity: 0;
+}
+
+/* Search shortcut hints on hover */
+.search-shortcut-hints {
+  position: absolute;
+  bottom: -32px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  z-index: 2;
+}
+
+.search-shortcut-hints.visible {
+  opacity: 1;
+}
+
+.shortcut-hint {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 10px;
+  color: var(--text-secondary);
+  opacity: 0.7;
+}
+
+.shortcut-hint kbd {
+  display: inline-block;
+  padding: 1px 5px;
+  font-family: 'Inter', sans-serif;
+  font-size: 9px;
+  font-weight: 600;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 3px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.06);
 }
 
 /* ========================================
@@ -1498,6 +1541,31 @@ box-shadow:
 inset 0 1px 2px rgba(255, 255, 255, 0.3),
 0 2px 6px rgba(0, 0, 0, 0.08),
 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.dock-icon-fallback {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: var(--card-bg);
+  box-shadow:
+  inset 0 1px 2px rgba(255, 255, 255, 0.3),
+  0 2px 6px rgba(0, 0, 0, 0.08),
+  0 4px 12px rgba(0, 0, 0, 0.06);
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.dock-item:hover .dock-icon-fallback {
+  box-shadow:
+  inset 0 1px 2px rgba(255, 255, 255, 0.4),
+  0 4px 12px rgba(0, 0, 0, 0.1),
+  0 12px 24px rgba(0, 0, 0, 0.12);
 }
 
 [data-theme="dark"] .dock-icon {
@@ -3260,10 +3328,6 @@ body.focus-mode .search-wrapper {
   opacity: 1 !important;
   pointer-events: auto !important;
 }
-  transform: translate(-50%, -50%) !important;
-  z-index: 99999 !important;
-  visibility: visible !important;
-}
 
 @media (max-width: 480px) {
 .quotes-widget, .weather-widget, .pomodoro-widget, .habit-widget, .quicklinks-widget, .ambient-widget {
@@ -3425,4 +3489,426 @@ RESPONSIVE - MOBILE SETTINGS
   .wallpaper-upload-row {
     flex-direction: column;
   }
+}
+
+/* ========================================
+ACCESSIBILITY - Focus Visible States
+======================================== */
+*:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  box-shadow: var(--focus-ring);
+}
+
+.icon-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  box-shadow: var(--focus-ring);
+}
+
+.dock-item:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 12px;
+}
+
+.search-bar:focus {
+  outline: none;
+  box-shadow: var(--float-shadow-hover);
+}
+
+.modal-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.color-swatch:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.preset-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.task-checkbox:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ========================================
+REDUCED MOTION
+======================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .vasudev-bg-gradient::before,
+  .vasudev-bg-gradient::after,
+  .vasudev-bg-gradient .blob3,
+  .vasudev-bg-gradient .blob4 {
+    animation: none !important;
+    filter: blur(60px);
+    opacity: 0.6;
+  }
+
+  .time {
+    animation: none !important;
+  }
+
+  .brand-name {
+    animation: none !important;
+  }
+
+  .greeting {
+    animation: fadeUp 0.3s ease forwards !important;
+  }
+
+  .dock {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+
+  .github-badge {
+    animation: none !important;
+    opacity: 0.5 !important;
+  }
+
+  .widgets-container.visible {
+    animation: none !important;
+  }
+
+  .pulse,
+  .time-colon {
+    animation: none !important;
+    opacity: 0.6;
+  }
+
+  .textShimmer {
+    animation: none !important;
+  }
+}
+
+/* ========================================
+CONTRAST FIXES
+======================================== */
+.search-hint {
+  opacity: 0.7;
+}
+
+.github-badge {
+  opacity: 0.5;
+}
+
+.github-badge:hover {
+  opacity: 1;
+}
+
+.footer {
+  opacity: 0.4;
+}
+
+.footer:hover {
+  opacity: 0.8;
+}
+
+.omni-item-type {
+  opacity: 0.7;
+}
+
+/* ========================================
+TOUCH TARGETS - 44x44px minimum
+======================================== */
+.icon-btn {
+  width: 44px;
+  height: 44px;
+}
+
+.icon-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.settings-toggle {
+  width: 44px;
+  height: 28px;
+}
+
+.toggle-slider::before {
+  height: 22px;
+  width: 22px;
+  left: 3px;
+  bottom: 3px;
+}
+
+.settings-toggle input:checked + .toggle-slider::before {
+  transform: translateX(16px);
+}
+
+.cal-day {
+  padding: 8px 0;
+  font-size: 13px;
+}
+
+.color-swatch {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  min-height: 32px;
+}
+
+.habit-add-btn {
+  width: 32px;
+  height: 32px;
+}
+
+.modal-close {
+  width: 32px;
+  height: 32px;
+}
+
+.clear-done-btn {
+  padding: 4px 10px;
+  min-height: 28px;
+}
+
+/* ========================================
+CUSTOM CONFIRM MODAL (replaces prompt/alert)
+======================================== */
+.confirm-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--modal-overlay);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 10000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.confirm-overlay.visible {
+  display: flex;
+}
+
+.confirm-card {
+  background: var(--modal-bg);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  width: 360px;
+  max-width: 90vw;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.25);
+  padding: 24px;
+  animation: confirmIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes confirmIn {
+  from { opacity: 0; transform: scale(0.92) translateY(12px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.confirm-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.confirm-message {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.confirm-input {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 14px;
+  font-family: inherit;
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  background: var(--input-bg);
+  color: var(--text);
+  outline: none;
+  margin-bottom: 16px;
+}
+
+.confirm-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.confirm-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.confirm-btn {
+  padding: 10px 22px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: inherit;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.confirm-btn-cancel {
+  background: var(--input-bg);
+  color: var(--text-secondary);
+}
+
+.confirm-btn-cancel:hover {
+  background: var(--card-border);
+}
+
+.confirm-btn-ok {
+  background: var(--accent);
+  color: #FFFFFF;
+}
+
+.confirm-btn-ok:hover {
+  transform: scale(1.04);
+}
+
+/* ========================================
+TOAST NOTIFICATIONS
+======================================== */
+.toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 10001;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.toast {
+  padding: 12px 20px;
+  border-radius: 12px;
+  background: var(--card-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--shadow);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+  animation: toastIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  max-width: 320px;
+}
+
+.toast.toast-out {
+  animation: toastOut 0.25s ease forwards;
+}
+
+@keyframes toastIn {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes toastOut {
+  from { opacity: 1; transform: translateX(0); }
+  to { opacity: 0; transform: translateX(20px); }
+}
+
+/* ========================================
+SYNCED BOOKMARKS
+======================================== */
+.synced-bookmarks {
+  margin-top: 20px;
+}
+
+.synced-bookmarks-title {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+  opacity: 0.7;
+}
+
+.synced-bookmarks-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.synced-bookmark-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px 6px 6px;
+  background: var(--card-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  text-decoration: none;
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: var(--shadow-sm);
+  min-height: 44px;
+}
+
+.synced-bookmark-item:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+  border-color: var(--accent);
+}
+
+.synced-bookmark-icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 5px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.synced-bookmark-fallback {
+  width: 22px;
+  height: 22px;
+  border-radius: 5px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  flex-shrink: 0;
+}
+
+.synced-bookmark-name {
+  font-size: 12px;
+  color: var(--text);
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 120px;
 }

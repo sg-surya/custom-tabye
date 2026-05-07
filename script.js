@@ -30,7 +30,7 @@
     "settingCustomColor", "settingFont", "fontDropdown", "fontSelected", "settingFocusMode", "settingShowQuotes",
     "settingShowWeather", "settingWeatherCity", "settingWeatherCelsius",
     "settingShowPomodoro", "settingPomoDuration", "settingPomoBreak",
-    "settingShowQuickLinks", "settingShowHabits", "settingWallpaper", "settingWallpaperDim",
+    "settingShowQuickLinks", "settingShowHabits", "settingShowBookmarks", "settingWallpaper", "settingWallpaperDim",
     "settingShowAnalytics", "settingShowAmbient",
     "qlName", "qlUrl", "qlList", "qlAdd",
     "exportSettings", "importSettings", "importFile", "resetAllSettings",
@@ -179,7 +179,7 @@
   }
 
   // ========================================
-  // NUCLEAR CHROME KILL
+  // NUCLEAR CHROME KILL (optimized)
   // ========================================
   function nukeChrome() {
     var children = Array.from(document.body.children);
@@ -216,7 +216,7 @@
   var killTimer = setInterval(function () {
     nukeChrome();
     killRound++;
-    if (killRound > 30) clearInterval(killTimer);
+    if (killRound > 10) clearInterval(killTimer);
   }, 300);
 
   // ========================================
@@ -458,9 +458,14 @@
   addRipple(widgetToggle);
 
   // ========================================
-  // 5. 3D TILT - SEARCH
+  // 5. 3D TILT - SEARCH (throttled to 16ms / 60fps)
   // ========================================
+  var searchTiltTimer = null;
   searchWrapper.addEventListener("mousemove", function (e) {
+    if (searchTiltTimer) return;
+    searchTiltTimer = setTimeout(function () {
+      searchTiltTimer = null;
+    }, 16);
     var rect = searchWrapper.getBoundingClientRect();
     var x = e.clientX - rect.left;
     var y = e.clientY - rect.top;
@@ -476,12 +481,18 @@
   });
 
   // ========================================
-  // 6. 3D TILT + MAGNETIC HOVER - DOCK
+  // 6. 3D TILT + MAGNETIC HOVER - DOCK (throttled to 16ms / 60fps)
   // ========================================
   function setupDockTilt() {
     var items = document.querySelectorAll(".dock-item");
+    var dockTiltTimer = null;
 
     dock.addEventListener("mousemove", function (e) {
+      if (dockTiltTimer) return;
+      dockTiltTimer = setTimeout(function () {
+        dockTiltTimer = null;
+      }, 16);
+
       var rect = dock.getBoundingClientRect();
       var x = e.clientX - rect.left;
       var y = e.clientY - rect.top;
@@ -532,7 +543,7 @@
       a.title = site.name || site.domain;
 
       var img = document.createElement("img");
-      img.src = "https://www.google.com/s2/favicons?domain=" + site.domain + "&sz=128";
+      img.src = "https://icons.duckduckgo.com/ip3/" + site.domain + ".ico";
       img.alt = site.name || site.domain;
       img.className = "dock-icon";
       img.onerror = function () {
@@ -906,6 +917,23 @@
     }
   });
 
+  // Keyboard shortcut hints on hover
+  var searchWrapper = $(".search-wrapper");
+  var shortcutHint = document.createElement("div");
+  shortcutHint.className = "search-shortcut-hints";
+  shortcutHint.innerHTML = '<span class="shortcut-hint"><kbd>/</kbd> focus</span><span class="shortcut-hint"><kbd>S</kbd> settings</span><span class="shortcut-hint"><kbd>F</kbd> focus mode</span><span class="shortcut-hint"><kbd>?</kbd> help</span>';
+  searchWrapper.appendChild(shortcutHint);
+
+  searchInput.addEventListener("mouseenter", function () {
+    shortcutHint.classList.add("visible");
+  });
+  searchInput.addEventListener("mouseleave", function () {
+    shortcutHint.classList.remove("visible");
+  });
+  searchInput.addEventListener("blur", function () {
+    shortcutHint.classList.remove("visible");
+  });
+
   function updateOmniActive() {
     var items = omniboxDropdown.querySelectorAll(".omni-item");
     items.forEach(function (el, i) {
@@ -1092,6 +1120,112 @@ if (e.key === "w" && !isInputFocused) {
 });
 
 // ========================================
+// ACCESSIBLE MODAL (replaces prompt/alert/confirm)
+// ========================================
+function showToast(message, duration) {
+  var container = document.querySelector(".toast-container");
+  if (!container) {
+    container = document.createElement("div");
+    container.className = "toast-container";
+    container.setAttribute("role", "status");
+    container.setAttribute("aria-live", "polite");
+    document.body.appendChild(container);
+  }
+  var toast = document.createElement("div");
+  toast.className = "toast";
+  toast.textContent = message;
+  container.appendChild(toast);
+  setTimeout(function () {
+    toast.classList.add("toast-out");
+    setTimeout(function () {
+      if (toast.parentNode) toast.parentNode.removeChild(toast);
+    }, 250);
+  }, duration || 3000);
+}
+
+function showConfirm(title, message, callback) {
+  var overlay = document.createElement("div");
+  overlay.className = "confirm-overlay";
+  overlay.setAttribute("role", "dialog");
+  overlay.setAttribute("aria-modal", "true");
+  overlay.setAttribute("aria-label", title);
+  overlay.innerHTML = '<div class="confirm-card">' +
+    '<div class="confirm-title">' + title + '</div>' +
+    '<div class="confirm-message">' + message + '</div>' +
+    '<div class="confirm-actions">' +
+    '<button class="confirm-btn confirm-btn-cancel" data-action="cancel">Cancel</button>' +
+    '<button class="confirm-btn confirm-btn-ok" data-action="ok">Confirm</button>' +
+    '</div></div>';
+
+  document.body.appendChild(overlay);
+  requestAnimationFrame(function () {
+    overlay.classList.add("visible");
+  });
+
+  var okBtn = overlay.querySelector('[data-action="ok"]');
+  var cancelBtn = overlay.querySelector('[data-action="cancel"]');
+
+  function close(result) {
+    overlay.classList.remove("visible");
+    setTimeout(function () {
+      if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
+    }, 200);
+    callback(result);
+  }
+
+  okBtn.addEventListener("click", function () { close(true); });
+  cancelBtn.addEventListener("click", function () { close(false); });
+  overlay.addEventListener("click", function (e) {
+    if (e.target === overlay) close(false);
+  });
+  cancelBtn.focus();
+}
+
+function showPrompt(title, message, callback) {
+  var overlay = document.createElement("div");
+  overlay.className = "confirm-overlay";
+  overlay.setAttribute("role", "dialog");
+  overlay.setAttribute("aria-modal", "true");
+  overlay.setAttribute("aria-label", title);
+  overlay.innerHTML = '<div class="confirm-card">' +
+    '<div class="confirm-title">' + title + '</div>' +
+    '<div class="confirm-message">' + message + '</div>' +
+    '<input type="text" class="confirm-input" placeholder="Enter value...">' +
+    '<div class="confirm-actions">' +
+    '<button class="confirm-btn confirm-btn-cancel" data-action="cancel">Cancel</button>' +
+    '<button class="confirm-btn confirm-btn-ok" data-action="ok">OK</button>' +
+    '</div></div>';
+
+  document.body.appendChild(overlay);
+  requestAnimationFrame(function () {
+    overlay.classList.add("visible");
+  });
+
+  var input = overlay.querySelector(".confirm-input");
+  var okBtn = overlay.querySelector('[data-action="ok"]');
+  var cancelBtn = overlay.querySelector('[data-action="cancel"]');
+
+  function close(value) {
+    overlay.classList.remove("visible");
+    setTimeout(function () {
+      if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
+    }, 200);
+    callback(value);
+  }
+
+  okBtn.addEventListener("click", function () { close(input.value); });
+  cancelBtn.addEventListener("click", function () { close(null); });
+  input.addEventListener("keydown", function (e) {
+    if (e.key === "Enter") close(input.value);
+    if (e.key === "Escape") close(null);
+  });
+  overlay.addEventListener("click", function (e) {
+    if (e.target === overlay) close(null);
+  });
+  setTimeout(function () { input.focus(); }, 100);
+}
+
+// ========================================
 // SETTINGS PANEL - All 20 Features
 // ========================================
 var SETTINGS_KEYS = {
@@ -1116,6 +1250,7 @@ var SETTINGS_KEYS = {
   pomoBreak: "vasudev_pomo_break",
   showQuickLinks: "vasudev_show_quicklinks",
   quickLinks: "vasudev_quicklinks",
+  showBookmarks: "vasudev_show_bookmarks",
   showHabits: "vasudev_show_habits",
   habits: "vasudev_habits",
   wallpaper: "vasudev_wallpaper",
@@ -1161,6 +1296,7 @@ var settings = {
   pomoBreak: load(SETTINGS_KEYS.pomoBreak, 5),
   showQuickLinks: load(SETTINGS_KEYS.showQuickLinks, false),
   quickLinks: load(SETTINGS_KEYS.quickLinks, []),
+  showBookmarks: load(SETTINGS_KEYS.showBookmarks, false),
   showHabits: load(SETTINGS_KEYS.showHabits, false),
   habits: load(SETTINGS_KEYS.habits, []),
   wallpaper: load(SETTINGS_KEYS.wallpaper, ""),
@@ -1627,14 +1763,75 @@ settingWeatherCelsius.checked = settings.weatherCelsius;
 
 function fetchWeather() {
   if (!settings.weatherCity) return;
-  var city = encodeURIComponent(settings.weatherCity);
+  var city = settings.weatherCity;
   var units = settings.weatherCelsius ? "metric" : "imperial";
-  // OpenWeatherMap API - you'll need an API key
-  // For demo, using a placeholder
-  weatherIcon.textContent = "⛅";
-  weatherTemp.textContent = "22°";
-  weatherDesc.textContent = "Partly cloudy";
-  weatherCity.textContent = settings.weatherCity;
+  
+  weatherIcon.textContent = "⏳";
+  weatherTemp.textContent = "--°";
+  weatherDesc.textContent = "Loading...";
+  weatherCity.textContent = city;
+
+  fetch("https://geocoding-api.open-meteo.com/v1/search?name=" + encodeURIComponent(city) + "&count=1")
+    .then(function(r) { return r.json(); })
+    .then(function(geoData) {
+      if (!geoData.results || geoData.results.length === 0) {
+        weatherIcon.textContent = "❌";
+        weatherTemp.textContent = "";
+        weatherDesc.textContent = "City not found";
+        return;
+      }
+      var loc = geoData.results[0];
+      var lat = loc.latitude;
+      var lon = loc.longitude;
+      var displayName = loc.name + (loc.country ? ", " + loc.country : "");
+
+      return fetch("https://api.open-meteo.com/v1/forecast?latitude=" + lat + "&longitude=" + lon + "&current=temperature_2m,weather_code,wind_speed_10m&temperature_unit=" + (units === "metric" ? "celsius" : "fahrenheit"))
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          if (!data.current) {
+            weatherIcon.textContent = "❌";
+            weatherTemp.textContent = "";
+            weatherDesc.textContent = "Weather unavailable";
+            return;
+          }
+          var current = data.current;
+          var temp = Math.round(current.temperature_2m);
+          var code = current.weather_code;
+          var weatherMap = {
+            0: { icon: "☀️", desc: "Clear sky" },
+            1: { icon: "🌤️", desc: "Mainly clear" },
+            2: { icon: "⛅", desc: "Partly cloudy" },
+            3: { icon: "☁️", desc: "Overcast" },
+            45: { icon: "🌫️", desc: "Foggy" },
+            48: { icon: "🌫️", desc: "Rime fog" },
+            51: { icon: "🌦️", desc: "Light drizzle" },
+            53: { icon: "🌦️", desc: "Drizzle" },
+            55: { icon: "🌧️", desc: "Heavy drizzle" },
+            61: { icon: "🌧️", desc: "Light rain" },
+            63: { icon: "🌧️", desc: "Rain" },
+            65: { icon: "🌧️", desc: "Heavy rain" },
+            71: { icon: "🌨️", desc: "Light snow" },
+            73: { icon: "🌨️", desc: "Snow" },
+            75: { icon: "❄️", desc: "Heavy snow" },
+            80: { icon: "🌦️", desc: "Rain showers" },
+            81: { icon: "🌧️", desc: "Moderate showers" },
+            82: { icon: "⛈️", desc: "Heavy showers" },
+            95: { icon: "⛈️", desc: "Thunderstorm" },
+            96: { icon: "⛈️", desc: "Thunderstorm with hail" },
+            99: { icon: "⛈️", desc: "Severe thunderstorm" }
+          };
+          var w = weatherMap[code] || { icon: "🌡️", desc: "Unknown" };
+          weatherIcon.textContent = w.icon;
+          weatherTemp.textContent = temp + "°";
+          weatherDesc.textContent = w.desc;
+          weatherCity.textContent = displayName;
+        });
+    })
+    .catch(function() {
+      weatherIcon.textContent = "❌";
+      weatherTemp.textContent = "";
+      weatherDesc.textContent = "Failed to fetch weather";
+    });
 }
 
 settingShowWeather.addEventListener("change", function() {
@@ -1697,6 +1894,28 @@ function startPomo() {
         clearInterval(pomoInterval);
         pomoRunning = false;
         pomoStart.innerHTML = "&#9654;";
+
+        // Sound notification
+        try {
+          var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+          function playTone(freq, start, dur) {
+            var osc = audioCtx.createOscillator();
+            var gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.value = freq;
+            osc.type = "sine";
+            gain.gain.setValueAtTime(0.3, audioCtx.currentTime + start);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + start + dur);
+            osc.start(audioCtx.currentTime + start);
+            osc.stop(audioCtx.currentTime + start + dur);
+          }
+          playTone(880, 0, 0.15);
+          playTone(1100, 0.2, 0.15);
+          playTone(880, 0.4, 0.15);
+          setTimeout(function() { audioCtx.close(); }, 2000);
+        } catch (e) {}
+
         if (pomoPhase === "focus") {
           pomoPhase = "break";
           pomoTime = settings.pomoBreak * 60;
@@ -1764,7 +1983,7 @@ function renderQuickLinks() {
     var a = document.createElement("a");
     a.href = link.url;
     a.title = link.name;
-    a.innerHTML = '<img src="https://www.google.com/s2/favicons?domain=' + link.domain + '&sz=64" alt="">' + link.name;
+    a.innerHTML = '<img src="https://icons.duckduckgo.com/ip3/' + link.domain + '.ico" alt="" onerror="this.style.display=\'none\';">' + link.name;
     quickLinksGrid.appendChild(a);
 
     var li = document.createElement("li");
@@ -1822,18 +2041,38 @@ function renderHabits() {
 }
 
 habitAddBtn.addEventListener("click", function() {
-  var name = prompt("Enter habit name:");
-  if (name) {
-    settings.habits.push({ name: name, done: false });
-    save(SETTINGS_KEYS.habits, settings.habits);
-    renderHabits();
-  }
+  showPrompt("Add Habit", "Enter habit name:", function(name) {
+    if (name && name.trim()) {
+      settings.habits.push({ name: name.trim(), done: false });
+      save(SETTINGS_KEYS.habits, settings.habits);
+      renderHabits();
+    }
+  });
 });
 
 settingShowHabits.addEventListener("change", function() {
   settings.showHabits = this.checked;
   save(SETTINGS_KEYS.showHabits, settings.showHabits);
-  habitWidget.classList.toggle("visible", settings.showHabits);
+habitWidget.classList.toggle("visible", settings.showHabits);
+
+// 12b. Chrome Bookmarks Toggle
+var settingShowBookmarks = $("#settingShowBookmarks");
+settingShowBookmarks.checked = settings.showBookmarks;
+
+function toggleSyncedBookmarks() {
+  var section = document.querySelector(".synced-bookmarks");
+  if (section) {
+    section.style.display = settings.showBookmarks ? "" : "none";
+  }
+}
+
+settingShowBookmarks.addEventListener("change", function() {
+  settings.showBookmarks = this.checked;
+  save(SETTINGS_KEYS.showBookmarks, settings.showBookmarks);
+  toggleSyncedBookmarks();
+});
+
+toggleSyncedBookmarks();
 });
 
 habitWidget.classList.toggle("visible", settings.showHabits);
@@ -2052,10 +2291,19 @@ ambientWidget.classList.toggle("visible", settings.showAmbient);
 loadAmbientSound(settings.ambientSound);
 updateAmbientUI();
 
-// 18. Import/Export
+// 18. Import/Export with schema versioning
+var STORAGE_VERSION = 1;
+
 var exportBtn = $("#exportSettings");
 var importBtn = $("#importSettings");
 var importFile = $("#importFile");
+
+function migrateData(version, data) {
+  // Version 1: baseline — no migration needed
+  // Add future migration cases here:
+  // if (version < 2) { ... data = { ...data, vasudev_newKey: defaultValue }; version = 2; }
+  return data;
+}
 
 exportBtn.addEventListener("click", function() {
   var data = {};
@@ -2064,11 +2312,16 @@ exportBtn.addEventListener("click", function() {
       data[key] = localStorage.getItem(key);
     }
   }
-  var blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+  var payload = {
+    version: STORAGE_VERSION,
+    timestamp: new Date().toISOString(),
+    data: data
+  };
+  var blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
   var url = URL.createObjectURL(blob);
   var a = document.createElement("a");
   a.href = url;
-  a.download = "vasudev-settings.json";
+  a.download = "vasudev-settings-v" + STORAGE_VERSION + ".json";
   a.click();
   URL.revokeObjectURL(url);
 });
@@ -2083,13 +2336,35 @@ importFile.addEventListener("change", function(e) {
   var reader = new FileReader();
   reader.onload = function(evt) {
     try {
-      var data = JSON.parse(evt.target.result);
-      for (var key in data) {
-        localStorage.setItem(key, data[key]);
+      var raw = JSON.parse(evt.target.result);
+      var importedData;
+      var version = 0;
+
+      // Detect format: versioned wrapper or legacy raw dump
+      if (raw.version !== undefined && raw.data) {
+        version = raw.version;
+        importedData = raw.data;
+      } else {
+        // Legacy format (pre-versioning) — treat as version 0
+        importedData = raw;
       }
-      alert("Settings imported! Please refresh the page.");
+
+      // Run migrations if needed
+      if (version < STORAGE_VERSION) {
+        importedData = migrateData(version, importedData);
+      }
+
+      var validKeys = 0;
+      for (var key in importedData) {
+        if (key.startsWith("vasudev_")) {
+          localStorage.setItem(key, importedData[key]);
+          validKeys++;
+        }
+      }
+      showToast("Settings imported! " + validKeys + " keys restored.");
+      setTimeout(function () { location.reload(); }, 1500);
     } catch (err) {
-      alert("Invalid file");
+      showToast("Invalid settings file", 5000);
     }
   };
   reader.readAsText(file);
@@ -2098,14 +2373,21 @@ importFile.addEventListener("change", function(e) {
 // 19. Reset
 var resetBtn = $("#resetAllSettings");
 resetBtn.addEventListener("click", function() {
-  if (confirm("Reset all settings to default?")) {
-    for (var key in localStorage) {
-      if (key.startsWith("vasudev_")) {
-        localStorage.removeItem(key);
+  showConfirm("Reset All Settings", "This will delete all your saved settings, notes, tasks, and preferences. This action cannot be undone.", function(confirmed) {
+    if (confirmed) {
+      var keysToRemove = [];
+      for (var key in localStorage) {
+        if (key.startsWith("vasudev_")) {
+          keysToRemove.push(key);
+        }
       }
+      keysToRemove.forEach(function(key) {
+        localStorage.removeItem(key);
+      });
+      showToast("Settings reset to defaults");
+      setTimeout(function () { location.reload(); }, 1000);
     }
-    location.reload();
-  }
+  });
 });
 
 // Keyboard shortcuts update
@@ -2130,5 +2412,138 @@ document.addEventListener("keydown", function(e) {
 // ========================================
 // SETTINGS PANEL END
 // ========================================
+
+// ========================================
+// 20. CHROME STORAGE SYNC
+// ========================================
+(function() {
+  if (typeof chrome === "undefined" || !chrome.storage || !chrome.storage.sync) return;
+
+  // Load from sync first, then fall back to localStorage
+  chrome.storage.sync.get(null, function(syncData) {
+    if (Object.keys(syncData).length > 0) {
+      var hasNewerData = false;
+      for (var key in syncData) {
+        if (key.startsWith("vasudev_")) {
+          var localVal = localStorage.getItem(key);
+          var syncItem = syncData[key];
+          var syncValue = syncItem.value;
+          var syncTimestamp = syncItem.timestamp || 0;
+          if (localVal === null) {
+            localStorage.setItem(key, syncValue);
+            hasNewerData = true;
+          } else {
+            try {
+              var localItem = JSON.parse(localStorage.getItem("vasudev_sync_" + key) || "{}");
+              if (syncTimestamp > (localItem.timestamp || 0)) {
+                localStorage.setItem(key, syncValue);
+                hasNewerData = true;
+              }
+            } catch (e) {
+              localStorage.setItem(key, syncValue);
+            }
+          }
+        }
+      }
+      if (hasNewerData) {
+        showToast("Settings synced from cloud");
+      }
+    }
+  });
+
+  // Save to sync whenever localStorage is written
+  var originalSave = save;
+  var syncDebounceTimers = {};
+
+  save = function(key, value) {
+    originalSave(key, value);
+    if (key.startsWith("vasudev_") && chrome.storage && chrome.storage.sync) {
+      if (syncDebounceTimers[key]) clearTimeout(syncDebounceTimers[key]);
+      syncDebounceTimers[key] = setTimeout(function() {
+        var syncData = {};
+        syncData[key] = {
+          value: value,
+          timestamp: Date.now()
+        };
+        chrome.storage.sync.set(syncData, function() {
+          if (chrome.runtime.lastError) return;
+          localStorage.setItem("vasudev_sync_" + key, JSON.stringify({ timestamp: Date.now() }));
+        });
+      }, 500);
+    }
+  };
+})();
+
+// ========================================
+// 21. CHROME BOOKMARKS INTEGRATION
+// ========================================
+(function() {
+  if (typeof chrome === "undefined" || !chrome.bookmarks) return;
+
+  var BOOKMARKS_KEY = "vasudev_bookmarks_synced";
+  var syncedBookmarks = load(BOOKMARKS_KEY, []);
+
+  function loadChromeBookmarks() {
+    chrome.bookmarks.getRecent(12, function(results) {
+      if (!results || results.length === 0) return;
+      var bookmarks = results.map(function(bm) {
+        var domain = "";
+        try { domain = new URL(bm.url).hostname; } catch (e) {}
+        return {
+          title: bm.title || domain,
+          url: bm.url,
+          domain: domain,
+          dateAdded: bm.dateAdded
+        };
+      });
+      syncedBookmarks = bookmarks;
+      save(BOOKMARKS_KEY, bookmarks);
+      renderSyncedBookmarks();
+    });
+  }
+
+  function renderSyncedBookmarks() {
+    if (!settings.showBookmarks) return;
+    if (syncedBookmarks.length === 0) return;
+
+    var existingGrid = document.getElementById("syncedBookmarksGrid");
+    if (!existingGrid) {
+      var section = document.createElement("div");
+      section.className = "synced-bookmarks";
+      section.setAttribute("role", "region");
+      section.setAttribute("aria-label", "Recent bookmarks");
+      section.innerHTML = '<div class="synced-bookmarks-title">Recent Bookmarks</div><div class="synced-bookmarks-grid" id="syncedBookmarksGrid"></div>';
+      var widgetsPanel = $("#widgetsPanel");
+      if (widgetsPanel) {
+        widgetsPanel.parentNode.insertBefore(section, widgetsPanel.nextSibling);
+      }
+    }
+
+    var section = document.querySelector(".synced-bookmarks");
+    if (section) {
+      section.style.display = settings.showBookmarks ? "" : "none";
+    }
+
+    var grid = document.getElementById("syncedBookmarksGrid");
+    if (!grid) return;
+    grid.innerHTML = "";
+
+    syncedBookmarks.slice(0, 8).forEach(function(bm) {
+      if (!bm.url) return;
+      var a = document.createElement("a");
+      a.href = bm.url;
+      a.className = "synced-bookmark-item";
+      a.target = "_blank";
+      a.title = bm.title;
+      a.innerHTML = '<img src="https://icons.duckduckgo.com/ip3/' + bm.domain + '.ico" alt="" class="synced-bookmark-icon" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\';"><span class="synced-bookmark-fallback" style="display:none;">' + bm.title.charAt(0).toUpperCase() + '</span><span class="synced-bookmark-name">' + escapeHtml(bm.title.substring(0, 16)) + '</span>';
+      grid.appendChild(a);
+    });
+  }
+
+  loadChromeBookmarks();
+  chrome.bookmarks.onChanged.addListener(loadChromeBookmarks);
+  chrome.bookmarks.onCreated.addListener(loadChromeBookmarks);
+  chrome.bookmarks.onRemoved.addListener(loadChromeBookmarks);
+})();
 
 })();
